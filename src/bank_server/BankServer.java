@@ -1,7 +1,7 @@
-package bank_server;
+package src.bank_server;
 
-import common.Transaction;
-import message_delivery_server.MessageDeliveryServerInterface;
+import src.common.Transaction;
+import src.message_delivery_server.MessageDeliveryServerInterface;
 
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
@@ -91,8 +91,7 @@ public class BankServer
                 (MessageDeliveryServerInterface)
                         registry.lookup("MessageDeliveryServer");
 
-        // Give MessageDeliveryServer a remote reference
-        // to this BankServer
+        // Give MessageDeliveryServer a remote reference to this BankServer
         messageServer.join(accountName, this);
 
         System.out.println(
@@ -156,10 +155,7 @@ public class BankServer
 
         try {
 
-            for (Transaction transaction : transactions) {
-
-                messageServer.broadcastTransaction(transaction);
-            }
+            messageServer.broadcastTransactions(transactions);
 
         } catch (RemoteException e) {
 
@@ -182,41 +178,47 @@ public class BankServer
 
     @Override
     public synchronized void receiveTransaction(
-            Transaction transaction
+            long messageId,
+            List<Transaction> transactions
     ) throws RemoteException {
 
         // Don't execute the same transaction twice
-        if (hasBeenExecuted(transaction.getUniqueId())) {
+        for (Transaction transaction : transactions) {
+            if (hasBeenExecuted(transaction.getUniqueId())) {
+
+                System.out.println(
+                        "[" + serverName
+                                + "] Duplicate ignored: "
+                                + transaction.getUniqueId()
+                );
+
+                return;
+            }
 
             System.out.println(
                     "[" + serverName
-                            + "] Duplicate ignored: "
-                            + transaction.getUniqueId()
+                            + "] Received transaction: "
+                            + transaction.getCommand()
             );
 
-            return;
+            // Actually modify the local account
+            executeTransaction(transaction);
+
+            // Transaction now has an order number
+            orderCounter++;
+
+            executedList.add(transaction);
+
+            // If we originally created this transaction,
+            // remove it from our outstanding collection
+            outstandingCollection.removeIf(
+                    tx -> tx.getUniqueId()
+                            .equals(transaction.getUniqueId())
+            );
         }
 
-        System.out.println(
-                "[" + serverName
-                        + "] Received transaction: "
-                        + transaction.getCommand()
-        );
-
-        // Actually modify the local account
-        executeTransaction(transaction);
-
-        // Transaction now has an order number
-        orderCounter++;
-
-        executedList.add(transaction);
-
-        // If we originally created this transaction,
-        // remove it from our outstanding collection
-        outstandingCollection.removeIf(
-                tx -> tx.getUniqueId()
-                        .equals(transaction.getUniqueId())
-        );
+        // Acknowledge to MessageDeliveryServer that we received the transaction
+        messageServer.ack(serverName, messageId);
     }
 
     /*

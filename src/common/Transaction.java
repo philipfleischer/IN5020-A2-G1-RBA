@@ -1,6 +1,7 @@
-package common;
+package src.common;
+import java.io.Serializable;
 
-public class Transaction {
+public class Transaction implements Serializable {
     
     String command;
     String uniqueId;

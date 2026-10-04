@@ -1,9 +1,11 @@
-package message_delivery_server;
+package src.message_delivery_server;
 import java.rmi.Remote;
 import java.rmi.RemoteException;
-import common.Transaction;
 
-import bank_server.BankServerInterface;
+import src.bank_server.BankServerInterface;
+import src.common.Transaction;
+
+import java.util.List;
 
 /*
 
@@ -14,9 +16,9 @@ public interface MessageDeliveryServerInterface extends Remote {
     // we want to connect a bank server to the message delivery server
     public void join(String GroupName, BankServerInterface bankServer) throws RemoteException;
 
-    // we want to broadcast transaction to all registered bank servers
-    public void broadcastTransaction(Transaction transaction) throws RemoteException;
+    // we want to broadcast a list of outstanding transactions to all registered bank servers
+    public void broadcastTransactions(List<Transaction> transactions) throws RemoteException;
 
     // acknowledge to message delivery server that a transaction has been received
-    public void ack(String serverId, String transactionId) throws RemoteException;
+    public void ack(String serverId, long messageId) throws RemoteException;
 }

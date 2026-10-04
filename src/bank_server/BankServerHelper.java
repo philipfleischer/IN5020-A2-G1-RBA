@@ -1,4 +1,4 @@
-package bank_server;
+package src.bank_server;
 
 public class BankServerHelper {
 

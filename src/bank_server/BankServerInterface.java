@@ -1,10 +1,10 @@
-package bank_server;
-
-import common.Transaction;
+package src.bank_server;
 
 import java.rmi.Remote;
 import java.rmi.RemoteException;
 import java.util.List;
+
+import src.common.Transaction;
 
 public interface BankServerInterface extends Remote {
 
@@ -12,7 +12,7 @@ public interface BankServerInterface extends Remote {
      * Called by the MessageDeliveryServer when an ordered
      * transaction is delivered to this replica.
      */
-    void receiveTransaction(Transaction transaction)
+    void receiveTransaction(long messageId, List<Transaction> transactions)
             throws RemoteException;
 
 

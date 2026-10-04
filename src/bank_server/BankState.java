@@ -1,10 +1,10 @@
-package bank_server;
-
-import common.Transaction;
+package src.bank_server;
 
 import java.io.Serializable;
 import java.util.List;
 import java.util.Map;
+
+import src.common.Transaction;
 
 public class BankState implements Serializable {
 
