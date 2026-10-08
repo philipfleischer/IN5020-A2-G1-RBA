@@ -17,6 +17,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.ConcurrentHashMap;
 
 public class BankServer
         extends UnicastRemoteObject
@@ -48,19 +51,19 @@ public class BankServer
     private MessageDeliveryServerInterface messageServer;
 
     // Handles command parsing
-    private final BankServerHelper helper;
+    private final BankServerHelper helper; 
 
-
-    /*
-     * =====================================================
-     * CONSTRUCTOR
-     * =====================================================
-     */
+   
+// Pending getSyncedBalance requests this server originated, keyed by
+// the transaction's uniqueId. receiveTransaction() completes these
+// once the matching transaction comes back orderd.
+        private final Map<String, CompletableFuture<Double>> pendingSyncResults =
+                new ConcurrentHashMap<>();
 
     public BankServer(
             String serverName,
             String accountName,
-            int numberOfReplicas
+            int numberOfReplicas 
     ) throws RemoteException {
 
         super();
@@ -184,8 +187,23 @@ public class BankServer
 
         // Don't execute the same transaction twice
         for (Transaction transaction : transactions) {
-            if (hasBeenExecuted(transaction.getUniqueId())) {
 
+          // getSyncedBalance is not a deposit/addInterest:it is executed
+         // only by the replica that originated it, and it never joins
+        // the executedlist (so it must never increment orderCounter either).
+       // that keeps "orderCounter's executedList.size()" meaningful in
+      // getHistory. Every other replica just discards it here."
+     
+        if (isSyncedBalanceRequest(transaction)){ 
+            resolveSyncedBalanceIfMine(transaction);
+            outstandingCollection.removeIf
+(tx -> tx.getUniqueId().equals(transaction.getUniqueId())
+);
+continue;
+}
+
+
+            if (hasBeenExecuted(transaction.getUniqueId())) {
                 System.out.println(
                         "[" + serverName
                                 + "] Duplicate ignored: "
@@ -425,27 +443,90 @@ public class BankServer
      * =====================================================
      */
 
-    public void getSyncedBalance(
-            String currency
-    ) {
+    public void getSyncedBalance(String currency) { 
 
-        /*
-         * TODO:
-         *
-         * The assignment requires two implementations:
-         *
-         * 1. Naive implementation
-         * 2. Correct ordered implementation
-         *
-         * We can implement this later.
-         */
+       String uniqueId;
+       CompletableFuture<Double> future = new CompletableFuture<>();
+       synchronized (this){
+           uniqueId = serverName + " " + outstandingCounter;
+
+           Transaction syncRequest = new Transaction("getSyncedBalance " + currency,
+            uniqueId
+); 
+          outstandingCollection.add(syncRequest);
+          outstandingCounter++;
+          pendingSyncResults.put(uniqueId, future);
+       }   
 
         System.out.println(
                 "[" + serverName
-                        + "] getSyncedBalance TODO"
+                        + "] getSyncedBalance " + currency
+                + " queued [" + uniqueId + "], waiting for order..."
         );
+
+        try {
+           // Blocks without holding the object lock, so receiveTransaction()
+          // (also synchronized) stays free to deliver the ordered result.
+                  double balance = future.get();
+            System.out.println( 
+              "[" + serverName + "] Synced balance " + currency
+              + ": " + balance
+); 
+        } catch (InterruptedException | ExecutionException e) { 
+           Thread.currentThread().interrupt();
+        System.err.println(
+                "[" + serverName + "] getSyncedBalance interrupted: " 
+           + e.getMessage() 
+        ); 
+}
     }
 
+public void getSyncedBalanceNaive(String currency) {
+     while (true) { 
+ synchronized (this) {
+  if (outstandingCollection.isEmpty()) {
+    double balance = balances.getOrDefault(currency, 0.0);
+    System.out.println(
+            "[" + serverName + "] Synced balance (naive) " + 
+            currency + ": " + balance
+); 
+    return;
+
+  }
+ }
+
+try {
+    Thread.sleep(200);
+} catch (InterruptedException e) {
+    Thread.currentThread().interrupt();
+   return;
+ }
+
+}
+
+} 
+
+private boolean isSyncedBalanceRequest(Transaction transaction) {
+    return transaction.getCommand().startsWith("getSyncedBalance");
+} 
+
+private void resolveSyncedBalanceIfMine(Transaction transaction) {
+   // Only the replica that created this request has a pending
+   //  future for it - every other replica's map lookup is a no-op
+   CompletableFuture<Double> future = 
+   pendingSyncResults.remove(transaction.getUniqueId());
+
+   if (future == null) {
+       return; // Not mine ignore
+}
+ 
+        String[] parts = transaction.getCommand().trim().split("\\s+");
+        String currency = parts[1];
+
+        double balance = balances.getOrDefault(currency, 0.0);
+        future.complete(balance);
+}
+  
 
     /*
      * =====================================================
