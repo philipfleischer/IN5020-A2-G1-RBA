@@ -60,6 +60,9 @@ public class BankServer
         private final Map<String, CompletableFuture<Double>> pendingSyncResults =
                 new ConcurrentHashMap<>();
 
+// Trading rates from the currency file (USD only until loaded)
+private CurrencyConverter converter = new CurrencyConverter();
+
     public BankServer(
             String serverName,
             String accountName,
@@ -81,6 +84,10 @@ public class BankServer
      * CONNECT TO MESSAGE DELIVERY SERVER
      * =====================================================
      */
+
+public void loadCurrencyRates(String path) throws java.io.IOException {
+    converter = CurrencyConverter.fromFile(path);
+}   
 
     public void connectToMessageServer(
             String host,
@@ -418,22 +425,19 @@ continue;
     public synchronized void getQuickBalance(
             String currency
     ) {
+        try {
+    double balance = converter.convertTotal(balances, currency);
 
-        double balance =
-                balances.getOrDefault(currency, 0.0);
+    System.out.println(
+            "[" + serverName + "] "
+                    + "Quick balance "
+                    + currency + ": "
+                    + balance
+    );
 
-        System.out.println(
-                "[" + serverName + "] "
-                        + "Quick balance "
-                        + currency + ": "
-                        + balance
-        );
-
-        /*
-         * TODO:
-         *
-         * Add currency conversion using the currency file.
-         */
+} catch (IllegalArgumentException e) {
+    System.out.println("[" + serverName + "] " + e.getMessage());
+}
     }
 
 
@@ -472,38 +476,45 @@ continue;
               "[" + serverName + "] Synced balance " + currency
               + ": " + balance
 ); 
-        } catch (InterruptedException | ExecutionException e) { 
-           Thread.currentThread().interrupt();
-        System.err.println(
-                "[" + serverName + "] getSyncedBalance interrupted: " 
-           + e.getMessage() 
-        ); 
+      } catch (InterruptedException e) {
+    Thread.currentThread().interrupt();
+    System.err.println("[" + serverName + "] getSyncedBalance interrupted");
+} catch (ExecutionException e) {
+    // e.g. a currency without a trading rate
+    System.out.println("[" + serverName + "] " + e.getCause().getMessage());
 }
-    }
+    } 
 
 public void getSyncedBalanceNaive(String currency) {
-     while (true) { 
- synchronized (this) {
-  if (outstandingCollection.isEmpty()) {
-    double balance = balances.getOrDefault(currency, 0.0);
-    System.out.println(
-            "[" + serverName + "] Synced balance (naive) " + 
-            currency + ": " + balance
-); 
-    return;
 
-  }
- }
+    while (true) {
 
-try {
-    Thread.sleep(200);
-} catch (InterruptedException e) {
-    Thread.currentThread().interrupt();
-   return;
- }
+        synchronized (this) { 
+            if (outstandingCollection.isEmpty()) {
+                try {
+                    double balance =
+                            converter.convertTotal(balances, currency);
 
-}
+                    System.out.println(
+                            "[" + serverName + "] Synced balance (naive) "
+                                    + currency + ": " + balance
+                    );
+                } catch (IllegalArgumentException e) {
+                    System.out.println(
+                            "[" + serverName + "] " + e.getMessage()
+                    );
+                }
+                return;
+            }
+        }
 
+        try {
+            Thread.sleep(200);
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
+            return;
+        }
+    }
 } 
 
 private boolean isSyncedBalanceRequest(Transaction transaction) {
@@ -523,10 +534,14 @@ private void resolveSyncedBalanceIfMine(Transaction transaction) {
         String[] parts = transaction.getCommand().trim().split("\\s+");
         String currency = parts[1];
 
-        double balance = balances.getOrDefault(currency, 0.0);
-        future.complete(balance);
+        try {
+    future.complete(converter.convertTotal(balances, currency));
+} catch (IllegalArgumentException e) {
+    future.completeExceptionally(e);
+}     
 }
   
+      
 
     /*
      * =====================================================
@@ -914,6 +929,7 @@ private void resolveSyncedBalanceIfMine(Transaction transaction) {
                         accountName,
                         numberOfReplicas
                 );
+        server.loadCurrencyRates(currencyFile);  
 
 
         System.out.println(
