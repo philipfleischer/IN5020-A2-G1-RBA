@@ -50,7 +50,8 @@ public class CurrencyConverter {
      * Total value of all balances, expressed in the target currency.
      *
      * @throws IllegalArgumentException if the target currency, or a currency
-     *         present in the balances, has no rate in the trading-rate file
+     *                                  present in the balances, has no rate in the
+     *                                  trading-rate file
      */
     public double convertTotal(Map<String, Double> balances, String target) {
 
@@ -69,10 +70,9 @@ public class CurrencyConverter {
 
         if (rate == null || rate == 0.0) {
             throw new IllegalArgumentException(
-                    "No trading rate for currency: " + currency
-            );
+                    "No trading rate for currency: " + currency);
         }
 
         return rate;
-    } 
+    }
 }

@@ -1,6 +1,7 @@
 package src.message_delivery_server;
 
 import src.bank_server.BankServerInterface;
+import src.common.Log;
 import src.common.Transaction;
 
 import java.rmi.RemoteException;
@@ -13,12 +14,12 @@ import java.util.List;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingQueue;
 import java.util.Set;
-import java.util.concurrent.locks.ReentrantLock;
-import src.bank_server.BankState;
 import java.util.Map;
 import java.util.LinkedHashMap;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.concurrent.locks.ReentrantLock;
+import src.bank_server.BankState;
 import java.util.HashSet;
 import src.common.Message;
 
@@ -27,12 +28,10 @@ public class MessageDeliveryServer
         implements MessageDeliveryServerInterface {
 
     // BankServer replicas that have joined
-    private final List<BankServerInterface> bankServers =
-            new ArrayList<>();
+    private final List<BankServerInterface> bankServers = new ArrayList<>();
 
     // Queue of messages to be broadcast to all replicas
-    private final BlockingQueue<Message> messageQueue =
-        new LinkedBlockingQueue<>();
+    private final BlockingQueue<Message> messageQueue = new LinkedBlockingQueue<>();
 
     // IDs of BankServers we are still waiting for ACKs from
     private final Set<String> pendingAcks = new HashSet<>();
@@ -57,7 +56,6 @@ public class MessageDeliveryServer
     private long currentMessageId = -1;
     private long nextMessageId = 0;
 
-
     /*
      * Constructor required because UnicastRemoteObject
      * can throw RemoteException.
@@ -68,12 +66,10 @@ public class MessageDeliveryServer
         super();
 
         Thread worker = new Thread(
-            this::processMessages
-        );
+                this::processMessages);
 
         worker.start();
     }
-
 
     /*
      * -------------------------------------------------
@@ -107,7 +103,7 @@ public class MessageDeliveryServer
 
                     BankState state = other.getState();
                     bankServer.updateState(state);
-                    break; 
+                    break;
 
                 } catch (RemoteException e) {
 
@@ -144,33 +140,77 @@ public class MessageDeliveryServer
 
     /*
      * -------------------------------------------------
+     * LEAVE
+     * -------------------------------------------------
+     *
+     * Called by a BankServer that exits on purpose. This is a
+     * "leave", not a crash: we remove it at once instead of
+     * waiting for the ACK timeout to mark it as FAIL.
+     */
+    @Override
+    public void leave(
+            String groupName,
+            BankServerInterface bankServer) throws RemoteException {
+
+        String serverName = bankServer.getServerName();
+
+        synchronized (this) {
+
+            // RMI stubs that point to the same remote object are
+            // equal(), so this removes the stub that join() stored.
+            bankServers.remove(bankServer);
+
+            System.out.println(
+                    serverName
+                            + " left group "
+                            + groupName);
+
+            System.out.println(
+                    "Number of replicas: "
+                            + bankServers.size());
+
+            notifyMembershipChanged();
+        }
+
+        // If the worker thread is waiting for an ACK from this
+        // server, stop waiting for it: it will never come.
+        synchronized (ackLock) {
+
+            pendingAcks.remove(serverName);
+
+            if (pendingAcks.isEmpty()) {
+                ackLock.notifyAll();
+            }
+        }
+    }
+
+    /*
+     * -------------------------------------------------
      * BROADCAST TRANSACTION
      * -------------------------------------------------
      *
      * A BankServer sends a list of transactions here.
      *
-     * MessageDeliveryServer adds the list to the message queue, and will later broadcast it to all
+     * MessageDeliveryServer adds the list to the message queue, and will later
+     * broadcast it to all
      * BankServer replicas.
-     * 
-     * (bank servers can call at the same time) synchronized to have safe nextMessageId++.
+     *
+     * (bank servers can call at the same time) synchronized to have safe
+     * nextMessageId++.
      */
     @Override
     public synchronized void broadcastTransactions(
-        List<Transaction> transactions
-    ) throws RemoteException {
+            List<Transaction> transactions) throws RemoteException {
 
         // Make our own copy of the received message
-        List<Transaction> message =
-                new ArrayList<>(transactions);
+        List<Transaction> message = new ArrayList<>(transactions);
 
         Message msg = new Message(nextMessageId++, message);
         messageQueue.add(msg);
 
         System.out.println(
-                "Message added to queue: " + message
-        );
+                "Message added to queue: " + message);
     }
-
 
     /*
      * -------------------------------------------------
@@ -180,9 +220,7 @@ public class MessageDeliveryServer
 
     private void notifyMembershipChanged() {
 
-        List<String> memberNames =
-                new ArrayList<>();
-
+        List<String> memberNames = new ArrayList<>();
 
         /*
          * First collect the names of all members.
@@ -192,18 +230,15 @@ public class MessageDeliveryServer
             try {
 
                 memberNames.add(
-                        bankServer.getServerName()
-                );
+                        bankServer.getServerName());
 
             } catch (RemoteException e) {
 
                 System.err.println(
                         "Could not get BankServer name: "
-                                + e.getMessage()
-                );
+                                + e.getMessage());
             }
         }
-
 
         /*
          * Then send the updated membership list
@@ -214,19 +249,16 @@ public class MessageDeliveryServer
             try {
 
                 bankServer.membershipChanged(
-                        memberNames
-                );
+                        memberNames);
 
             } catch (RemoteException e) {
 
                 System.err.println(
                         "Could not send membership update: "
-                                + e.getMessage()
-                );
+                                + e.getMessage());
             }
         }
     }
-
 
     /*
      * -------------------------------------------------
@@ -239,8 +271,7 @@ public class MessageDeliveryServer
     @Override
     public void ack(
             String serverId,
-            long messageId
-    ) throws RemoteException {
+            long messageId) throws RemoteException {
 
         synchronized (ackLock) {
             // Ignore ACKs for messages other than the current message
@@ -254,8 +285,7 @@ public class MessageDeliveryServer
                     "ACK from "
                             + serverId
                             + " for message "
-                            + messageId
-            );
+                            + messageId);
 
             // if all ACKs have been received, notify the waiting thread
             if (pendingAcks.isEmpty()) {
@@ -424,8 +454,10 @@ public class MessageDeliveryServer
      */
 
     public static void main(
-            String[] args
-    ) throws Exception {
+            String[] args) throws Exception {
+
+        // Timestamp on every output line
+        Log.install();
 
         int port = 1099;
 
@@ -438,17 +470,12 @@ public class MessageDeliveryServer
             port = Integer.parseInt(args[0]);
         }
 
-
-        MessageDeliveryServer server =
-                new MessageDeliveryServer();
-
+        MessageDeliveryServer server = new MessageDeliveryServer();
 
         /*
          * Create the RMI registry.
          */
-        Registry registry =
-                LocateRegistry.createRegistry(port);
-
+        Registry registry = LocateRegistry.createRegistry(port);
 
         /*
          * Register MessageDeliveryServer so BankServers
@@ -456,13 +483,10 @@ public class MessageDeliveryServer
          */
         registry.rebind(
                 "MessageDeliveryServer",
-                server
-        );
-
+                server);
 
         System.out.println(
                 "MessageDeliveryServer ready on port "
-                        + port
-        );
+                        + port);
     }
-}
+} 

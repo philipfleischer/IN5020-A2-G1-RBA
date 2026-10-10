@@ -2,6 +2,7 @@ package src.bank_server;
 
 import java.io.Serializable;
 import java.util.List;
+import java.util.Set;
 import java.util.Map;
 
 import src.common.Transaction;
@@ -11,12 +12,20 @@ public class BankState implements Serializable {
     private Map<String, Double> balances;
     private List<Transaction> executedList;
     private int orderCounter;
+    // ids of everything ever executed (cleanHistory does not clear these)
+    private Set<String> executedIds;
 
     // constructor
     public BankState(Map<String, Double> balances, List<Transaction> executedList, int orderCounter) {
         this.balances = balances;
         this.executedList = executedList;
         this.orderCounter = orderCounter;
+    }
+
+    public BankState(Map<String, Double> balances, List<Transaction> executedList,
+            int orderCounter, Set<String> executedIds) {
+        this(balances, executedList, orderCounter);
+        this.executedIds = executedIds;
     }
 
     // getters
@@ -30,5 +39,9 @@ public class BankState implements Serializable {
 
     public int getOrderCounter() {
         return orderCounter;
+    }
+
+    public Set<String> getExecutedIds() {
+        return executedIds;
     }
 }

@@ -1,0 +1,10 @@
+{
+    // Same Java formatting for everyone in the group: 4 spaces, never
+    // guessed from the file (VS Code guessed 8 for some files before).
+    "[java]": {
+        "editor.detectIndentation": false,
+        "editor.tabSize": 4,
+        "editor.insertSpaces": true,
+        "editor.defaultFormatter": "redhat.java"
+    }
+}
