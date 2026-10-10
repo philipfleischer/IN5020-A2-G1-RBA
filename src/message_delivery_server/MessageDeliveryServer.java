@@ -253,10 +253,8 @@ public class MessageDeliveryServer
                     try {
                         byName.put(bankServer.getServerName(), bankServer);
                     } catch (RemoteException e) {
-                        System.err.println(
-                                "Could not get server name: "
-                                        + e.getMessage()
-                        );
+                        // Cannot even ask for its name: the replica is dead
+                        markFailed("unreachable replica", bankServer);
                     }
                 }
 
