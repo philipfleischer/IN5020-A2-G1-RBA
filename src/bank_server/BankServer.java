@@ -1,5 +1,6 @@
 package src.bank_server;
 
+import src.common.Log;
 import src.common.Transaction;
 import src.common.Timestamp;
 import src.message_delivery_server.MessageDeliveryServerInterface;
@@ -914,6 +915,12 @@ private void resolveSyncedBalanceIfMine(Transaction transaction) {
                 System.out.print(
                                 "[" + serverName + "] > ");
 
+                // Show the prompt now (print() without '\n' is not
+                // flushed automatically). Log also treats this flush as
+                // the end of the prompt line, so the next output line
+                // gets its own timestamp.
+                System.out.flush();
+
                 if (!scanner.hasNextLine()) {
                         break;
                 }
@@ -1035,6 +1042,10 @@ private void resolveSyncedBalanceIfMine(Transaction transaction) {
     public static void main(
             String[] args
     ) throws Exception {
+
+        // Timestamp on every output line (must be first, so that
+        // everything below is already timestamped)
+        Log.install();
 
         /*
          * Expected:

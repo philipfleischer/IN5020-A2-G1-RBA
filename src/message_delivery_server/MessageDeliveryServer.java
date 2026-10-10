@@ -1,6 +1,7 @@
 package src.message_delivery_server;
 
 import src.bank_server.BankServerInterface;
+import src.common.Log;
 import src.common.Transaction;
 
 import java.rmi.RemoteException;
@@ -343,6 +344,9 @@ public class MessageDeliveryServer
     public static void main(
             String[] args
     ) throws Exception {
+
+        // Timestamp on every output line
+        Log.install();
 
         int port = 1099;
 

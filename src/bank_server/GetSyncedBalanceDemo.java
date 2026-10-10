@@ -1,5 +1,7 @@
 package src.bank_server;
 
+import src.common.Log;
+
 /**
  * Demo: naive vs correct getSyncedBalance under continuous load.
  *
@@ -25,6 +27,8 @@ public class GetSyncedBalanceDemo {
     private static volatile boolean keepCreatingLoad = true;
 
     public static void main(String[] args) throws Exception {
+
+        Log.install();
 
         String[] address =
                 (args.length > 0 ? args[0] : "localhost:1099").split(":");
