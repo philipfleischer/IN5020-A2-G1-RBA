@@ -23,17 +23,34 @@ public final class Log {
         // only static methods
     }
 
+    // The stream behind System.out, kept so promptAnswered() can reach it
+    private static TimestampingOutputStream stdout;
+
     /** Call this as the first line of every main(). */
     public static void install() {
-        System.setOut(timestamped(System.out));
-        System.setErr(timestamped(System.err));
+        stdout = new TimestampingOutputStream(System.out);
+        System.setOut(timestamped(stdout));
+        System.setErr(timestamped(new TimestampingOutputStream(System.err)));
     }
 
-    private static PrintStream timestamped(PrintStream target) {
+    /**
+     * Call this after the user has typed a command at the interactive
+     * prompt. The prompt ("[BankServer-1234] > ") has no '\n': the line
+     * break comes from the user's Enter key, which the terminal shows but
+     * our program never prints. So we tell the stream ourselves that the
+     * next output starts a new line and needs a timestamp.
+     */
+    public static void promptAnswered() {
+        if (stdout != null) {
+            stdout.startNewLine();
+        }
+    }
+
+    private static PrintStream timestamped(TimestampingOutputStream stream) {
         // autoFlush = true: every println reaches the terminal/log file
         // at once, so lines from different processes keep their order
         return new PrintStream(
-                new TimestampingOutputStream(target),
+                stream,
                 true,
                 StandardCharsets.UTF_8);
     }
@@ -79,16 +96,11 @@ public final class Log {
             }
         }
 
-        /*
-         * An explicit flush without '\n' only happens after the interactive
-         * prompt ("[BankServer-1234] > "). The user then types a command and
-         * presses Enter, so the terminal is on a new line: the next output
-         * must get a timestamp again.
-         */
-        @Override
-        public synchronized void flush() throws IOException {
+        // Only a real '\n' or promptAnswered() starts a new line. (Flushes
+        // can NOT be used for that: on Java 11, PrintStream flushes after
+        // every print, also in the middle of a line.)
+        synchronized void startNewLine() {
             atLineStart = true;
-            out.flush();
         }
     }
 }
