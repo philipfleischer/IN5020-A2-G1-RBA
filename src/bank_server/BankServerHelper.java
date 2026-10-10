@@ -105,7 +105,10 @@ public class BankServerHelper {
         }
 
         String currency = parts[1];
-        double amount = Double.parseDouble(parts[2]);
+
+        // Parse only to VALIDATE the amount: "abc" throws
+        // NumberFormatException, which handleCommand catches and reports.
+        Double.parseDouble(parts[2]);
 
         /*
          * IMPORTANT:
@@ -115,10 +118,12 @@ public class BankServerHelper {
          * BankServer creates an outstanding transaction.
          * The balance should only change when the ordered
          * transaction comes back from MessageDeliveryServer.
+         *
+         * The command is stored exactly as the user typed it
+         * ("deposit NOK 500"), as in the assignment text.
          */
         server.createTransaction(
-                "deposit " + currency + " " + amount
-        );
+                "deposit " + currency + " " + parts[2]);
     }
 
 
@@ -137,22 +142,17 @@ public class BankServerHelper {
         if (parts.length == 3) {
 
             String currency = parts[1];
-            double percent = Double.parseDouble(parts[2]);
+            Double.parseDouble(parts[2]); // validate only
 
             server.createTransaction(
-                    "addInterest "
-                            + currency
-                            + " "
-                            + percent
-            );
+                    "addInterest " + currency + " " + parts[2]);
 
         } else if (parts.length == 2) {
 
-            double percent = Double.parseDouble(parts[1]);
+            Double.parseDouble(parts[1]); // validate only
 
             server.createTransaction(
-                    "addInterest " + percent
-            );
+                    "addInterest " + parts[1]);
 
         } else {
 

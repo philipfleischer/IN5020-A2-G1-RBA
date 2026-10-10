@@ -2,9 +2,13 @@ package src.common;
 import java.io.Serializable;
 
 public class Transaction implements Serializable {
-    
+
     String command;
     String uniqueId;
+
+    // getHistory must print the timestamp of execution.
+    // Travels with executedList when state is sent to a new replica.
+    private String executedAt;
 
     public Transaction(String command, String uniqueId) {
         this.command = command;
@@ -24,5 +28,13 @@ public class Transaction implements Serializable {
 
     public String getUniqueId() {
         return uniqueId;
+    }
+
+    public String getExecutedAt() {
+        return executedAt;
+    }
+
+    public void setExecutedAt(String executedAt) {
+        this.executedAt = executedAt;
     }
 }

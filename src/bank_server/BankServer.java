@@ -1,6 +1,7 @@
 package src.bank_server;
 
 import src.common.Transaction;
+import src.common.Timestamp;
 import src.message_delivery_server.MessageDeliveryServerInterface;
 
 import java.rmi.RemoteException;
@@ -19,6 +20,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
 import java.util.Set;
+import java.util.Locale;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ConcurrentHashMap;
@@ -246,6 +248,7 @@ continue;
 
             // Actually modify the local account
             executeTransaction(transaction);
+            transaction.setExecutedAt(Timestamp.now());
 
             // Transaction now has an order number
             orderCounter++;
@@ -401,7 +404,7 @@ continue;
                 "[" + serverName + "] "
                         + currency
                         + " balance: "
-                        + balances.get(currency)
+                        + formatAmount(balances.get(currency))
         );
     }
 
@@ -427,11 +430,18 @@ continue;
 
     private void applyInterestToAll(double percent) {
 
-        for (String currency :
-                new ArrayList<>(balances.keySet())) {
+            for (String currency : new ArrayList<>(balances.keySet())) {
 
-            applyInterest(currency, percent);
-        }
+                    applyInterest(currency, percent);
+            }
+    }
+
+
+    // Balances are doubles, so 110 * 1.1 prints as 121.00000000000001.
+    // We round only when PRINTING. The stored value keeps full precision,
+    // so all replicas still compute exactly the same thing.
+    private static String formatAmount(double amount) {
+            return String.format(Locale.US, "%.2f", amount);
     }
 
 
@@ -451,7 +461,7 @@ continue;
             "[" + serverName + "] "
                     + "Quick balance "
                     + currency + ": "
-                    + balance
+                    + formatAmount(balance)
     );
 
 } catch (IllegalArgumentException e) {
@@ -496,7 +506,7 @@ continue;
                   double balance = future.get();
             System.out.println(
               "[" + serverName + "] Synced balance " + currency
-              + ": " + balance
+              + ": " + formatAmount(balance)
 );
       } catch (InterruptedException e) {
     Thread.currentThread().interrupt();
@@ -519,7 +529,7 @@ public void getSyncedBalanceNaive(String currency) {
 
                     System.out.println(
                             "[" + serverName + "] Synced balance (naive) "
-                                    + currency + ": " + balance
+                                    + currency + ": " + formatAmount(balance)
                     );
                 } catch (IllegalArgumentException e) {
                     System.out.println(
@@ -573,40 +583,31 @@ private void resolveSyncedBalanceIfMine(Transaction transaction) {
 
     public synchronized void getHistory() {
 
-        System.out.println("Executed transactions:");
+            // Spec: numbering starts at order_counter - executed_list.size.
+            // cleanHistory empties the list but never resets order_counter,
+            // so every entry keeps its global order number.
+            int order = orderCounter - executedList.size();
 
-        int firstOrder =
-                orderCounter - executedList.size();
+            System.out.println("[" + serverName + "] executed_list");
 
-        int order = firstOrder;
+            for (Transaction transaction : executedList) {
+                    System.out.println(
+                                    order + ". "
+                                                    + transaction.getExecutedAt() + " "
+                                                    + transaction.getCommand()
+                                                    + "  [" + transaction.getUniqueId() + "]");
+                    order++;
+            }
 
-        for (Transaction transaction : executedList) {
+            // Outstanding transactions have no order number yet: they only
+            // get one when the totally ordered broadcast comes back.
+            System.out.println("[" + serverName + "] outstanding_collection");
 
-            System.out.println(
-                    order
-                            + ": "
-                            + transaction.getCommand()
-                            + " ["
-                            + transaction.getUniqueId()
-                            + "]"
-            );
-
-            order++;
-        }
-
-
-        System.out.println("Outstanding transactions:");
-
-        for (Transaction transaction :
-                outstandingCollection) {
-
-            System.out.println(
-                    transaction.getCommand()
-                            + " ["
-                            + transaction.getUniqueId()
-                            + "]"
-            );
-        }
+            for (Transaction transaction : outstandingCollection) {
+                    System.out.println(
+                                    transaction.getCommand()
+                                                    + "  [" + transaction.getUniqueId() + "]");
+            }
     }
 
 
