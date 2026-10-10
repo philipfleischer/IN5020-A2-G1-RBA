@@ -66,6 +66,17 @@ public class BankServer
     // Remote reference to MessageDeliveryServer
     private MessageDeliveryServerInterface messageServer;
 
+    // Latest membership view from the MessageDeliveryServer. The list is
+    // REPLACED (never modified) on every change, so a reader always sees
+    // a complete list. volatile makes the new reference visible to all
+    // threads at once.
+    private volatile List<String> members = new ArrayList<>();
+
+        // Used to wait for / signal membership changes. A separate lock,
+        // so a membership update is never blocked by a
+    // running receiveTransaction() or command.
+    private final Object membershipLock = new Object();
+
     // Handles command parsing
     private final BankServerHelper helper;
 
@@ -309,11 +320,57 @@ continue;
      * MessageDeliveryServer calls this through RMI.
      */
     @Override
-    public void membershipChanged(List<String> members)
-            throws RemoteException {
-        System.out.println("Members: " + members);
+    public void membershipChanged(List<String> newMembers)
+                    throws RemoteException {
+
+            synchronized (membershipLock) {
+
+                    members = new ArrayList<>(newMembers);
+
+                    // Wake up waitForInitialReplicas() so it re-checks the count
+                    membershipLock.notifyAll();
+            }
+
+            System.out.println(
+                            "[" + serverName + "] Membership changed: "
+                                            + newMembers
+                                            + " (" + newMembers.size() + " members)");
     }
 
+
+    /*
+     * =====================================================
+     * WAIT FOR INITIAL REPLICAS
+     * =====================================================
+     *
+     * Spec: "The bank server should wait until it detects that all
+     * <number of replicas> bank servers have joined the group."
+     *
+     * A replica that joins later already sees >= numberOfReplicas
+     * members and continues immediately.
+     */
+    public void waitForInitialReplicas() throws InterruptedException {
+
+            synchronized (membershipLock) {
+
+                    // "while", not "if": every join wakes us up (2/3 is still
+                    // not enough), and Java allows spurious wake-ups.
+                    while (members.size() < numberOfReplicas) {
+
+                            System.out.println(
+                                            "[" + serverName + "] Waiting for replicas: "
+                                                            + members.size() + "/" + numberOfReplicas);
+
+                            // wait() releases membershipLock while sleeping, so
+                            // membershipChanged() can get in and call notifyAll().
+                            membershipLock.wait();
+                    }
+            }
+
+            System.out.println(
+                            "[" + serverName + "] All " + numberOfReplicas
+                                            + " initial replicas have joined, starting.");
+    }
 
     /*
      * =====================================================
@@ -701,19 +758,14 @@ private void resolveSyncedBalanceIfMine(Transaction transaction) {
 
     public void memberInfo() {
 
-        /*
-         * TODO:
-         *
-         * Later this should use membership information
-         * from MessageDeliveryServer.
-         */
+            // Read the reference once: an RMI thread may replace "members"
+            // while we print, but the list object we hold never changes.
+            List<String> current = members;
 
-        System.out.println(
-                "[" + serverName + "]"
-                        + " account = " + accountName
-                        + ", expected replicas = "
-                        + numberOfReplicas
-        );
+            System.out.println(
+                            "[" + serverName + "] memberInfo: "
+                                            + current
+                                            + " (" + current.size() + " members)");
     }
 
 
@@ -979,9 +1031,28 @@ private void resolveSyncedBalanceIfMine(Transaction transaction) {
          */
 
         server.connectToMessageServer(
-                host,
-                port
-        );
+                        host,
+                        port);
+
+        /*
+         * ---------------------------------------------
+         * Wait until all <number of replicas> have joined.
+         * Must happen BEFORE the broadcast thread and the
+         * commands start, otherwise we could send
+         * transactions that a not-yet-joined replica
+         * never receives.
+         * ---------------------------------------------
+         */
+
+        server.waitForInitialReplicas();
+
+        /*
+         * ---------------------------------------------
+         * Start 10 second broadcasting
+         * ---------------------------------------------
+         */
+
+        server.startBroadcastThread();
 
 
         /*
