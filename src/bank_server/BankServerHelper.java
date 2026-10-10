@@ -72,14 +72,12 @@ public class BankServerHelper {
 
                 default:
                     System.out.println(
-                            "Unknown command: " + command
-                    );
+                            "Unknown command: " + command);
             }
 
         } catch (NumberFormatException e) {
             System.out.println(
-                    "Invalid number in command: " + input
-            );
+                    "Invalid number in command: " + input);
         } catch (InterruptedException e) {
             Thread.currentThread().interrupt();
             System.out.println("Sleep interrupted.");
@@ -87,7 +85,6 @@ public class BankServerHelper {
 
         return true;
     }
-
 
     /*
      * -------------------------------------------------
@@ -99,8 +96,7 @@ public class BankServerHelper {
 
         if (parts.length != 3) {
             System.out.println(
-                    "Usage: deposit <Currency> <amount>"
-            );
+                    "Usage: deposit <Currency> <amount>");
             return;
         }
 
@@ -125,7 +121,6 @@ public class BankServerHelper {
         server.createTransaction(
                 "deposit " + currency + " " + parts[2]);
     }
-
 
     /*
      * -------------------------------------------------
@@ -157,15 +152,13 @@ public class BankServerHelper {
         } else {
 
             System.out.println(
-                    "Usage: addInterest [Currency] <percent>"
-            );
+                    "Usage: addInterest [Currency] <percent>");
         }
     }
 
-
     /*
      * -------------------------------------------------
-     * getQuickBalance [Currency]   (default: USD)
+     * getQuickBalance [Currency] (default: USD)
      * -------------------------------------------------
      */
 
@@ -173,21 +166,18 @@ public class BankServerHelper {
 
         if (parts.length > 2) {
             System.out.println(
-                    "Usage: getQuickBalance [Currency]"
-            );
+                    "Usage: getQuickBalance [Currency]");
             return;
         }
 
-        String currency =
-                parts.length == 2 ? parts[1] : DEFAULT_CURRENCY;
+        String currency = parts.length == 2 ? parts[1] : DEFAULT_CURRENCY;
 
         server.getQuickBalance(currency);
     }
 
-
     /*
      * -------------------------------------------------
-     * getSyncedBalance [Currency]   (default: USD)
+     * getSyncedBalance [Currency] (default: USD)
      * -------------------------------------------------
      */
 
@@ -195,13 +185,11 @@ public class BankServerHelper {
 
         if (parts.length > 2) {
             System.out.println(
-                    "Usage: getSyncedBalance [Currency]"
-            );
+                    "Usage: getSyncedBalance [Currency]");
             return;
         }
 
-        String currency =
-                parts.length == 2 ? parts[1] : DEFAULT_CURRENCY;
+        String currency = parts.length == 2 ? parts[1] : DEFAULT_CURRENCY;
 
         // The implementation is chosen at start-up with -Dsync=naive|correct
         if (BankServer.NAIVE_SYNC) {
@@ -210,7 +198,6 @@ public class BankServerHelper {
             server.getSyncedBalance(currency);
         }
     }
-
 
     /*
      * -------------------------------------------------
@@ -222,14 +209,12 @@ public class BankServerHelper {
 
         if (parts.length != 1) {
             System.out.println(
-                    "Usage: getHistory"
-            );
+                    "Usage: getHistory");
             return;
         }
 
         server.getHistory();
     }
-
 
     /*
      * -------------------------------------------------
@@ -252,8 +237,7 @@ public class BankServerHelper {
 
         if (parts.length < 2) {
             System.out.println(
-                    "Usage: checkTxStatus <unique_id>"
-            );
+                    "Usage: checkTxStatus <unique_id>");
             return;
         }
 
@@ -280,7 +264,6 @@ public class BankServerHelper {
         server.checkTxStatus(uniqueId);
     }
 
-
     /*
      * -------------------------------------------------
      * cleanHistory
@@ -291,14 +274,12 @@ public class BankServerHelper {
 
         if (parts.length != 1) {
             System.out.println(
-                    "Usage: cleanHistory"
-            );
+                    "Usage: cleanHistory");
             return;
         }
 
         server.cleanHistory();
     }
-
 
     /*
      * -------------------------------------------------
@@ -310,14 +291,12 @@ public class BankServerHelper {
 
         if (parts.length != 1) {
             System.out.println(
-                    "Usage: memberInfo"
-            );
+                    "Usage: memberInfo");
             return;
         }
 
         server.memberInfo();
     }
-
 
     /*
      * -------------------------------------------------
@@ -330,18 +309,15 @@ public class BankServerHelper {
 
         if (parts.length != 2) {
             System.out.println(
-                    "Usage: sleep <duration>"
-            );
+                    "Usage: sleep <duration>");
             return;
         }
 
-        long duration =
-                Long.parseLong(parts[1]);
+        long duration = Long.parseLong(parts[1]);
 
         if (duration < 0) {
             System.out.println(
-                    "Sleep duration cannot be negative."
-            );
+                    "Sleep duration cannot be negative.");
             return;
         }
 

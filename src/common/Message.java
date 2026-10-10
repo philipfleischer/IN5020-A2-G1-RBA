@@ -1,4 +1,5 @@
 package src.common;
+
 import java.util.List;
 
 public class Message {

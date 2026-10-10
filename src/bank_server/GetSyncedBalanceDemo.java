@@ -6,18 +6,18 @@ import src.common.Log;
  * Demo: naive vs correct getSyncedBalance under continuous load.
  *
  * Run (with a MessageDeliveryServer already running):
- *   java -cp out src.bank_server.GetSyncedBalanceDemo localhost:1099
+ * java -cp out src.bank_server.GetSyncedBalanceDemo localhost:1099
  *
  * What it shows:
- *  - A background thread keeps outstanding_collection non-empty: right after
- *    every 10 s broadcast it creates a new deposit, before the ordered
- *    delivery of the broadcast comes back.
- *  - The NAIVE getSyncedBalance waits for an empty outstanding_collection, so
- *    it stays blocked for as long as new transactions keep arriving.
- *  - The CORRECT getSyncedBalance is ordered like any other transaction, so
- *    it returns after the next broadcast no matter how much load there is.
- *  - When the load stops, outstanding_collection finally drains and the
- *    naive call returns too.
+ * - A background thread keeps outstanding_collection non-empty: right after
+ * every 10 s broadcast it creates a new deposit, before the ordered
+ * delivery of the broadcast comes back.
+ * - The NAIVE getSyncedBalance waits for an empty outstanding_collection, so
+ * it stays blocked for as long as new transactions keep arriving.
+ * - The CORRECT getSyncedBalance is ordered like any other transaction, so
+ * it returns after the next broadcast no matter how much load there is.
+ * - When the load stops, outstanding_collection finally drains and the
+ * naive call returns too.
  */
 public class GetSyncedBalanceDemo {
 
@@ -30,8 +30,7 @@ public class GetSyncedBalanceDemo {
 
         Log.install();
 
-        String[] address =
-                (args.length > 0 ? args[0] : "localhost:1099").split(":");
+        String[] address = (args.length > 0 ? args[0] : "localhost:1099").split(":");
 
         BankServer server = new BankServer("DemoBank", "demo", 1);
         server.connectToMessageServer(address[0], Integer.parseInt(address[1]));

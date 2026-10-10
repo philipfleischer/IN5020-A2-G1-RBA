@@ -35,8 +35,7 @@ public final class Log {
         return new PrintStream(
                 new TimestampingOutputStream(target),
                 true,
-                StandardCharsets.UTF_8
-        );
+                StandardCharsets.UTF_8);
     }
 
     /*
@@ -62,8 +61,7 @@ public final class Log {
             if (atLineStart) {
                 out.write(
                         ("[" + Timestamp.now() + "] ")
-                                .getBytes(StandardCharsets.UTF_8)
-                );
+                                .getBytes(StandardCharsets.UTF_8));
                 atLineStart = false;
             }
 
