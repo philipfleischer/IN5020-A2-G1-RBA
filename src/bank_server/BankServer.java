@@ -1118,19 +1118,6 @@ private void resolveSyncedBalanceIfMine(Transaction transaction) {
             server.runCommandLine();
         }
 
-
-                if (args.length >= 5) {
-
-            server.runCommandFile(
-                    args[4]
-            );
-
-        } else {
-
-            server.runCommandLine();
-        }
-
-
         /*
          * Reached on "exit", at the end of the batch file,
          * or at end of input. Spec: batch mode must "exit".
