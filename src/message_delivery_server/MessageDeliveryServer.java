@@ -67,24 +67,67 @@ public class MessageDeliveryServer
             BankServerInterface bankServer
     ) throws RemoteException {
 
-        bankServers.add(bankServer);
+            bankServers.add(bankServer);
 
-        String serverName =
-                bankServer.getServerName();
+            String serverName = bankServer.getServerName();
 
-        System.out.println(
-                serverName
-                        + " joined group "
-                        + groupName
-        );
+            System.out.println(
+                            serverName
+                                            + " joined group "
+                                            + groupName);
 
-        System.out.println(
-                "Number of replicas: "
-                        + bankServers.size()
-        );
+            System.out.println(
+                            "Number of replicas: "
+                                            + bankServers.size());
 
-        // Tell all BankServers that membership changed
-        notifyMembershipChanged();
+            // Tell all BankServers that membership changed
+            notifyMembershipChanged();
+    }
+
+    /*
+     * -------------------------------------------------
+     * LEAVE
+     * -------------------------------------------------
+     *
+     * Called by a BankServer that exits on purpose. This is a
+     * "leave", not a crash: we remove it at once instead of
+     * waiting for the ACK timeout to mark it as FAIL.
+     */
+    @Override
+    public void leave(
+                    String groupName,
+                    BankServerInterface bankServer) throws RemoteException {
+
+            String serverName = bankServer.getServerName();
+
+            synchronized (this) {
+
+                    // RMI stubs that point to the same remote object are
+                    // equal(), so this removes the stub that join() stored.
+                    bankServers.remove(bankServer);
+
+                    System.out.println(
+                                    serverName
+                                                    + " left group "
+                                                    + groupName);
+
+                    System.out.println(
+                                    "Number of replicas: "
+                                                    + bankServers.size());
+
+                    notifyMembershipChanged();
+            }
+
+            // If the worker thread is waiting for an ACK from this
+            // server, stop waiting for it: it will never come.
+            synchronized (ackLock) {
+
+                    pendingAcks.remove(serverName);
+
+                    if (pendingAcks.isEmpty()) {
+                            ackLock.notifyAll();
+                    }
+            }
     }
 
 
@@ -97,7 +140,7 @@ public class MessageDeliveryServer
      *
      * MessageDeliveryServer adds the list to the message queue, and will later broadcast it to all
      * BankServer replicas.
-     * 
+     *
      * (bank servers can call at the same time) synchronized to have safe nextMessageId++.
      */
     @Override
@@ -274,7 +317,7 @@ public class MessageDeliveryServer
                                 );
                         }
                 }
-                
+
                 // Wait for all ACKs to be received, then continue to the next message
                 synchronized (ackLock) {
                         while (!pendingAcks.isEmpty()) {

@@ -771,6 +771,40 @@ private void resolveSyncedBalanceIfMine(Transaction transaction) {
 
     /*
      * =====================================================
+     * SHUTDOWN (the "exit" command)
+     * =====================================================
+     */
+
+    public void shutdown() {
+
+            // 1. Hand over transactions that were never broadcast, so the
+            // other replicas still apply them after we are gone. The
+            // message is queued BEFORE we leave, so it is not lost.
+            broadcastOutstanding();
+
+            // 2. Leave the group on purpose. The MessageDeliveryServer
+            // removes us at once and sends a new member list to the
+            // others, instead of waiting 5 s and marking us FAIL.
+            try {
+                    messageServer.leave(accountName, this);
+            } catch (RemoteException e) {
+                    System.err.println(
+                                    "[" + serverName + "] Could not leave group: "
+                                                    + e.getMessage());
+            }
+
+            System.out.println(
+                            "[" + serverName + "] exiting.");
+
+            // 3. The exported RMI object keeps non-daemon threads running,
+            // so the JVM would never stop by itself. System.exit stops
+            // it no matter which threads are still alive.
+            System.exit(0);
+    }
+
+
+    /*
+     * =====================================================
      * COMMAND LINE INPUT
      * =====================================================
      */
@@ -785,21 +819,24 @@ private void resolveSyncedBalanceIfMine(Transaction transaction) {
         );
 
 
+        // hasNextLine() is false at end of input (Ctrl+D or a closed
+        // pipe). nextLine() would throw NoSuchElementException there.
         while (true) {
 
-            System.out.print(
-                    "[" + serverName + "] > "
-            );
+                System.out.print(
+                                "[" + serverName + "] > ");
 
-            String input =
-                    scanner.nextLine();
+                if (!scanner.hasNextLine()) {
+                        break;
+                }
 
-            boolean keepRunning =
-                    helper.handleCommand(input);
+                String input = scanner.nextLine();
 
-            if (!keepRunning) {
-                break;
-            }
+                boolean keepRunning = helper.handleCommand(input);
+
+                if (!keepRunning) {
+                        break;
+                }
         }
 
         scanner.close();
@@ -1082,8 +1119,22 @@ private void resolveSyncedBalanceIfMine(Transaction transaction) {
         }
 
 
-        System.out.println(
-                "[" + serverName + "] exiting."
-        );
+                if (args.length >= 5) {
+
+            server.runCommandFile(
+                    args[4]
+            );
+
+        } else {
+
+            server.runCommandLine();
+        }
+
+
+        /*
+         * Reached on "exit", at the end of the batch file,
+         * or at end of input. Spec: batch mode must "exit".
+         */
+        server.shutdown();
     }
 }
