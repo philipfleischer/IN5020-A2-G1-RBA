@@ -1,5 +1,12 @@
 package src.bank_server;
 
+/**
+ * Parses one command line ("deposit NOK 100", "getHistory", ...), checks
+ * the arguments, and calls the matching method in BankServer.
+ *
+ * Used both for the interactive command line and for batch files, so the
+ * two modes accept exactly the same commands.
+ */
 public class BankServerHelper {
 
     // Used when getQuickBalance/getSyncedBalance is given without a
