@@ -13,6 +13,10 @@ import java.util.List;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingQueue;
 import java.util.Set;
+import java.util.Map;
+import java.util.LinkedHashMap;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 import java.util.HashSet;
 import src.common.Message;
 
@@ -32,6 +36,18 @@ public class MessageDeliveryServer
     private final Set<String> pendingAcks = new HashSet<>();
 
     private final Object ackLock = new Object();
+
+    // Timeouts for ACK handling
+    private static final long RESEND_AFTER_MS = 2000;
+    private static final long FAIL_AFTER_MS = 5000;
+
+    // Threads used to send a message to all replicas in parallel
+    private final ExecutorService sender =
+            Executors.newCachedThreadPool(r -> {
+                Thread t = new Thread(r);
+                t.setDaemon(true);
+                return t;
+            });
 
     private long currentMessageId = -1;
     private long nextMessageId = 0;
@@ -214,81 +230,139 @@ public class MessageDeliveryServer
 
         while (true) {
 
-                try {
+            try {
 
                 // Wait here until a message exists
-                Message message =
-                        messageQueue.take();
-
+                Message message = messageQueue.take();
 
                 System.out.println(
-                        "Processing message: "
-                                + currentMessageId
+                        "Processing message: " + message.getMessageId()
                 );
 
-                /*
-                * Take a snapshot of the current replicas.
-                */
+                // Snapshot of the current replicas, keyed by name
                 List<BankServerInterface> servers;
 
                 synchronized (this) {
-                        servers = new ArrayList<>(bankServers);
+                    servers = new ArrayList<>(bankServers);
                 }
 
-                /*
-                * For now we send sequentially.
-                *
-                * Later this must be changed to parallel
-                * delivery + ACK waiting.
-                */
-                synchronized (ackLock) {
-                        currentMessageId = message.getMessageId();
+                Map<String, BankServerInterface> byName =
+                        new LinkedHashMap<>();
 
-                        pendingAcks.clear();
-
-                        for (BankServerInterface bankServer : servers) {
-                                try {
-                                        pendingAcks.add(
-                                                bankServer.getServerName()
-                                        );
-                                } catch (RemoteException e) {
-                                        System.err.println(
-                                                "Could not get server name: "
-                                                        + e.getMessage()
-                                        );
-                                }
-                        }
-                }
-
-                // AFTER pendingAcks is ready:
                 for (BankServerInterface bankServer : servers) {
-                        try {
-                                bankServer.receiveTransaction(
-                                        message.getMessageId(),
-                                        message.getTransactions()
-                                );
-                        } catch (RemoteException e) {
-                                System.err.println(
-                                        "Could not deliver message: "
-                                                + e.getMessage()
-                                );
-                        }
-                }
-                
-                // Wait for all ACKs to be received, then continue to the next message
-                synchronized (ackLock) {
-                        while (!pendingAcks.isEmpty()) {
-                                ackLock.wait();
-                        }
+                    try {
+                        byName.put(bankServer.getServerName(), bankServer);
+                    } catch (RemoteException e) {
+                        System.err.println(
+                                "Could not get server name: "
+                                        + e.getMessage()
+                        );
+                    }
                 }
 
-                } catch (InterruptedException e) {
+                // Prepare pendingAcks BEFORE sending
+                synchronized (ackLock) {
+                    currentMessageId = message.getMessageId();
+                    pendingAcks.clear();
+                    pendingAcks.addAll(byName.keySet());
+                }
+
+                // Send to all replicas in parallel
+                for (BankServerInterface bankServer : byName.values()) {
+                    sendAsync(bankServer, message);
+                }
+
+                // Wait for ACKs: resend after 2 s, give up after 5 s
+                long start = System.currentTimeMillis();
+                boolean resent = false;
+                List<String> failed;
+
+                synchronized (ackLock) {
+
+                    while (!pendingAcks.isEmpty()) {
+
+                        long elapsed = System.currentTimeMillis() - start;
+
+                        if (elapsed >= FAIL_AFTER_MS) {
+                            break;
+                        }
+
+                        if (!resent && elapsed >= RESEND_AFTER_MS) {
+                            resent = true;
+                            for (String name : pendingAcks) {
+                                System.out.println(
+                                        "No ACK from " + name
+                                                + " for message "
+                                                + message.getMessageId()
+                                                + ", resending"
+                                );
+                                sendAsync(byName.get(name), message);
+                            }
+                            continue;
+                        }
+
+                        long nextDeadline =
+                                resent ? FAIL_AFTER_MS : RESEND_AFTER_MS;
+
+                        ackLock.wait(nextDeadline - elapsed);
+                    }
+
+                    failed = new ArrayList<>(pendingAcks);
+                }
+
+                // Replicas that never answered are marked FAIL and removed
+                for (String name : failed) {
+                    markFailed(name, byName.get(name));
+                }
+
+            } catch (InterruptedException e) {
 
                 Thread.currentThread().interrupt();
                 break;
-                }
+            }
         }
-     }
+    }
+
+
+    /*
+     * Deliver a message to one replica on its own thread,
+     * so a slow or dead replica cannot block the others.
+     */
+    private void sendAsync(
+            BankServerInterface bankServer,
+            Message message
+    ) {
+        sender.submit(() -> {
+            try {
+                bankServer.receiveTransaction(
+                        message.getMessageId(),
+                        message.getTransactions()
+                );
+            } catch (RemoteException e) {
+                System.err.println(
+                        "Could not deliver message: " + e.getMessage()
+                );
+            }
+        });
+    }
+
+
+    /*
+     * A replica that did not ACK within 5 s is marked FAIL,
+     * removed from the group, and the others are notified.
+     */
+    private void markFailed(String name, BankServerInterface bankServer) {
+
+        System.out.println(
+                "FAIL: " + name
+                        + " did not ACK in time, removing it from the group"
+        );
+
+        synchronized (this) {
+            bankServers.remove(bankServer);
+            notifyMembershipChanged();
+        }
+    }
 
 
     /*
