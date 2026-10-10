@@ -2,6 +2,10 @@ package src.bank_server;
 
 public class BankServerHelper {
 
+    // Used when getQuickBalance/getSyncedBalance is given without a
+    // currency (as in Rep3.txt). USD is the base of the trading-rate file.
+    private static final String DEFAULT_CURRENCY = "USD";
+
     private final BankServer server;
 
     public BankServerHelper(BankServer server) {
@@ -68,14 +72,12 @@ public class BankServerHelper {
 
                 default:
                     System.out.println(
-                            "Unknown command: " + command
-                    );
+                            "Unknown command: " + command);
             }
 
         } catch (NumberFormatException e) {
             System.out.println(
-                    "Invalid number in command: " + input
-            );
+                    "Invalid number in command: " + input);
         } catch (InterruptedException e) {
             Thread.currentThread().interrupt();
             System.out.println("Sleep interrupted.");
@@ -83,7 +85,6 @@ public class BankServerHelper {
 
         return true;
     }
-
 
     /*
      * -------------------------------------------------
@@ -95,13 +96,15 @@ public class BankServerHelper {
 
         if (parts.length != 3) {
             System.out.println(
-                    "Usage: deposit <Currency> <amount>"
-            );
+                    "Usage: deposit <Currency> <amount>");
             return;
         }
 
         String currency = parts[1];
-        double amount = Double.parseDouble(parts[2]);
+
+        // Parse only to VALIDATE the amount: "abc" throws
+        // NumberFormatException, which handleCommand catches and reports.
+        Double.parseDouble(parts[2]);
 
         /*
          * IMPORTANT:
@@ -111,12 +114,13 @@ public class BankServerHelper {
          * BankServer creates an outstanding transaction.
          * The balance should only change when the ordered
          * transaction comes back from MessageDeliveryServer.
+         *
+         * The command is stored exactly as the user typed it
+         * ("deposit NOK 500"), as in the assignment text.
          */
         server.createTransaction(
-                "deposit " + currency + " " + amount
-        );
+                "deposit " + currency + " " + parts[2]);
     }
-
 
     /*
      * -------------------------------------------------
@@ -133,73 +137,67 @@ public class BankServerHelper {
         if (parts.length == 3) {
 
             String currency = parts[1];
-            double percent = Double.parseDouble(parts[2]);
+            Double.parseDouble(parts[2]); // validate only
 
             server.createTransaction(
-                    "addInterest "
-                            + currency
-                            + " "
-                            + percent
-            );
+                    "addInterest " + currency + " " + parts[2]);
 
         } else if (parts.length == 2) {
 
-            double percent = Double.parseDouble(parts[1]);
+            Double.parseDouble(parts[1]); // validate only
 
             server.createTransaction(
-                    "addInterest " + percent
-            );
+                    "addInterest " + parts[1]);
 
         } else {
 
             System.out.println(
-                    "Usage: addInterest [Currency] <percent>"
-            );
+                    "Usage: addInterest [Currency] <percent>");
         }
     }
 
-
     /*
      * -------------------------------------------------
-     * getQuickBalance <Currency>
+     * getQuickBalance [Currency] (default: USD)
      * -------------------------------------------------
      */
 
     private void handleGetQuickBalance(String[] parts) {
 
-        if (parts.length != 2) {
+        if (parts.length > 2) {
             System.out.println(
-                    "Usage: getQuickBalance <Currency>"
-            );
+                    "Usage: getQuickBalance [Currency]");
             return;
         }
 
-        String currency = parts[1];
+        String currency = parts.length == 2 ? parts[1] : DEFAULT_CURRENCY;
 
         server.getQuickBalance(currency);
     }
 
-
     /*
      * -------------------------------------------------
-     * getSyncedBalance <Currency>
+     * getSyncedBalance [Currency] (default: USD)
      * -------------------------------------------------
      */
 
     private void handleGetSyncedBalance(String[] parts) {
 
-        if (parts.length != 2) {
+        if (parts.length > 2) {
             System.out.println(
-                    "Usage: getSyncedBalance <Currency>"
-            );
+                    "Usage: getSyncedBalance [Currency]");
             return;
         }
 
-        String currency = parts[1];
+        String currency = parts.length == 2 ? parts[1] : DEFAULT_CURRENCY;
 
-        server.getSyncedBalance(currency);
+        // The implementation is chosen at start-up with -Dsync=naive|correct
+        if (BankServer.NAIVE_SYNC) {
+            server.startSyncedBalanceNaive(currency);
+        } else {
+            server.getSyncedBalance(currency);
+        }
     }
-
 
     /*
      * -------------------------------------------------
@@ -211,14 +209,12 @@ public class BankServerHelper {
 
         if (parts.length != 1) {
             System.out.println(
-                    "Usage: getHistory"
-            );
+                    "Usage: getHistory");
             return;
         }
 
         server.getHistory();
     }
-
 
     /*
      * -------------------------------------------------
@@ -241,8 +237,7 @@ public class BankServerHelper {
 
         if (parts.length < 2) {
             System.out.println(
-                    "Usage: checkTxStatus <unique_id>"
-            );
+                    "Usage: checkTxStatus <unique_id>");
             return;
         }
 
@@ -269,7 +264,6 @@ public class BankServerHelper {
         server.checkTxStatus(uniqueId);
     }
 
-
     /*
      * -------------------------------------------------
      * cleanHistory
@@ -280,14 +274,12 @@ public class BankServerHelper {
 
         if (parts.length != 1) {
             System.out.println(
-                    "Usage: cleanHistory"
-            );
+                    "Usage: cleanHistory");
             return;
         }
 
         server.cleanHistory();
     }
-
 
     /*
      * -------------------------------------------------
@@ -299,14 +291,12 @@ public class BankServerHelper {
 
         if (parts.length != 1) {
             System.out.println(
-                    "Usage: memberInfo"
-            );
+                    "Usage: memberInfo");
             return;
         }
 
         server.memberInfo();
     }
-
 
     /*
      * -------------------------------------------------
@@ -319,18 +309,15 @@ public class BankServerHelper {
 
         if (parts.length != 2) {
             System.out.println(
-                    "Usage: sleep <duration>"
-            );
+                    "Usage: sleep <duration>");
             return;
         }
 
-        long duration =
-                Long.parseLong(parts[1]);
+        long duration = Long.parseLong(parts[1]);
 
         if (duration < 0) {
             System.out.println(
-                    "Sleep duration cannot be negative."
-            );
+                    "Sleep duration cannot be negative.");
             return;
         }
 

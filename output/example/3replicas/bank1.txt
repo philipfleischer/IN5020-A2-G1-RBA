@@ -1,0 +1,253 @@
+[2026-10-10 10:51:30.167] Starting BankServer-52211
+[2026-10-10 10:51:30.167] Account: group01
+[2026-10-10 10:51:30.167] Expected replicas: 3
+[2026-10-10 10:51:30.167] Currency file: input/example/TradingRate.txt
+[2026-10-10 10:51:30.167] getSyncedBalance mode: correct
+[2026-10-10 10:51:30.210] [BankServer-52211] Membership changed: [BankServer-52211] (1 members)
+[2026-10-10 10:51:30.211] [BankServer-52211] Connected to localhost:1099
+[2026-10-10 10:51:30.212] [BankServer-52211] Waiting for replicas: 1/3
+[2026-10-10 10:51:33.928] [BankServer-52211] Membership changed: [BankServer-52211, BankServer-52501] (2 members)
+[2026-10-10 10:51:33.928] [BankServer-52211] Waiting for replicas: 2/3
+[2026-10-10 10:51:37.398] [BankServer-52211] Membership changed: [BankServer-52211, BankServer-52501, BankServer-52803] (3 members)
+[2026-10-10 10:51:37.399] [BankServer-52211] All 3 initial replicas have joined, starting.
+[2026-10-10 10:51:37.400] Reading commands from: input/example/ExampleInputFile.txt
+[2026-10-10 10:51:37.401] [BankServer-52211] > memberInfo
+[2026-10-10 10:51:37.401] [BankServer-52211] memberInfo: [BankServer-52211, BankServer-52501, BankServer-52803] (3 members)
+[2026-10-10 10:51:38.328] [BankServer-52211] > getSyncedBalance USD
+[2026-10-10 10:51:38.330] [BankServer-52211] getSyncedBalance USD queued [BankServer-52211 sync-0], waiting for order...
+[2026-10-10 10:51:39.434] [BankServer-52211] > getQuickBalance USD
+[2026-10-10 10:51:39.441] [BankServer-52211] Quick balance USD: 0.00
+[2026-10-10 10:51:40.916] [BankServer-52211] > deposit USD 100
+[2026-10-10 10:51:40.918] [BankServer-52211] Transaction created: deposit USD 100 [BankServer-52211 0]
+[2026-10-10 10:51:41.757] [BankServer-52211] > checkTxStatus 0
+[2026-10-10 10:51:41.758] BankServer-52211 0: OUTSTANDING
+[2026-10-10 10:51:42.891] [BankServer-52211] > getSyncedBalance USD
+[2026-10-10 10:51:42.891] [BankServer-52211] getSyncedBalance USD queued [BankServer-52211 sync-1], waiting for order...
+[2026-10-10 10:51:43.657] [BankServer-52211] > getQuickBalance USD
+[2026-10-10 10:51:43.658] [BankServer-52211] Quick balance USD: 0.00
+[2026-10-10 10:51:44.160] [BankServer-52211] > deposit NOK 100
+[2026-10-10 10:51:44.160] [BankServer-52211] Transaction created: deposit NOK 100 [BankServer-52211 1]
+[2026-10-10 10:51:45.467] [BankServer-52211] > getQuickBalance NOK
+[2026-10-10 10:51:45.468] [BankServer-52211] Quick balance NOK: 0.00
+[2026-10-10 10:51:46.823] [BankServer-52211] > sleep 10
+[2026-10-10 10:51:47.421] [BankServer-52211] Received transaction: deposit USD 100
+[2026-10-10 10:51:47.421] [BankServer-52211] USD balance: 100.00
+[2026-10-10 10:51:47.421] [BankServer-52211] Received transaction: deposit NOK 100
+[2026-10-10 10:51:47.421] [BankServer-52211] NOK balance: 100.00
+[2026-10-10 10:51:47.444] [BankServer-52211] Received transaction: deposit USD 100
+[2026-10-10 10:51:47.444] [BankServer-52211] USD balance: 200.00
+[2026-10-10 10:51:47.444] [BankServer-52211] Received transaction: deposit NOK 100
+[2026-10-10 10:51:47.444] [BankServer-52211] NOK balance: 200.00
+[2026-10-10 10:51:47.450] [BankServer-52211] Synced balance USD: 220.00
+[2026-10-10 10:51:47.450] [BankServer-52211] Received transaction: deposit USD 100
+[2026-10-10 10:51:47.450] [BankServer-52211] USD balance: 300.00
+[2026-10-10 10:51:47.450] [BankServer-52211] Synced balance USD: 320.00
+[2026-10-10 10:51:47.451] [BankServer-52211] Received transaction: deposit NOK 100
+[2026-10-10 10:51:47.451] [BankServer-52211] NOK balance: 300.00
+[2026-10-10 10:51:47.457] [BankServer-52211] Duplicate ignored: BankServer-52211 0
+[2026-10-10 10:51:47.457] [BankServer-52211] Duplicate ignored: BankServer-52211 1
+[2026-10-10 10:51:47.461] [BankServer-52211] Duplicate ignored: BankServer-52501 0
+[2026-10-10 10:51:47.461] [BankServer-52211] Duplicate ignored: BankServer-52501 1
+[2026-10-10 10:51:47.465] [BankServer-52211] Duplicate ignored: BankServer-52803 0
+[2026-10-10 10:51:47.465] [BankServer-52211] Duplicate ignored: BankServer-52803 1
+[2026-10-10 10:51:57.431] [BankServer-52211] Received transaction: addInterest USD 10
+[2026-10-10 10:51:57.436] [BankServer-52211] Duplicate ignored: BankServer-52803 2
+[2026-10-10 10:51:57.511] [BankServer-52211] > getSyncedBalance USD
+[2026-10-10 10:51:57.511] [BankServer-52211] getSyncedBalance USD queued [BankServer-52211 sync-2], waiting for order...
+[2026-10-10 10:51:58.182] [BankServer-52211] > addInterest USD 10
+[2026-10-10 10:51:58.182] [BankServer-52211] Transaction created: addInterest USD 10 [BankServer-52211 2]
+[2026-10-10 10:51:59.251] [BankServer-52211] > getSyncedBalance USD
+[2026-10-10 10:51:59.252] [BankServer-52211] getSyncedBalance USD queued [BankServer-52211 sync-3], waiting for order...
+[2026-10-10 10:52:00.590] [BankServer-52211] > deposit EUR 100
+[2026-10-10 10:52:00.590] [BankServer-52211] Transaction created: deposit EUR 100 [BankServer-52211 3]
+[2026-10-10 10:52:01.370] [BankServer-52211] > deposit NOK 50
+[2026-10-10 10:52:01.370] [BankServer-52211] Transaction created: deposit NOK 50 [BankServer-52211 4]
+[2026-10-10 10:52:02.445] [BankServer-52211] > deposit USD 40
+[2026-10-10 10:52:02.445] [BankServer-52211] Transaction created: deposit USD 40 [BankServer-52211 5]
+[2026-10-10 10:52:02.996] [BankServer-52211] > deposit NOK 30
+[2026-10-10 10:52:02.997] [BankServer-52211] Transaction created: deposit NOK 30 [BankServer-52211 6]
+[2026-10-10 10:52:03.513] [BankServer-52211] > deposit USD 20
+[2026-10-10 10:52:03.513] [BankServer-52211] Transaction created: deposit USD 20 [BankServer-52211 7]
+[2026-10-10 10:52:04.709] [BankServer-52211] > deposit NOK 10
+[2026-10-10 10:52:04.710] [BankServer-52211] Transaction created: deposit NOK 10 [BankServer-52211 8]
+[2026-10-10 10:52:05.698] [BankServer-52211] > addInterest EUR 10
+[2026-10-10 10:52:05.699] [BankServer-52211] Transaction created: addInterest EUR 10 [BankServer-52211 9]
+[2026-10-10 10:52:06.999] [BankServer-52211] > getSyncedBalance NOK
+[2026-10-10 10:52:07.000] [BankServer-52211] getSyncedBalance NOK queued [BankServer-52211 sync-4], waiting for order...
+[2026-10-10 10:52:07.428] [BankServer-52211] Received transaction: addInterest USD 10
+[2026-10-10 10:52:07.429] [BankServer-52211] Received transaction: deposit EUR 100
+[2026-10-10 10:52:07.429] [BankServer-52211] EUR balance: 100.00
+[2026-10-10 10:52:07.429] [BankServer-52211] Received transaction: deposit NOK 50
+[2026-10-10 10:52:07.429] [BankServer-52211] NOK balance: 350.00
+[2026-10-10 10:52:07.429] [BankServer-52211] Received transaction: deposit USD 40
+[2026-10-10 10:52:07.429] [BankServer-52211] USD balance: 403.00
+[2026-10-10 10:52:07.429] [BankServer-52211] Received transaction: deposit NOK 30
+[2026-10-10 10:52:07.429] [BankServer-52211] NOK balance: 380.00
+[2026-10-10 10:52:07.429] [BankServer-52211] Received transaction: deposit USD 20
+[2026-10-10 10:52:07.429] [BankServer-52211] USD balance: 423.00
+[2026-10-10 10:52:07.430] [BankServer-52211] Received transaction: deposit NOK 10
+[2026-10-10 10:52:07.430] [BankServer-52211] NOK balance: 390.00
+[2026-10-10 10:52:07.430] [BankServer-52211] Received transaction: addInterest EUR 10
+[2026-10-10 10:52:07.439] [BankServer-52211] Synced balance USD: 590.70
+[2026-10-10 10:52:07.439] [BankServer-52211] Received transaction: addInterest USD 10
+[2026-10-10 10:52:07.439] [BankServer-52211] Synced balance USD: 633.00
+[2026-10-10 10:52:07.439] [BankServer-52211] Received transaction: deposit EUR 100
+[2026-10-10 10:52:07.439] [BankServer-52211] EUR balance: 210.00
+[2026-10-10 10:52:07.439] [BankServer-52211] Received transaction: deposit NOK 50
+[2026-10-10 10:52:07.440] [BankServer-52211] NOK balance: 440.00
+[2026-10-10 10:52:07.440] [BankServer-52211] Received transaction: deposit USD 40
+[2026-10-10 10:52:07.440] [BankServer-52211] USD balance: 505.30
+[2026-10-10 10:52:07.440] [BankServer-52211] Received transaction: deposit NOK 30
+[2026-10-10 10:52:07.440] [BankServer-52211] NOK balance: 470.00
+[2026-10-10 10:52:07.440] [BankServer-52211] Received transaction: deposit USD 20
+[2026-10-10 10:52:07.440] [BankServer-52211] USD balance: 525.30
+[2026-10-10 10:52:07.440] [BankServer-52211] Received transaction: deposit NOK 10
+[2026-10-10 10:52:07.441] [BankServer-52211] NOK balance: 480.00
+[2026-10-10 10:52:07.441] [BankServer-52211] Received transaction: addInterest EUR 10
+[2026-10-10 10:52:07.442] [BankServer-52211] Synced balance NOK: 8435.70
+[2026-10-10 10:52:07.453] [BankServer-52211] Duplicate ignored: BankServer-52211 2
+[2026-10-10 10:52:07.453] [BankServer-52211] Duplicate ignored: BankServer-52211 3
+[2026-10-10 10:52:07.453] [BankServer-52211] Duplicate ignored: BankServer-52211 4
+[2026-10-10 10:52:07.453] [BankServer-52211] Duplicate ignored: BankServer-52211 5
+[2026-10-10 10:52:07.453] [BankServer-52211] Duplicate ignored: BankServer-52211 6
+[2026-10-10 10:52:07.453] [BankServer-52211] Duplicate ignored: BankServer-52211 7
+[2026-10-10 10:52:07.453] [BankServer-52211] Duplicate ignored: BankServer-52211 8
+[2026-10-10 10:52:07.453] [BankServer-52211] Duplicate ignored: BankServer-52211 9
+[2026-10-10 10:52:07.460] [BankServer-52211] Duplicate ignored: BankServer-52501 2
+[2026-10-10 10:52:07.460] [BankServer-52211] Duplicate ignored: BankServer-52501 3
+[2026-10-10 10:52:07.460] [BankServer-52211] Duplicate ignored: BankServer-52501 4
+[2026-10-10 10:52:07.460] [BankServer-52211] Duplicate ignored: BankServer-52501 5
+[2026-10-10 10:52:07.460] [BankServer-52211] Duplicate ignored: BankServer-52501 6
+[2026-10-10 10:52:07.460] [BankServer-52211] Duplicate ignored: BankServer-52501 7
+[2026-10-10 10:52:07.460] [BankServer-52211] Duplicate ignored: BankServer-52501 8
+[2026-10-10 10:52:07.460] [BankServer-52211] Duplicate ignored: BankServer-52501 9
+[2026-10-10 10:52:07.465] [BankServer-52211] Received transaction: deposit EUR 100
+[2026-10-10 10:52:07.465] [BankServer-52211] EUR balance: 331.00
+[2026-10-10 10:52:07.465] [BankServer-52211] Received transaction: deposit NOK 50
+[2026-10-10 10:52:07.465] [BankServer-52211] NOK balance: 530.00
+[2026-10-10 10:52:07.465] [BankServer-52211] Received transaction: deposit USD 40
+[2026-10-10 10:52:07.466] [BankServer-52211] USD balance: 565.30
+[2026-10-10 10:52:07.466] [BankServer-52211] Received transaction: deposit NOK 30
+[2026-10-10 10:52:07.466] [BankServer-52211] NOK balance: 560.00
+[2026-10-10 10:52:07.466] [BankServer-52211] Received transaction: deposit USD 20
+[2026-10-10 10:52:07.466] [BankServer-52211] USD balance: 585.30
+[2026-10-10 10:52:07.466] [BankServer-52211] Received transaction: deposit NOK 10
+[2026-10-10 10:52:07.466] [BankServer-52211] NOK balance: 570.00
+[2026-10-10 10:52:07.466] [BankServer-52211] Received transaction: addInterest EUR 10
+[2026-10-10 10:52:07.473] [BankServer-52211] Duplicate ignored: BankServer-52803 3
+[2026-10-10 10:52:07.473] [BankServer-52211] Duplicate ignored: BankServer-52803 4
+[2026-10-10 10:52:07.473] [BankServer-52211] Duplicate ignored: BankServer-52803 5
+[2026-10-10 10:52:07.473] [BankServer-52211] Duplicate ignored: BankServer-52803 6
+[2026-10-10 10:52:07.473] [BankServer-52211] Duplicate ignored: BankServer-52803 7
+[2026-10-10 10:52:07.473] [BankServer-52211] Duplicate ignored: BankServer-52803 8
+[2026-10-10 10:52:07.473] [BankServer-52211] Duplicate ignored: BankServer-52803 9
+[2026-10-10 10:52:08.399] [BankServer-52211] > getQuickBalance NOK
+[2026-10-10 10:52:08.400] [BankServer-52211] Quick balance NOK: 10682.97
+[2026-10-10 10:52:09.796] [BankServer-52211] > deposit USD 100
+[2026-10-10 10:52:09.797] [BankServer-52211] Transaction created: deposit USD 100 [BankServer-52211 10]
+[2026-10-10 10:52:10.615] [BankServer-52211] > deposit EUR 100
+[2026-10-10 10:52:10.615] [BankServer-52211] Transaction created: deposit EUR 100 [BankServer-52211 11]
+[2026-10-10 10:52:11.230] [BankServer-52211] > addInterest 20
+[2026-10-10 10:52:11.230] [BankServer-52211] Transaction created: addInterest 20 [BankServer-52211 12]
+[2026-10-10 10:52:12.403] [BankServer-52211] > checkTxStatus 12
+[2026-10-10 10:52:12.403] BankServer-52211 12: OUTSTANDING
+[2026-10-10 10:52:13.337] [BankServer-52211] > memberInfo
+[2026-10-10 10:52:13.337] [BankServer-52211] memberInfo: [BankServer-52211, BankServer-52501, BankServer-52803] (3 members)
+[2026-10-10 10:52:14.683] [BankServer-52211] > getHistory
+[2026-10-10 10:52:14.683] [BankServer-52211] executed_list
+[2026-10-10 10:52:14.688] 0. 2026-10-10 10:51:47.421 deposit USD 100  [BankServer-52501 0]
+[2026-10-10 10:52:14.688] 1. 2026-10-10 10:51:47.422 deposit NOK 100  [BankServer-52501 1]
+[2026-10-10 10:52:14.688] 2. 2026-10-10 10:51:47.444 deposit USD 100  [BankServer-52803 0]
+[2026-10-10 10:52:14.688] 3. 2026-10-10 10:51:47.444 deposit NOK 100  [BankServer-52803 1]
+[2026-10-10 10:52:14.688] 4. 2026-10-10 10:51:47.450 deposit USD 100  [BankServer-52211 0]
+[2026-10-10 10:52:14.688] 5. 2026-10-10 10:51:47.451 deposit NOK 100  [BankServer-52211 1]
+[2026-10-10 10:52:14.688] 6. 2026-10-10 10:51:57.431 addInterest USD 10  [BankServer-52803 2]
+[2026-10-10 10:52:14.688] 7. 2026-10-10 10:52:07.428 addInterest USD 10  [BankServer-52501 2]
+[2026-10-10 10:52:14.688] 8. 2026-10-10 10:52:07.429 deposit EUR 100  [BankServer-52501 3]
+[2026-10-10 10:52:14.688] 9. 2026-10-10 10:52:07.429 deposit NOK 50  [BankServer-52501 4]
+[2026-10-10 10:52:14.688] 10. 2026-10-10 10:52:07.429 deposit USD 40  [BankServer-52501 5]
+[2026-10-10 10:52:14.688] 11. 2026-10-10 10:52:07.429 deposit NOK 30  [BankServer-52501 6]
+[2026-10-10 10:52:14.689] 12. 2026-10-10 10:52:07.430 deposit USD 20  [BankServer-52501 7]
+[2026-10-10 10:52:14.689] 13. 2026-10-10 10:52:07.430 deposit NOK 10  [BankServer-52501 8]
+[2026-10-10 10:52:14.689] 14. 2026-10-10 10:52:07.430 addInterest EUR 10  [BankServer-52501 9]
+[2026-10-10 10:52:14.689] 15. 2026-10-10 10:52:07.439 addInterest USD 10  [BankServer-52211 2]
+[2026-10-10 10:52:14.689] 16. 2026-10-10 10:52:07.439 deposit EUR 100  [BankServer-52211 3]
+[2026-10-10 10:52:14.689] 17. 2026-10-10 10:52:07.440 deposit NOK 50  [BankServer-52211 4]
+[2026-10-10 10:52:14.689] 18. 2026-10-10 10:52:07.440 deposit USD 40  [BankServer-52211 5]
+[2026-10-10 10:52:14.689] 19. 2026-10-10 10:52:07.440 deposit NOK 30  [BankServer-52211 6]
+[2026-10-10 10:52:14.689] 20. 2026-10-10 10:52:07.440 deposit USD 20  [BankServer-52211 7]
+[2026-10-10 10:52:14.689] 21. 2026-10-10 10:52:07.441 deposit NOK 10  [BankServer-52211 8]
+[2026-10-10 10:52:14.689] 22. 2026-10-10 10:52:07.441 addInterest EUR 10  [BankServer-52211 9]
+[2026-10-10 10:52:14.689] 23. 2026-10-10 10:52:07.465 deposit EUR 100  [BankServer-52803 3]
+[2026-10-10 10:52:14.689] 24. 2026-10-10 10:52:07.465 deposit NOK 50  [BankServer-52803 4]
+[2026-10-10 10:52:14.689] 25. 2026-10-10 10:52:07.466 deposit USD 40  [BankServer-52803 5]
+[2026-10-10 10:52:14.689] 26. 2026-10-10 10:52:07.466 deposit NOK 30  [BankServer-52803 6]
+[2026-10-10 10:52:14.689] 27. 2026-10-10 10:52:07.466 deposit USD 20  [BankServer-52803 7]
+[2026-10-10 10:52:14.689] 28. 2026-10-10 10:52:07.466 deposit NOK 10  [BankServer-52803 8]
+[2026-10-10 10:52:14.689] 29. 2026-10-10 10:52:07.466 addInterest EUR 10  [BankServer-52803 9]
+[2026-10-10 10:52:14.689] [BankServer-52211] outstanding_collection
+[2026-10-10 10:52:14.689] deposit USD 100  [BankServer-52211 10]
+[2026-10-10 10:52:14.690] deposit EUR 100  [BankServer-52211 11]
+[2026-10-10 10:52:14.690] addInterest 20  [BankServer-52211 12]
+[2026-10-10 10:52:15.779] [BankServer-52211] > cleanHistory
+[2026-10-10 10:52:15.780] [BankServer-52211] History cleaned.
+[2026-10-10 10:52:16.922] [BankServer-52211] > deposit NOK 100
+[2026-10-10 10:52:16.922] [BankServer-52211] Transaction created: deposit NOK 100 [BankServer-52211 13]
+[2026-10-10 10:52:17.436] [BankServer-52211] Received transaction: deposit USD 100
+[2026-10-10 10:52:17.436] [BankServer-52211] USD balance: 685.30
+[2026-10-10 10:52:17.436] [BankServer-52211] Received transaction: deposit EUR 100
+[2026-10-10 10:52:17.436] [BankServer-52211] EUR balance: 464.10
+[2026-10-10 10:52:17.437] [BankServer-52211] Received transaction: addInterest 20
+[2026-10-10 10:52:17.437] [BankServer-52211] Received transaction: deposit NOK 100
+[2026-10-10 10:52:17.437] [BankServer-52211] NOK balance: 784.00
+[2026-10-10 10:52:17.443] [BankServer-52211] Received transaction: deposit USD 100
+[2026-10-10 10:52:17.444] [BankServer-52211] USD balance: 922.36
+[2026-10-10 10:52:17.444] [BankServer-52211] Received transaction: deposit EUR 100
+[2026-10-10 10:52:17.444] [BankServer-52211] EUR balance: 656.92
+[2026-10-10 10:52:17.444] [BankServer-52211] Received transaction: addInterest 20
+[2026-10-10 10:52:17.444] [BankServer-52211] Received transaction: deposit NOK 100
+[2026-10-10 10:52:17.444] [BankServer-52211] NOK balance: 1040.80
+[2026-10-10 10:52:17.452] [BankServer-52211] Duplicate ignored: BankServer-52501 10
+[2026-10-10 10:52:17.452] [BankServer-52211] Duplicate ignored: BankServer-52501 11
+[2026-10-10 10:52:17.452] [BankServer-52211] Duplicate ignored: BankServer-52501 12
+[2026-10-10 10:52:17.452] [BankServer-52211] Duplicate ignored: BankServer-52501 13
+[2026-10-10 10:52:17.458] [BankServer-52211] Duplicate ignored: BankServer-52211 10
+[2026-10-10 10:52:17.458] [BankServer-52211] Duplicate ignored: BankServer-52211 11
+[2026-10-10 10:52:17.458] [BankServer-52211] Duplicate ignored: BankServer-52211 12
+[2026-10-10 10:52:17.458] [BankServer-52211] Duplicate ignored: BankServer-52211 13
+[2026-10-10 10:52:17.463] [BankServer-52211] Received transaction: deposit USD 100
+[2026-10-10 10:52:17.463] [BankServer-52211] USD balance: 1206.83
+[2026-10-10 10:52:17.463] [BankServer-52211] Received transaction: deposit EUR 100
+[2026-10-10 10:52:17.463] [BankServer-52211] EUR balance: 888.30
+[2026-10-10 10:52:17.463] [BankServer-52211] Received transaction: addInterest 20
+[2026-10-10 10:52:17.463] [BankServer-52211] Received transaction: deposit NOK 100
+[2026-10-10 10:52:17.464] [BankServer-52211] NOK balance: 1348.96
+[2026-10-10 10:52:17.468] [BankServer-52211] Duplicate ignored: BankServer-52803 10
+[2026-10-10 10:52:17.469] [BankServer-52211] Duplicate ignored: BankServer-52803 11
+[2026-10-10 10:52:17.469] [BankServer-52211] Duplicate ignored: BankServer-52803 12
+[2026-10-10 10:52:17.469] [BankServer-52211] Duplicate ignored: BankServer-52803 13
+[2026-10-10 10:52:18.314] [BankServer-52211] > sleep 8
+[2026-10-10 10:52:26.460] [BankServer-52211] Membership changed: [BankServer-52211, BankServer-52501] (2 members)
+[2026-10-10 10:52:27.033] [BankServer-52211] > getSyncedBalance USD
+[2026-10-10 10:52:27.033] [BankServer-52211] getSyncedBalance USD queued [BankServer-52211 sync-5], waiting for order...
+[2026-10-10 10:52:27.441] [BankServer-52211] Synced balance USD: 2830.27
+[2026-10-10 10:52:28.512] [BankServer-52211] > getQuickBalance USD
+[2026-10-10 10:52:28.512] [BankServer-52211] Quick balance USD: 2830.27
+[2026-10-10 10:52:28.777] [BankServer-52211] Membership changed: [BankServer-52211] (1 members)
+[2026-10-10 10:52:29.507] [BankServer-52211] > getHistory
+[2026-10-10 10:52:29.508] [BankServer-52211] executed_list
+[2026-10-10 10:52:29.508] 30. 2026-10-10 10:52:17.436 deposit USD 100  [BankServer-52211 10]
+[2026-10-10 10:52:29.508] 31. 2026-10-10 10:52:17.437 deposit EUR 100  [BankServer-52211 11]
+[2026-10-10 10:52:29.508] 32. 2026-10-10 10:52:17.437 addInterest 20  [BankServer-52211 12]
+[2026-10-10 10:52:29.508] 33. 2026-10-10 10:52:17.437 deposit NOK 100  [BankServer-52211 13]
+[2026-10-10 10:52:29.508] 34. 2026-10-10 10:52:17.444 deposit USD 100  [BankServer-52501 10]
+[2026-10-10 10:52:29.508] 35. 2026-10-10 10:52:17.444 deposit EUR 100  [BankServer-52501 11]
+[2026-10-10 10:52:29.508] 36. 2026-10-10 10:52:17.444 addInterest 20  [BankServer-52501 12]
+[2026-10-10 10:52:29.508] 37. 2026-10-10 10:52:17.444 deposit NOK 100  [BankServer-52501 13]
+[2026-10-10 10:52:29.508] 38. 2026-10-10 10:52:17.463 deposit USD 100  [BankServer-52803 10]
+[2026-10-10 10:52:29.508] 39. 2026-10-10 10:52:17.463 deposit EUR 100  [BankServer-52803 11]
+[2026-10-10 10:52:29.508] 40. 2026-10-10 10:52:17.463 addInterest 20  [BankServer-52803 12]
+[2026-10-10 10:52:29.508] 41. 2026-10-10 10:52:17.464 deposit NOK 100  [BankServer-52803 13]
+[2026-10-10 10:52:29.508] [BankServer-52211] outstanding_collection
+[2026-10-10 10:52:30.564] [BankServer-52211] > exit
+[2026-10-10 10:52:30.568] [BankServer-52211] exiting.
