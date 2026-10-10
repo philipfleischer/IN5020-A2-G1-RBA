@@ -1,0 +1,137 @@
+[2026-10-10 10:50:16.281] Starting BankServer-50435
+[2026-10-10 10:50:16.281] Account: group01
+[2026-10-10 10:50:16.281] Expected replicas: 1
+[2026-10-10 10:50:16.281] Currency file: input/example/TradingRate.txt
+[2026-10-10 10:50:16.282] getSyncedBalance mode: naive
+[2026-10-10 10:50:16.322] [BankServer-50435] Membership changed: [BankServer-50435] (1 members)
+[2026-10-10 10:50:16.323] [BankServer-50435] Connected to localhost:1099
+[2026-10-10 10:50:16.323] [BankServer-50435] All 1 initial replicas have joined, starting.
+[2026-10-10 10:50:16.324] Reading commands from: input/example/ExampleInputFile.txt
+[2026-10-10 10:50:16.324] [BankServer-50435] > memberInfo
+[2026-10-10 10:50:16.325] [BankServer-50435] memberInfo: [BankServer-50435] (1 members)
+[2026-10-10 10:50:17.260] [BankServer-50435] > getSyncedBalance USD
+[2026-10-10 10:50:17.261] [BankServer-50435] getSyncedBalance USD (naive): waiting for an empty outstanding_collection...
+[2026-10-10 10:50:17.268] [BankServer-50435] Synced balance (naive) USD: 0.00
+[2026-10-10 10:50:18.564] [BankServer-50435] > getQuickBalance USD
+[2026-10-10 10:50:18.565] [BankServer-50435] Quick balance USD: 0.00
+[2026-10-10 10:50:19.595] [BankServer-50435] > deposit USD 100
+[2026-10-10 10:50:19.597] [BankServer-50435] Transaction created: deposit USD 100 [BankServer-50435 0]
+[2026-10-10 10:50:20.178] [BankServer-50435] > checkTxStatus 0
+[2026-10-10 10:50:20.178] BankServer-50435 0: OUTSTANDING
+[2026-10-10 10:50:21.579] [BankServer-50435] > getSyncedBalance USD
+[2026-10-10 10:50:21.580] [BankServer-50435] getSyncedBalance USD (naive): waiting for an empty outstanding_collection...
+[2026-10-10 10:50:22.727] [BankServer-50435] > getQuickBalance USD
+[2026-10-10 10:50:22.728] [BankServer-50435] Quick balance USD: 0.00
+[2026-10-10 10:50:24.156] [BankServer-50435] > deposit NOK 100
+[2026-10-10 10:50:24.157] [BankServer-50435] Transaction created: deposit NOK 100 [BankServer-50435 1]
+[2026-10-10 10:50:25.023] [BankServer-50435] > getQuickBalance NOK
+[2026-10-10 10:50:25.024] [BankServer-50435] Quick balance NOK: 0.00
+[2026-10-10 10:50:26.042] [BankServer-50435] > sleep 10
+[2026-10-10 10:50:26.343] [BankServer-50435] Received transaction: deposit USD 100
+[2026-10-10 10:50:26.344] [BankServer-50435] USD balance: 100.00
+[2026-10-10 10:50:26.344] [BankServer-50435] Received transaction: deposit NOK 100
+[2026-10-10 10:50:26.344] [BankServer-50435] NOK balance: 100.00
+[2026-10-10 10:50:26.362] [BankServer-50435] Duplicate ignored: BankServer-50435 0
+[2026-10-10 10:50:26.362] [BankServer-50435] Duplicate ignored: BankServer-50435 1
+[2026-10-10 10:50:26.468] [BankServer-50435] Synced balance (naive) USD: 110.00
+[2026-10-10 10:50:37.366] [BankServer-50435] > getSyncedBalance USD
+[2026-10-10 10:50:37.367] [BankServer-50435] getSyncedBalance USD (naive): waiting for an empty outstanding_collection...
+[2026-10-10 10:50:37.367] [BankServer-50435] Synced balance (naive) USD: 110.00
+[2026-10-10 10:50:38.535] [BankServer-50435] > addInterest USD 10
+[2026-10-10 10:50:38.536] [BankServer-50435] Transaction created: addInterest USD 10 [BankServer-50435 2]
+[2026-10-10 10:50:39.858] [BankServer-50435] > getSyncedBalance USD
+[2026-10-10 10:50:39.858] [BankServer-50435] getSyncedBalance USD (naive): waiting for an empty outstanding_collection...
+[2026-10-10 10:50:40.413] [BankServer-50435] > deposit EUR 100
+[2026-10-10 10:50:40.414] [BankServer-50435] Transaction created: deposit EUR 100 [BankServer-50435 3]
+[2026-10-10 10:50:41.387] [BankServer-50435] > deposit NOK 50
+[2026-10-10 10:50:41.387] [BankServer-50435] Transaction created: deposit NOK 50 [BankServer-50435 4]
+[2026-10-10 10:50:41.902] [BankServer-50435] > deposit USD 40
+[2026-10-10 10:50:41.902] [BankServer-50435] Transaction created: deposit USD 40 [BankServer-50435 5]
+[2026-10-10 10:50:43.382] [BankServer-50435] > deposit NOK 30
+[2026-10-10 10:50:43.383] [BankServer-50435] Transaction created: deposit NOK 30 [BankServer-50435 6]
+[2026-10-10 10:50:44.511] [BankServer-50435] > deposit USD 20
+[2026-10-10 10:50:44.511] [BankServer-50435] Transaction created: deposit USD 20 [BankServer-50435 7]
+[2026-10-10 10:50:45.111] [BankServer-50435] > deposit NOK 10
+[2026-10-10 10:50:45.111] [BankServer-50435] Transaction created: deposit NOK 10 [BankServer-50435 8]
+[2026-10-10 10:50:46.349] [BankServer-50435] Received transaction: addInterest USD 10
+[2026-10-10 10:50:46.350] [BankServer-50435] Received transaction: deposit EUR 100
+[2026-10-10 10:50:46.350] [BankServer-50435] EUR balance: 100.00
+[2026-10-10 10:50:46.350] [BankServer-50435] Received transaction: deposit NOK 50
+[2026-10-10 10:50:46.350] [BankServer-50435] NOK balance: 150.00
+[2026-10-10 10:50:46.350] [BankServer-50435] Received transaction: deposit USD 40
+[2026-10-10 10:50:46.350] [BankServer-50435] USD balance: 150.00
+[2026-10-10 10:50:46.350] [BankServer-50435] Received transaction: deposit NOK 30
+[2026-10-10 10:50:46.350] [BankServer-50435] NOK balance: 180.00
+[2026-10-10 10:50:46.350] [BankServer-50435] Received transaction: deposit USD 20
+[2026-10-10 10:50:46.350] [BankServer-50435] USD balance: 170.00
+[2026-10-10 10:50:46.350] [BankServer-50435] Received transaction: deposit NOK 10
+[2026-10-10 10:50:46.350] [BankServer-50435] NOK balance: 190.00
+[2026-10-10 10:50:46.351] [BankServer-50435] Duplicate ignored: BankServer-50435 2
+[2026-10-10 10:50:46.351] [BankServer-50435] Duplicate ignored: BankServer-50435 3
+[2026-10-10 10:50:46.352] [BankServer-50435] Duplicate ignored: BankServer-50435 4
+[2026-10-10 10:50:46.352] [BankServer-50435] Duplicate ignored: BankServer-50435 5
+[2026-10-10 10:50:46.352] [BankServer-50435] Duplicate ignored: BankServer-50435 6
+[2026-10-10 10:50:46.352] [BankServer-50435] Duplicate ignored: BankServer-50435 7
+[2026-10-10 10:50:46.352] [BankServer-50435] Duplicate ignored: BankServer-50435 8
+[2026-10-10 10:50:46.374] [BankServer-50435] Synced balance (naive) USD: 306.00
+[2026-10-10 10:50:46.409] [BankServer-50435] > addInterest EUR 10
+[2026-10-10 10:50:46.409] [BankServer-50435] Transaction created: addInterest EUR 10 [BankServer-50435 9]
+[2026-10-10 10:50:47.046] [BankServer-50435] > getSyncedBalance NOK
+[2026-10-10 10:50:47.046] [BankServer-50435] getSyncedBalance NOK (naive): waiting for an empty outstanding_collection...
+[2026-10-10 10:50:47.680] [BankServer-50435] > getQuickBalance NOK
+[2026-10-10 10:50:47.681] [BankServer-50435] Quick balance NOK: 3060.00
+[2026-10-10 10:50:48.700] [BankServer-50435] > deposit USD 100
+[2026-10-10 10:50:48.700] [BankServer-50435] Transaction created: deposit USD 100 [BankServer-50435 10]
+[2026-10-10 10:50:49.333] [BankServer-50435] > deposit EUR 100
+[2026-10-10 10:50:49.333] [BankServer-50435] Transaction created: deposit EUR 100 [BankServer-50435 11]
+[2026-10-10 10:50:50.166] [BankServer-50435] > addInterest 20
+[2026-10-10 10:50:50.167] [BankServer-50435] Transaction created: addInterest 20 [BankServer-50435 12]
+[2026-10-10 10:50:51.643] [BankServer-50435] > checkTxStatus 12
+[2026-10-10 10:50:51.643] BankServer-50435 12: OUTSTANDING
+[2026-10-10 10:50:52.665] [BankServer-50435] > memberInfo
+[2026-10-10 10:50:52.666] [BankServer-50435] memberInfo: [BankServer-50435] (1 members)
+[2026-10-10 10:50:53.932] [BankServer-50435] > getHistory
+[2026-10-10 10:50:53.932] [BankServer-50435] executed_list
+[2026-10-10 10:50:53.934] 0. 2026-10-10 10:50:26.344 deposit USD 100  [BankServer-50435 0]
+[2026-10-10 10:50:53.934] 1. 2026-10-10 10:50:26.344 deposit NOK 100  [BankServer-50435 1]
+[2026-10-10 10:50:53.934] 2. 2026-10-10 10:50:46.349 addInterest USD 10  [BankServer-50435 2]
+[2026-10-10 10:50:53.934] 3. 2026-10-10 10:50:46.350 deposit EUR 100  [BankServer-50435 3]
+[2026-10-10 10:50:53.934] 4. 2026-10-10 10:50:46.350 deposit NOK 50  [BankServer-50435 4]
+[2026-10-10 10:50:53.934] 5. 2026-10-10 10:50:46.350 deposit USD 40  [BankServer-50435 5]
+[2026-10-10 10:50:53.934] 6. 2026-10-10 10:50:46.350 deposit NOK 30  [BankServer-50435 6]
+[2026-10-10 10:50:53.934] 7. 2026-10-10 10:50:46.350 deposit USD 20  [BankServer-50435 7]
+[2026-10-10 10:50:53.934] 8. 2026-10-10 10:50:46.350 deposit NOK 10  [BankServer-50435 8]
+[2026-10-10 10:50:53.934] [BankServer-50435] outstanding_collection
+[2026-10-10 10:50:53.934] addInterest EUR 10  [BankServer-50435 9]
+[2026-10-10 10:50:53.934] deposit USD 100  [BankServer-50435 10]
+[2026-10-10 10:50:53.934] deposit EUR 100  [BankServer-50435 11]
+[2026-10-10 10:50:53.934] addInterest 20  [BankServer-50435 12]
+[2026-10-10 10:50:54.759] [BankServer-50435] > cleanHistory
+[2026-10-10 10:50:54.759] [BankServer-50435] History cleaned.
+[2026-10-10 10:50:55.333] [BankServer-50435] > deposit NOK 100
+[2026-10-10 10:50:55.333] [BankServer-50435] Transaction created: deposit NOK 100 [BankServer-50435 13]
+[2026-10-10 10:50:56.352] [BankServer-50435] Received transaction: addInterest EUR 10
+[2026-10-10 10:50:56.352] [BankServer-50435] Received transaction: deposit USD 100
+[2026-10-10 10:50:56.352] [BankServer-50435] USD balance: 270.00
+[2026-10-10 10:50:56.352] [BankServer-50435] Received transaction: deposit EUR 100
+[2026-10-10 10:50:56.352] [BankServer-50435] EUR balance: 210.00
+[2026-10-10 10:50:56.352] [BankServer-50435] Received transaction: addInterest 20
+[2026-10-10 10:50:56.352] [BankServer-50435] Received transaction: deposit NOK 100
+[2026-10-10 10:50:56.352] [BankServer-50435] NOK balance: 328.00
+[2026-10-10 10:50:56.434] [BankServer-50435] Synced balance (naive) NOK: 6516.40
+[2026-10-10 10:50:56.664] [BankServer-50435] > sleep 8
+[2026-10-10 10:51:05.765] [BankServer-50435] > getSyncedBalance USD
+[2026-10-10 10:51:05.765] [BankServer-50435] getSyncedBalance USD (naive): waiting for an empty outstanding_collection...
+[2026-10-10 10:51:05.766] [BankServer-50435] Synced balance (naive) USD: 651.64
+[2026-10-10 10:51:06.433] [BankServer-50435] > getQuickBalance USD
+[2026-10-10 10:51:06.434] [BankServer-50435] Quick balance USD: 651.64
+[2026-10-10 10:51:07.208] [BankServer-50435] > getHistory
+[2026-10-10 10:51:07.209] [BankServer-50435] executed_list
+[2026-10-10 10:51:07.209] 9. 2026-10-10 10:50:56.352 addInterest EUR 10  [BankServer-50435 9]
+[2026-10-10 10:51:07.209] 10. 2026-10-10 10:50:56.352 deposit USD 100  [BankServer-50435 10]
+[2026-10-10 10:51:07.209] 11. 2026-10-10 10:50:56.352 deposit EUR 100  [BankServer-50435 11]
+[2026-10-10 10:51:07.209] 12. 2026-10-10 10:50:56.352 addInterest 20  [BankServer-50435 12]
+[2026-10-10 10:51:07.209] 13. 2026-10-10 10:50:56.352 deposit NOK 100  [BankServer-50435 13]
+[2026-10-10 10:51:07.209] [BankServer-50435] outstanding_collection
+[2026-10-10 10:51:07.978] [BankServer-50435] > exit
+[2026-10-10 10:51:07.982] [BankServer-50435] exiting.

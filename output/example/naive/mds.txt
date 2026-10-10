@@ -1,0 +1,20 @@
+[2026-10-10 10:50:10.421] MessageDeliveryServer ready on port 1099
+[2026-10-10 10:50:16.319] BankServer-50435 joined group group01
+[2026-10-10 10:50:16.319] Number of replicas: 1
+[2026-10-10 10:50:26.337] Message added to queue: [src.common.Transaction@8f4098b, src.common.Transaction@1c789bc5]
+[2026-10-10 10:50:26.337] Message added to queue: [src.common.Transaction@184d76c8, src.common.Transaction@2c9a06fc]
+[2026-10-10 10:50:26.338] Processing message: -1
+[2026-10-10 10:50:26.354] ACK from BankServer-50435 for message 0
+[2026-10-10 10:50:26.359] Processing message: 0
+[2026-10-10 10:50:26.364] ACK from BankServer-50435 for message 1
+[2026-10-10 10:50:46.348] Message added to queue: [src.common.Transaction@2b31ed68, src.common.Transaction@43964f05, src.common.Transaction@6b86bead, src.common.Transaction@33f8a6ab, src.common.Transaction@17864711, src.common.Transaction@6619dc83, src.common.Transaction@3834653b]
+[2026-10-10 10:50:46.348] Processing message: 1
+[2026-10-10 10:50:46.348] Message added to queue: [src.common.Transaction@75e183f7, src.common.Transaction@2894bab3, src.common.Transaction@25daa23b, src.common.Transaction@bbf4213, src.common.Transaction@723886a8, src.common.Transaction@7f74eb7e, src.common.Transaction@fcf55d1]
+[2026-10-10 10:50:46.351] ACK from BankServer-50435 for message 2
+[2026-10-10 10:50:46.351] Processing message: 2
+[2026-10-10 10:50:46.352] ACK from BankServer-50435 for message 3
+[2026-10-10 10:50:56.351] Message added to queue: [src.common.Transaction@7e9121e1, src.common.Transaction@482af55d, src.common.Transaction@10ddc83d, src.common.Transaction@65c9662a, src.common.Transaction@1220cd5b]
+[2026-10-10 10:50:56.351] Processing message: 3
+[2026-10-10 10:50:56.353] ACK from BankServer-50435 for message 4
+[2026-10-10 10:51:07.982] BankServer-50435 left group group01
+[2026-10-10 10:51:07.982] Number of replicas: 0
