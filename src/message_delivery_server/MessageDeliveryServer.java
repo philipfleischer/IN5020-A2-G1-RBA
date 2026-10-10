@@ -18,336 +18,336 @@ import java.util.HashSet;
 import src.common.Message;
 
 public class MessageDeliveryServer
-                extends UnicastRemoteObject
-                implements MessageDeliveryServerInterface {
+        extends UnicastRemoteObject
+        implements MessageDeliveryServerInterface {
 
-        // BankServer replicas that have joined
-        private final List<BankServerInterface> bankServers = new ArrayList<>();
+    // BankServer replicas that have joined
+    private final List<BankServerInterface> bankServers = new ArrayList<>();
 
-        // Queue of messages to be broadcast to all replicas
-        private final BlockingQueue<Message> messageQueue = new LinkedBlockingQueue<>();
+    // Queue of messages to be broadcast to all replicas
+    private final BlockingQueue<Message> messageQueue = new LinkedBlockingQueue<>();
 
-        // IDs of BankServers we are still waiting for ACKs from
-        private final Set<String> pendingAcks = new HashSet<>();
+    // IDs of BankServers we are still waiting for ACKs from
+    private final Set<String> pendingAcks = new HashSet<>();
 
-        private final Object ackLock = new Object();
+    private final Object ackLock = new Object();
 
-        private long currentMessageId = -1;
-        private long nextMessageId = 0;
+    private long currentMessageId = -1;
+    private long nextMessageId = 0;
+
+    /*
+     * Constructor required because UnicastRemoteObject
+     * can throw RemoteException.
+     */
+    public MessageDeliveryServer()
+            throws RemoteException {
+
+        super();
+
+        Thread worker = new Thread(
+                this::processMessages);
+
+        worker.start();
+    }
+
+    /*
+     * -------------------------------------------------
+     * JOIN
+     * -------------------------------------------------
+     *
+     * Called when a BankServer starts and joins the group.
+     */
+    @Override
+    public synchronized void join(
+            String groupName,
+            BankServerInterface bankServer) throws RemoteException {
+
+        bankServers.add(bankServer);
+
+        String serverName = bankServer.getServerName();
+
+        System.out.println(
+                serverName
+                        + " joined group "
+                        + groupName);
+
+        System.out.println(
+                "Number of replicas: "
+                        + bankServers.size());
+
+        // Tell all BankServers that membership changed
+        notifyMembershipChanged();
+    }
+
+    /*
+     * -------------------------------------------------
+     * LEAVE
+     * -------------------------------------------------
+     *
+     * Called by a BankServer that exits on purpose. This is a
+     * "leave", not a crash: we remove it at once instead of
+     * waiting for the ACK timeout to mark it as FAIL.
+     */
+    @Override
+    public void leave(
+            String groupName,
+            BankServerInterface bankServer) throws RemoteException {
+
+        String serverName = bankServer.getServerName();
+
+        synchronized (this) {
+
+            // RMI stubs that point to the same remote object are
+            // equal(), so this removes the stub that join() stored.
+            bankServers.remove(bankServer);
+
+            System.out.println(
+                    serverName
+                            + " left group "
+                            + groupName);
+
+            System.out.println(
+                    "Number of replicas: "
+                            + bankServers.size());
+
+            notifyMembershipChanged();
+        }
+
+        // If the worker thread is waiting for an ACK from this
+        // server, stop waiting for it: it will never come.
+        synchronized (ackLock) {
+
+            pendingAcks.remove(serverName);
+
+            if (pendingAcks.isEmpty()) {
+                ackLock.notifyAll();
+            }
+        }
+    }
+
+    /*
+     * -------------------------------------------------
+     * BROADCAST TRANSACTION
+     * -------------------------------------------------
+     *
+     * A BankServer sends a list of transactions here.
+     *
+     * MessageDeliveryServer adds the list to the message queue, and will later
+     * broadcast it to all
+     * BankServer replicas.
+     *
+     * (bank servers can call at the same time) synchronized to have safe
+     * nextMessageId++.
+     */
+    @Override
+    public synchronized void broadcastTransactions(
+            List<Transaction> transactions) throws RemoteException {
+
+        // Make our own copy of the received message
+        List<Transaction> message = new ArrayList<>(transactions);
+
+        Message msg = new Message(nextMessageId++, message);
+        messageQueue.add(msg);
+
+        System.out.println(
+                "Message added to queue: " + message);
+    }
+
+    /*
+     * -------------------------------------------------
+     * MEMBERSHIP CHANGED
+     * -------------------------------------------------
+     */
+
+    private void notifyMembershipChanged() {
+
+        List<String> memberNames = new ArrayList<>();
 
         /*
-         * Constructor required because UnicastRemoteObject
-         * can throw RemoteException.
+         * First collect the names of all members.
          */
-        public MessageDeliveryServer()
-                        throws RemoteException {
+        for (BankServerInterface bankServer : bankServers) {
 
-                super();
+            try {
 
-                Thread worker = new Thread(
-                                this::processMessages);
+                memberNames.add(
+                        bankServer.getServerName());
 
-                worker.start();
+            } catch (RemoteException e) {
+
+                System.err.println(
+                        "Could not get BankServer name: "
+                                + e.getMessage());
+            }
         }
 
         /*
-         * -------------------------------------------------
-         * JOIN
-         * -------------------------------------------------
-         *
-         * Called when a BankServer starts and joins the group.
+         * Then send the updated membership list
+         * to every BankServer.
          */
-        @Override
-        public synchronized void join(
-                        String groupName,
-                        BankServerInterface bankServer) throws RemoteException {
+        for (BankServerInterface bankServer : bankServers) {
 
-                bankServers.add(bankServer);
+            try {
 
-                String serverName = bankServer.getServerName();
+                bankServer.membershipChanged(
+                        memberNames);
 
-                System.out.println(
-                                serverName
-                                                + " joined group "
-                                                + groupName);
+            } catch (RemoteException e) {
 
-                System.out.println(
-                                "Number of replicas: "
-                                                + bankServers.size());
-
-                // Tell all BankServers that membership changed
-                notifyMembershipChanged();
+                System.err.println(
+                        "Could not send membership update: "
+                                + e.getMessage());
+            }
         }
+    }
 
-        /*
-         * -------------------------------------------------
-         * LEAVE
-         * -------------------------------------------------
-         *
-         * Called by a BankServer that exits on purpose. This is a
-         * "leave", not a crash: we remove it at once instead of
-         * waiting for the ACK timeout to mark it as FAIL.
-         */
-        @Override
-        public void leave(
-                        String groupName,
-                        BankServerInterface bankServer) throws RemoteException {
+    /*
+     * -------------------------------------------------
+     * ACK
+     * -------------------------------------------------
+     *
+     * We will implement this properly when we add
+     * retry/failure handling.
+     */
+    @Override
+    public void ack(
+            String serverId,
+            long messageId) throws RemoteException {
 
-                String serverName = bankServer.getServerName();
+        synchronized (ackLock) {
+            // Ignore ACKs for messages other than the current message
+            if (messageId != currentMessageId) {
+                return;
+            }
+
+            pendingAcks.remove(serverId);
+
+            System.out.println(
+                    "ACK from "
+                            + serverId
+                            + " for message "
+                            + messageId);
+
+            // if all ACKs have been received, notify the waiting thread
+            if (pendingAcks.isEmpty()) {
+                ackLock.notifyAll();
+            }
+        }
+    }
+
+    private void processMessages() {
+
+        while (true) {
+
+            try {
+
+                // Wait here until a message exists
+                Message message = messageQueue.take();
+
+                System.out.println(
+                        "Processing message: "
+                                + currentMessageId);
+
+                /*
+                 * Take a snapshot of the current replicas.
+                 */
+                List<BankServerInterface> servers;
 
                 synchronized (this) {
-
-                        // RMI stubs that point to the same remote object are
-                        // equal(), so this removes the stub that join() stored.
-                        bankServers.remove(bankServer);
-
-                        System.out.println(
-                                        serverName
-                                                        + " left group "
-                                                        + groupName);
-
-                        System.out.println(
-                                        "Number of replicas: "
-                                                        + bankServers.size());
-
-                        notifyMembershipChanged();
-                }
-
-                // If the worker thread is waiting for an ACK from this
-                // server, stop waiting for it: it will never come.
-                synchronized (ackLock) {
-
-                        pendingAcks.remove(serverName);
-
-                        if (pendingAcks.isEmpty()) {
-                                ackLock.notifyAll();
-                        }
-                }
-        }
-
-        /*
-         * -------------------------------------------------
-         * BROADCAST TRANSACTION
-         * -------------------------------------------------
-         *
-         * A BankServer sends a list of transactions here.
-         *
-         * MessageDeliveryServer adds the list to the message queue, and will later
-         * broadcast it to all
-         * BankServer replicas.
-         *
-         * (bank servers can call at the same time) synchronized to have safe
-         * nextMessageId++.
-         */
-        @Override
-        public synchronized void broadcastTransactions(
-                        List<Transaction> transactions) throws RemoteException {
-
-                // Make our own copy of the received message
-                List<Transaction> message = new ArrayList<>(transactions);
-
-                Message msg = new Message(nextMessageId++, message);
-                messageQueue.add(msg);
-
-                System.out.println(
-                                "Message added to queue: " + message);
-        }
-
-        /*
-         * -------------------------------------------------
-         * MEMBERSHIP CHANGED
-         * -------------------------------------------------
-         */
-
-        private void notifyMembershipChanged() {
-
-                List<String> memberNames = new ArrayList<>();
-
-                /*
-                 * First collect the names of all members.
-                 */
-                for (BankServerInterface bankServer : bankServers) {
-
-                        try {
-
-                                memberNames.add(
-                                                bankServer.getServerName());
-
-                        } catch (RemoteException e) {
-
-                                System.err.println(
-                                                "Could not get BankServer name: "
-                                                                + e.getMessage());
-                        }
+                    servers = new ArrayList<>(bankServers);
                 }
 
                 /*
-                 * Then send the updated membership list
-                 * to every BankServer.
-                 */
-                for (BankServerInterface bankServer : bankServers) {
-
-                        try {
-
-                                bankServer.membershipChanged(
-                                                memberNames);
-
-                        } catch (RemoteException e) {
-
-                                System.err.println(
-                                                "Could not send membership update: "
-                                                                + e.getMessage());
-                        }
-                }
-        }
-
-        /*
-         * -------------------------------------------------
-         * ACK
-         * -------------------------------------------------
-         *
-         * We will implement this properly when we add
-         * retry/failure handling.
-         */
-        @Override
-        public void ack(
-                        String serverId,
-                        long messageId) throws RemoteException {
-
-                synchronized (ackLock) {
-                        // Ignore ACKs for messages other than the current message
-                        if (messageId != currentMessageId) {
-                                return;
-                        }
-
-                        pendingAcks.remove(serverId);
-
-                        System.out.println(
-                                        "ACK from "
-                                                        + serverId
-                                                        + " for message "
-                                                        + messageId);
-
-                        // if all ACKs have been received, notify the waiting thread
-                        if (pendingAcks.isEmpty()) {
-                                ackLock.notifyAll();
-                        }
-                }
-        }
-
-        private void processMessages() {
-
-                while (true) {
-
-                        try {
-
-                                // Wait here until a message exists
-                                Message message = messageQueue.take();
-
-                                System.out.println(
-                                                "Processing message: "
-                                                                + currentMessageId);
-
-                                /*
-                                 * Take a snapshot of the current replicas.
-                                 */
-                                List<BankServerInterface> servers;
-
-                                synchronized (this) {
-                                        servers = new ArrayList<>(bankServers);
-                                }
-
-                                /*
-                                 * For now we send sequentially.
-                                 *
-                                 * Later this must be changed to parallel
-                                 * delivery + ACK waiting.
-                                 */
-                                synchronized (ackLock) {
-                                        currentMessageId = message.getMessageId();
-
-                                        pendingAcks.clear();
-
-                                        for (BankServerInterface bankServer : servers) {
-                                                try {
-                                                        pendingAcks.add(
-                                                                        bankServer.getServerName());
-                                                } catch (RemoteException e) {
-                                                        System.err.println(
-                                                                        "Could not get server name: "
-                                                                                        + e.getMessage());
-                                                }
-                                        }
-                                }
-
-                                // AFTER pendingAcks is ready:
-                                for (BankServerInterface bankServer : servers) {
-                                        try {
-                                                bankServer.receiveTransaction(
-                                                                message.getMessageId(),
-                                                                message.getTransactions());
-                                        } catch (RemoteException e) {
-                                                System.err.println(
-                                                                "Could not deliver message: "
-                                                                                + e.getMessage());
-                                        }
-                                }
-
-                                // Wait for all ACKs to be received, then continue to the next message
-                                synchronized (ackLock) {
-                                        while (!pendingAcks.isEmpty()) {
-                                                ackLock.wait();
-                                        }
-                                }
-
-                        } catch (InterruptedException e) {
-
-                                Thread.currentThread().interrupt();
-                                break;
-                        }
-                }
-        }
-
-        /*
-         * -------------------------------------------------
-         * MAIN
-         * -------------------------------------------------
-         */
-
-        public static void main(
-                        String[] args) throws Exception {
-
-                // Timestamp on every output line
-                Log.install();
-
-                int port = 1099;
-
-                /*
-                 * Optional:
+                 * For now we send sequentially.
                  *
-                 * java MessageDeliveryServer 1099
+                 * Later this must be changed to parallel
+                 * delivery + ACK waiting.
                  */
-                if (args.length >= 1) {
-                        port = Integer.parseInt(args[0]);
+                synchronized (ackLock) {
+                    currentMessageId = message.getMessageId();
+
+                    pendingAcks.clear();
+
+                    for (BankServerInterface bankServer : servers) {
+                        try {
+                            pendingAcks.add(
+                                    bankServer.getServerName());
+                        } catch (RemoteException e) {
+                            System.err.println(
+                                    "Could not get server name: "
+                                            + e.getMessage());
+                        }
+                    }
                 }
 
-                MessageDeliveryServer server = new MessageDeliveryServer();
+                // AFTER pendingAcks is ready:
+                for (BankServerInterface bankServer : servers) {
+                    try {
+                        bankServer.receiveTransaction(
+                                message.getMessageId(),
+                                message.getTransactions());
+                    } catch (RemoteException e) {
+                        System.err.println(
+                                "Could not deliver message: "
+                                        + e.getMessage());
+                    }
+                }
 
-                /*
-                 * Create the RMI registry.
-                 */
-                Registry registry = LocateRegistry.createRegistry(port);
+                // Wait for all ACKs to be received, then continue to the next message
+                synchronized (ackLock) {
+                    while (!pendingAcks.isEmpty()) {
+                        ackLock.wait();
+                    }
+                }
 
-                /*
-                 * Register MessageDeliveryServer so BankServers
-                 * can find it using lookup().
-                 */
-                registry.rebind(
-                                "MessageDeliveryServer",
-                                server);
+            } catch (InterruptedException e) {
 
-                System.out.println(
-                                "MessageDeliveryServer ready on port "
-                                                + port);
+                Thread.currentThread().interrupt();
+                break;
+            }
         }
+    }
+
+    /*
+     * -------------------------------------------------
+     * MAIN
+     * -------------------------------------------------
+     */
+
+    public static void main(
+            String[] args) throws Exception {
+
+        // Timestamp on every output line
+        Log.install();
+
+        int port = 1099;
+
+        /*
+         * Optional:
+         *
+         * java MessageDeliveryServer 1099
+         */
+        if (args.length >= 1) {
+            port = Integer.parseInt(args[0]);
+        }
+
+        MessageDeliveryServer server = new MessageDeliveryServer();
+
+        /*
+         * Create the RMI registry.
+         */
+        Registry registry = LocateRegistry.createRegistry(port);
+
+        /*
+         * Register MessageDeliveryServer so BankServers
+         * can find it using lookup().
+         */
+        registry.rebind(
+                "MessageDeliveryServer",
+                server);
+
+        System.out.println(
+                "MessageDeliveryServer ready on port "
+                        + port);
+    }
 }
