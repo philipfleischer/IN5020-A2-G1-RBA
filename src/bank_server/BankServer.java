@@ -859,9 +859,7 @@ public class BankServer
                     "[" + serverName + "] > ");
 
             // Show the prompt now (print() without '\n' is not
-            // flushed automatically). Log also treats this flush as
-            // the end of the prompt line, so the next output line
-            // gets its own timestamp.
+            // flushed automatically)
             System.out.flush();
 
             if (!scanner.hasNextLine()) {
@@ -869,6 +867,10 @@ public class BankServer
             }
 
             String input = scanner.nextLine();
+
+            // The user pressed Enter, so the next output line needs
+            // its own timestamp (see Log.promptAnswered)
+            Log.promptAnswered();
 
             boolean keepRunning = helper.handleCommand(input);
 
@@ -988,7 +990,7 @@ public class BankServer
         if (args.length < 4) {
 
             System.out.println(
-                    "Usage: java BankServer "
+                    "Usage: java [-Dsync=correct|naive] -jar BankServer.jar "
                             + "<host:port> "
                             + "<account name> "
                             + "<number of replicas> "
