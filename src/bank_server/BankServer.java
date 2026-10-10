@@ -24,6 +24,9 @@ import java.util.Locale;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.CopyOnWriteArrayList;
+import java.util.concurrent.TimeUnit;
+import java.util.concurrent.TimeoutException;
 
 public class BankServer
         extends UnicastRemoteObject
@@ -58,6 +61,19 @@ public class BankServer
     // addInterest with outstanding_counter, so "checkTxStatus 0" in the
     // input files must refer to the first deposit/addInterest.
     private int syncRequestCounter = 0;
+
+    // Which getSyncedBalance implementation the command uses. Chosen at
+    // start-up with -Dsync=naive (default: correct), so the same input
+    // files can be run with both versions and the outputs compared.
+    static final boolean NAIVE_SYNC = "naive".equals(System.getProperty("sync", "correct"));
+
+    // getSyncedBalance requests that have not printed their answer yet.
+    // shutdown() waits for them, so "getSyncedBalance" right before
+    // "exit" still prints its answer.
+    private final List<CompletableFuture<?>> syncRequestsInProgress = new CopyOnWriteArrayList<>();
+
+    // How long shutdown() waits for unanswered getSyncedBalance requests
+    private static final int SYNC_WAIT_ON_EXIT_SECONDS = 30;
 
     private final String serverName;
     private final String accountName;
@@ -533,45 +549,84 @@ continue;
      * =====================================================
      */
 
-    public void getSyncedBalance(String currency) {
+    public CompletableFuture<Double> getSyncedBalance(String currency) {
 
-       String uniqueId;
-       CompletableFuture<Double> future = new CompletableFuture<>();
-       synchronized (this){
-           // "sync-" prefix: unique, and never mistaken for a
-           // deposit/addInterest id such as "BankServer-1234 0"
-           uniqueId = serverName + " sync-" + syncRequestCounter;
+        String uniqueId;
+        CompletableFuture<Double> future = new CompletableFuture<>();
 
-           Transaction syncRequest = new Transaction(
-                   "getSyncedBalance " + currency,
-                   uniqueId
-           );
-           outstandingCollection.add(syncRequest);
-           syncRequestCounter++;
-           pendingSyncResults.put(uniqueId, future);
-       }
+        synchronized (this) {
+            // "sync-" prefix: unique, and never mistaken for a
+            // deposit/addInterest id such as "BankServer-1234 0"
+            uniqueId = serverName + " sync-" + syncRequestCounter;
+
+            Transaction syncRequest = new Transaction(
+                    "getSyncedBalance " + currency,
+                    uniqueId
+            );
+            outstandingCollection.add(syncRequest);
+            syncRequestCounter++;
+            pendingSyncResults.put(uniqueId, future);
+        }
 
         System.out.println(
                 "[" + serverName
                         + "] getSyncedBalance " + currency
-                + " queued [" + uniqueId + "], waiting for order..."
+                        + " queued [" + uniqueId + "], waiting for order..."
         );
 
-        try {
-           // Blocks without holding the object lock, so receiveTransaction()
-          // (also synchronized) stays free to deliver the ordered result.
-                  double balance = future.get();
-            System.out.println(
-              "[" + serverName + "] Synced balance " + currency
-              + ": " + formatAmount(balance)
-);
-      } catch (InterruptedException e) {
-    Thread.currentThread().interrupt();
-    System.err.println("[" + serverName + "] getSyncedBalance interrupted");
-} catch (ExecutionException e) {
-    // e.g. a currency without a trading rate
-    System.out.println("[" + serverName + "] " + e.getCause().getMessage());
-}
+        // We do NOT block here: the command loop goes on with the next
+        // command, and the answer is printed when our marker comes back
+        // ordered (resolveSyncedBalanceIfMine completes the future).
+        // The marker is already in outstandingCollection, so commands
+        // issued after this one are ordered AFTER it and cannot change
+        // the answer.
+        CompletableFuture<Double> printed =
+                future.whenComplete((balance, error) -> {
+                    if (error == null) {
+                        System.out.println(
+                                "[" + serverName + "] Synced balance "
+                                        + currency + ": "
+                                        + formatAmount(balance)
+                        );
+                    } else {
+                        // e.g. a currency without a trading rate
+                        System.out.println(
+                                "[" + serverName + "] " + error.getMessage()
+                        );
+                    }
+                });
+
+        syncRequestsInProgress.add(printed);
+        return printed;
+    }
+
+    /*
+     * Runs the (blocking) naive version in its own thread, so the command
+     * loop goes on exactly as in the correct version. Only the WAITING
+     * strategy differs between the two, which makes them comparable.
+     */
+    public void startSyncedBalanceNaive(String currency) {
+
+        System.out.println(
+                "[" + serverName + "] getSyncedBalance " + currency
+                        + " (naive): waiting for an empty outstanding_collection..."
+        );
+
+        CompletableFuture<Void> done = new CompletableFuture<>();
+
+        Thread worker = new Thread(() -> {
+            try {
+                getSyncedBalanceNaive(currency);
+            } finally {
+                done.complete(null);
+            }
+        }, "naive-getSyncedBalance");
+
+        // A stuck naive request must not keep the JVM alive
+        worker.setDaemon(true);
+
+        syncRequestsInProgress.add(done);
+        worker.start();
     }
 
 public void getSyncedBalanceNaive(String currency) {
@@ -661,6 +716,13 @@ private void resolveSyncedBalanceIfMine(Transaction transaction) {
             System.out.println("[" + serverName + "] outstanding_collection");
 
             for (Transaction transaction : outstandingCollection) {
+
+                    // getSyncedBalance markers are not deposit/addInterest
+                    // transactions, so they are not part of the history
+                    if (isSyncedBalanceRequest(transaction)) {
+                            continue;
+                    }
+
                     System.out.println(
                                     transaction.getCommand()
                                                     + "  [" + transaction.getUniqueId() + "]");
@@ -775,12 +837,38 @@ private void resolveSyncedBalanceIfMine(Transaction transaction) {
      * =====================================================
      */
 
+    private void waitForSyncRequests() {
+
+        for (CompletableFuture<?> request : syncRequestsInProgress) {
+            try {
+                request.get(SYNC_WAIT_ON_EXIT_SECONDS, TimeUnit.SECONDS);
+            } catch (TimeoutException e) {
+                System.out.println(
+                        "[" + serverName + "] getSyncedBalance still unanswered after "
+                                + SYNC_WAIT_ON_EXIT_SECONDS + " s, exiting anyway"
+                );
+                return;
+            } catch (ExecutionException e) {
+                // the request already printed its own error message
+            } catch (InterruptedException e) {
+                Thread.currentThread().interrupt();
+                return;
+            }
+        }
+    }
+
     public void shutdown() {
 
             // 1. Hand over transactions that were never broadcast, so the
             // other replicas still apply them after we are gone. The
             // message is queued BEFORE we leave, so it is not lost.
             broadcastOutstanding();
+
+            // Wait for getSyncedBalance answers that are still on their
+            // way. Our markers were just broadcast, so they come back
+            // ordered; with no new input, the naive version's
+            // outstanding_collection drains as well.
+            waitForSyncRequests();
 
             // 2. Leave the group on purpose. The MessageDeliveryServer
             // removes us at once and sends a new member list to the
@@ -1016,6 +1104,25 @@ private void resolveSyncedBalanceIfMine(Transaction transaction) {
 
 
         /*
+         * Which getSyncedBalance implementation to use:
+         *   java -Dsync=naive ...   or   java -Dsync=correct ...
+         * Default is "correct".
+         */
+        String syncMode =
+                System.getProperty("sync", "correct");
+
+        if (!syncMode.equals("correct") && !syncMode.equals("naive")) {
+
+            System.out.println(
+                    "-Dsync must be 'correct' or 'naive', not '"
+                            + syncMode + "'"
+            );
+
+            System.exit(1);
+        }
+
+
+        /*
          * Give each process a unique name.
          *
          * PID is fine for now while developing.
@@ -1058,6 +1165,11 @@ private void resolveSyncedBalanceIfMine(Transaction transaction) {
         System.out.println(
                 "Currency file: "
                         + currencyFile
+        );
+
+        System.out.println(
+                "getSyncedBalance mode: "
+                        + syncMode
         );
 
 

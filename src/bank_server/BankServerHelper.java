@@ -203,7 +203,12 @@ public class BankServerHelper {
         String currency =
                 parts.length == 2 ? parts[1] : DEFAULT_CURRENCY;
 
-        server.getSyncedBalance(currency);
+        // The implementation is chosen at start-up with -Dsync=naive|correct
+        if (BankServer.NAIVE_SYNC) {
+            server.startSyncedBalanceNaive(currency);
+        } else {
+            server.getSyncedBalance(currency);
+        }
     }
 
 

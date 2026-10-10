@@ -63,7 +63,7 @@ public class GetSyncedBalanceDemo {
                     + seconds(start) + " s");
         });
         Thread correct = new Thread(() -> {
-            server.getSyncedBalance("USD");
+            server.getSyncedBalance("USD").join();
             System.out.println("### CORRECT returned after "
                     + seconds(start) + " s");
         });
