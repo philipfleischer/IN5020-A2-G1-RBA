@@ -4,7 +4,7 @@ import java.rmi.Remote;
 import java.rmi.RemoteException;
 import java.util.List;
 
-import src.common.Transaction;
+import src.common.Transaction;   
 
 public interface BankServerInterface extends Remote {
 
@@ -29,6 +29,14 @@ public interface BankServerInterface extends Remote {
      * for example when a new replica joins the group.
      */
     void updateState(BankState state)
+            throws RemoteException;
+
+
+    /**
+     * Returns a copy of the current replicated state, used by the
+     * MessageDeliveryServer to bring a late-joining replica up to date.
+     */
+    BankState getState()
             throws RemoteException;
 
 
