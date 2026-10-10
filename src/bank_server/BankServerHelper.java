@@ -2,6 +2,10 @@ package src.bank_server;
 
 public class BankServerHelper {
 
+    // Used when getQuickBalance/getSyncedBalance is given without a
+    // currency (as in Rep3.txt). USD is the base of the trading-rate file.
+    private static final String DEFAULT_CURRENCY = "USD";
+
     private final BankServer server;
 
     public BankServerHelper(BankServer server) {
@@ -161,20 +165,21 @@ public class BankServerHelper {
 
     /*
      * -------------------------------------------------
-     * getQuickBalance <Currency>
+     * getQuickBalance [Currency]   (default: USD)
      * -------------------------------------------------
      */
 
     private void handleGetQuickBalance(String[] parts) {
 
-        if (parts.length != 2) {
+        if (parts.length > 2) {
             System.out.println(
-                    "Usage: getQuickBalance <Currency>"
+                    "Usage: getQuickBalance [Currency]"
             );
             return;
         }
 
-        String currency = parts[1];
+        String currency =
+                parts.length == 2 ? parts[1] : DEFAULT_CURRENCY;
 
         server.getQuickBalance(currency);
     }
@@ -182,20 +187,21 @@ public class BankServerHelper {
 
     /*
      * -------------------------------------------------
-     * getSyncedBalance <Currency>
+     * getSyncedBalance [Currency]   (default: USD)
      * -------------------------------------------------
      */
 
     private void handleGetSyncedBalance(String[] parts) {
 
-        if (parts.length != 2) {
+        if (parts.length > 2) {
             System.out.println(
-                    "Usage: getSyncedBalance <Currency>"
+                    "Usage: getSyncedBalance [Currency]"
             );
             return;
         }
 
-        String currency = parts[1];
+        String currency =
+                parts.length == 2 ? parts[1] : DEFAULT_CURRENCY;
 
         server.getSyncedBalance(currency);
     }

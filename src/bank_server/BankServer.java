@@ -51,6 +51,12 @@ public class BankServer
     private int orderCounter = 0;
     private int outstandingCounter = 0;
 
+    // Separate counter for getSyncedBalance requests. They also go through
+    // outstandingCollection, but the assignment numbers only deposit and
+    // addInterest with outstanding_counter, so "checkTxStatus 0" in the
+    // input files must refer to the first deposit/addInterest.
+    private int syncRequestCounter = 0;
+
     private final String serverName;
     private final String accountName;
     private final int numberOfReplicas;
@@ -465,14 +471,17 @@ continue;
        String uniqueId;
        CompletableFuture<Double> future = new CompletableFuture<>();
        synchronized (this){
-           uniqueId = serverName + " " + outstandingCounter;
+           // "sync-" prefix: unique, and never mistaken for a
+           // deposit/addInterest id such as "BankServer-1234 0"
+           uniqueId = serverName + " sync-" + syncRequestCounter;
 
-           Transaction syncRequest = new Transaction("getSyncedBalance " + currency,
-            uniqueId
-);
-          outstandingCollection.add(syncRequest);
-          outstandingCounter++;
-          pendingSyncResults.put(uniqueId, future);
+           Transaction syncRequest = new Transaction(
+                   "getSyncedBalance " + currency,
+                   uniqueId
+           );
+           outstandingCollection.add(syncRequest);
+           syncRequestCounter++;
+           pendingSyncResults.put(uniqueId, future);
        }
 
         System.out.println(
@@ -608,8 +617,16 @@ private void resolveSyncedBalanceIfMine(Transaction transaction) {
      */
 
     public synchronized void checkTxStatus(
-            String uniqueId
+            String id
     ) {
+
+        // The input files only give the counter ("checkTxStatus 0").
+        // A bare number means "transaction number N created by THIS
+        // server", so we add our own name to get the full unique id.
+        String uniqueId =
+                id.matches("\\d+")
+                        ? serverName + " " + id
+                        : id;
 
         if (hasBeenExecuted(uniqueId)) {
 
