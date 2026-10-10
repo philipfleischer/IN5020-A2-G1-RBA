@@ -140,12 +140,6 @@ different. Logs in `output/example/correct/` and `output/example/naive/`:
 The naive answers depend on timing and change from run to run. The correct answers
 are always the same.
 
-`src/bank_server/GetSyncedBalanceDemo.java` shows the starvation directly: it keeps
-the collection non-empty, and the naive request does not return until the load stops.
-
-```bash
-java -cp out src.bank_server.GetSyncedBalanceDemo localhost:1099
-```
 
 ---
 
@@ -194,6 +188,6 @@ java -cp out src.bank_server.GetSyncedBalanceDemo localhost:1099
 
 | Member | Work |
 |---|---|
-| Håkon Gulliksrud | RMI set-up, Message Delivery server (join, ordering queue, ACK handling), first version of the bank server. `TODO: timeout / late join, if Håkon did it` |
-| Hersino `TODO: full name` | `getSyncedBalance` (naive and correct), currency conversion, `GetSyncedBalanceDemo` |
-| Philip Elias Fleischer | Commands (`checkTxStatus`, `getHistory`, `memberInfo`, `exit`/leave, waiting for all replicas), exactly-once execution, naive/correct switch, logging with timestamps, build scripts, testing, README |
+| Håkon Gulliksrud: haakgull@uio.no | RMI set-up, Message Delivery server (join, ordering queue, ACK handling), first version of the bank server. `TODO: timeout / late join, if Håkon did it` |
+| Anwar Ahmed Hersi: anwarahe@uio.no | `getSyncedBalance` (naive and correct), currency conversion, `GetSyncedBalanceDemo` |
+| Philip Elias Fleischer: philipef@uio.no | Commands (`checkTxStatus`, `getHistory`, `memberInfo`, `exit`/leave, waiting for all replicas), exactly-once execution, naive/correct switch, logging with timestamps, build scripts, testing, README |
