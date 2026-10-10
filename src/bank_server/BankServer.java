@@ -14,9 +14,11 @@ import java.nio.file.Paths;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
+import java.util.Set;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ConcurrentHashMap;
@@ -40,6 +42,12 @@ public class BankServer
     // Transactions that have been ordered and executed
     private final List<Transaction> executedList = new ArrayList<>();
 
+    // uniqueIds of ALL transactions this replica has ever executed.
+    // Unlike executedList this is never cleared by cleanHistory, so it is
+    // what we use to guarantee "each transaction is executed only once"
+    // and to answer checkTxStatus after the history has been cleaned.
+    private final Set<String> executedIds = new HashSet<>();
+
     private int orderCounter = 0;
     private int outstandingCounter = 0;
 
@@ -51,9 +59,9 @@ public class BankServer
     private MessageDeliveryServerInterface messageServer;
 
     // Handles command parsing
-    private final BankServerHelper helper; 
+    private final BankServerHelper helper;
 
-   
+
 // Pending getSyncedBalance requests this server originated, keyed by
 // the transaction's uniqueId. receiveTransaction() completes these
 // once the matching transaction comes back orderd.
@@ -66,7 +74,7 @@ private CurrencyConverter converter = new CurrencyConverter();
     public BankServer(
             String serverName,
             String accountName,
-            int numberOfReplicas 
+            int numberOfReplicas
     ) throws RemoteException {
 
         super();
@@ -87,7 +95,7 @@ private CurrencyConverter converter = new CurrencyConverter();
 
 public void loadCurrencyRates(String path) throws java.io.IOException {
     converter = CurrencyConverter.fromFile(path);
-}   
+}
 
     public void connectToMessageServer(
             String host,
@@ -200,8 +208,8 @@ public void loadCurrencyRates(String path) throws java.io.IOException {
         // the executedlist (so it must never increment orderCounter either).
        // that keeps "orderCounter's executedList.size()" meaningful in
       // getHistory. Every other replica just discards it here."
-     
-        if (isSyncedBalanceRequest(transaction)){ 
+
+        if (isSyncedBalanceRequest(transaction)){
             resolveSyncedBalanceIfMine(transaction);
             outstandingCollection.removeIf
 (tx -> tx.getUniqueId().equals(transaction.getUniqueId())
@@ -217,7 +225,11 @@ continue;
                                 + transaction.getUniqueId()
                 );
 
-                return;
+                // Skip only THIS transaction. The rest of the message may
+                // contain new transactions, and we must still reach the
+                // ack() below, otherwise the MessageDeliveryServer waits
+                // for us forever (or marks us as FAIL).
+                continue;
             }
 
             System.out.println(
@@ -233,6 +245,7 @@ continue;
             orderCounter++;
 
             executedList.add(transaction);
+            executedIds.add(transaction.getUniqueId());
 
             // If we originally created this transaction,
             // remove it from our outstanding collection
@@ -447,7 +460,7 @@ continue;
      * =====================================================
      */
 
-    public void getSyncedBalance(String currency) { 
+    public void getSyncedBalance(String currency) {
 
        String uniqueId;
        CompletableFuture<Double> future = new CompletableFuture<>();
@@ -456,11 +469,11 @@ continue;
 
            Transaction syncRequest = new Transaction("getSyncedBalance " + currency,
             uniqueId
-); 
+);
           outstandingCollection.add(syncRequest);
           outstandingCounter++;
           pendingSyncResults.put(uniqueId, future);
-       }   
+       }
 
         System.out.println(
                 "[" + serverName
@@ -472,10 +485,10 @@ continue;
            // Blocks without holding the object lock, so receiveTransaction()
           // (also synchronized) stays free to deliver the ordered result.
                   double balance = future.get();
-            System.out.println( 
+            System.out.println(
               "[" + serverName + "] Synced balance " + currency
               + ": " + balance
-); 
+);
       } catch (InterruptedException e) {
     Thread.currentThread().interrupt();
     System.err.println("[" + serverName + "] getSyncedBalance interrupted");
@@ -483,13 +496,13 @@ continue;
     // e.g. a currency without a trading rate
     System.out.println("[" + serverName + "] " + e.getCause().getMessage());
 }
-    } 
+    }
 
 public void getSyncedBalanceNaive(String currency) {
 
     while (true) {
 
-        synchronized (this) { 
+        synchronized (this) {
             if (outstandingCollection.isEmpty()) {
                 try {
                     double balance =
@@ -515,22 +528,22 @@ public void getSyncedBalanceNaive(String currency) {
             return;
         }
     }
-} 
+}
 
 private boolean isSyncedBalanceRequest(Transaction transaction) {
     return transaction.getCommand().startsWith("getSyncedBalance");
-} 
+}
 
 private void resolveSyncedBalanceIfMine(Transaction transaction) {
    // Only the replica that created this request has a pending
    //  future for it - every other replica's map lookup is a no-op
-   CompletableFuture<Double> future = 
+   CompletableFuture<Double> future =
    pendingSyncResults.remove(transaction.getUniqueId());
 
    if (future == null) {
        return; // Not mine ignore
 }
- 
+
         String[] parts = transaction.getCommand().trim().split("\\s+");
         String currency = parts[1];
 
@@ -538,10 +551,10 @@ private void resolveSyncedBalanceIfMine(Transaction transaction) {
     future.complete(converter.convertTotal(balances, currency));
 } catch (IllegalArgumentException e) {
     future.completeExceptionally(e);
-}     
 }
-  
-      
+}
+
+
 
     /*
      * =====================================================
@@ -633,23 +646,13 @@ private void resolveSyncedBalanceIfMine(Transaction transaction) {
      * =====================================================
      * CHECK IF TRANSACTION WAS ALREADY EXECUTED
      * =====================================================
+     *
+     * Uses executedIds (never cleared) instead of executedList
+     * (cleared by cleanHistory).
      */
 
-    private boolean hasBeenExecuted(
-            String uniqueId
-    ) {
-
-        for (Transaction transaction :
-                executedList) {
-
-            if (transaction.getUniqueId()
-                    .equals(uniqueId)) {
-
-                return true;
-            }
-        }
-
-        return false;
+    private boolean hasBeenExecuted(String uniqueId) {
+            return executedIds.contains(uniqueId);
     }
 
 
@@ -929,7 +932,7 @@ private void resolveSyncedBalanceIfMine(Transaction transaction) {
                         accountName,
                         numberOfReplicas
                 );
-        server.loadCurrencyRates(currencyFile);  
+        server.loadCurrencyRates(currencyFile);
 
 
         System.out.println(
