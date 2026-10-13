@@ -306,8 +306,41 @@ public class BankServer
         System.out.println(
                 "[" + serverName + "] Received state update");
 
-        // TODO: later we copy the received state
-        // into this BankServer
+        balances.clear();
+        balances.putAll(state.getBalances());
+
+        executedList.clear();
+        executedList.addAll(state.getExecutedList());
+
+        executedIds.clear();
+        if (state.getExecutedIds() != null) {
+            executedIds.addAll(state.getExecutedIds());
+        }
+        for (Transaction transaction : executedList) {
+            executedIds.add(transaction.getUniqueId());
+        }
+
+        orderCounter = state.getOrderCounter();
+
+        System.out.println(
+                "[" + serverName + "] State copied: balances "
+                        + balances + ", " + executedList.size()
+                        + " executed transactions");
+    }
+
+    /*
+     * Gives a copy of our state to the MessageDeliveryServer,
+     * which passes it on to a replica that joins late.
+     */
+    @Override
+    public synchronized BankState getState()
+            throws RemoteException {
+
+        return new BankState(
+                new HashMap<>(balances),
+                new ArrayList<>(executedList),
+                orderCounter,
+                new HashSet<>(executedIds));
     }
 
     /*
@@ -1153,4 +1186,4 @@ public class BankServer
          */
         server.shutdown();
     }
-}
+} 

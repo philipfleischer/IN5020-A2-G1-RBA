@@ -99,4 +99,4 @@ public class GetSyncedBalanceDemo {
     private static String seconds(long start) {
         return String.format("%.1f", (System.currentTimeMillis() - start) / 1000.0);
     }
-}
+} 

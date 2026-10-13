@@ -30,6 +30,13 @@ public interface BankServerInterface extends Remote {
                         throws RemoteException;
 
         /**
+         * Returns a copy of the current replicated state, used by the
+         * MessageDeliveryServer to bring a late-joining replica up to date.
+         */
+        BankState getState()
+                        throws RemoteException;
+
+        /**
          * Returns the unique name/id of this BankServer instance.
          */
         String getServerName()

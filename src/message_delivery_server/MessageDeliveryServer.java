@@ -14,6 +14,12 @@ import java.util.List;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingQueue;
 import java.util.Set;
+import java.util.Map;
+import java.util.LinkedHashMap;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.locks.ReentrantLock;
+import src.bank_server.BankState;
 import java.util.HashSet;
 import src.common.Message;
 
@@ -31,6 +37,21 @@ public class MessageDeliveryServer
     private final Set<String> pendingAcks = new HashSet<>();
 
     private final Object ackLock = new Object();
+
+    // Held while one message is delivered, and while a replica joins
+    private final ReentrantLock deliveryLock = new ReentrantLock();
+
+    // Timeouts for ACK handling
+    private static final long RESEND_AFTER_MS = 2000;
+    private static final long FAIL_AFTER_MS = 5000;
+
+    // Threads used to send a message to all replicas in parallel
+    private final ExecutorService sender =
+            Executors.newCachedThreadPool(r -> {
+                Thread t = new Thread(r);
+                t.setDaemon(true);
+                return t;
+            });
 
     private long currentMessageId = -1;
     private long nextMessageId = 0;
@@ -58,26 +79,64 @@ public class MessageDeliveryServer
      * Called when a BankServer starts and joins the group.
      */
     @Override
-    public synchronized void join(
+    public void join(
             String groupName,
-            BankServerInterface bankServer) throws RemoteException {
+            BankServerInterface bankServer
+    ) throws RemoteException {
 
-        bankServers.add(bankServer);
+        // Wait until the message currently being delivered is finished,
+        // so every existing replica has the same, up-to-date state.
+        deliveryLock.lock();
 
-        String serverName = bankServer.getServerName();
+        try {
 
-        System.out.println(
-                serverName
-                        + " joined group "
-                        + groupName);
+            List<BankServerInterface> existing;
 
-        System.out.println(
-                "Number of replicas: "
-                        + bankServers.size());
+            synchronized (this) {
+                existing = new ArrayList<>(bankServers);
+            }
 
-        // Tell all BankServers that membership changed
-        notifyMembershipChanged();
+            // Late join: copy the state from the first replica that answers
+            for (BankServerInterface other : existing) {
+
+                try {
+
+                    BankState state = other.getState();
+                    bankServer.updateState(state);
+                    break;
+
+                } catch (RemoteException e) {
+
+                    System.err.println(
+                            "State transfer failed, trying next replica: "
+                                    + e.getMessage()
+                    );
+                }
+            }
+
+            synchronized (this) {
+
+                bankServers.add(bankServer);
+
+                String serverName = bankServer.getServerName();
+
+                System.out.println(
+                        serverName + " joined group " + groupName
+                );
+
+                System.out.println(
+                        "Number of replicas: " + bankServers.size()
+                );
+
+                // Tell all BankServers that membership changed
+                notifyMembershipChanged();
+            }
+
+        } finally {
+            deliveryLock.unlock();
+        }
     }
+
 
     /*
      * -------------------------------------------------
@@ -244,60 +303,13 @@ public class MessageDeliveryServer
                 // Wait here until a message exists
                 Message message = messageQueue.take();
 
-                System.out.println(
-                        "Processing message: "
-                                + currentMessageId);
-
-                /*
-                 * Take a snapshot of the current replicas.
-                 */
-                List<BankServerInterface> servers;
-
-                synchronized (this) {
-                    servers = new ArrayList<>(bankServers);
-                }
-
-                /*
-                 * For now we send sequentially.
-                 *
-                 * Later this must be changed to parallel
-                 * delivery + ACK waiting.
-                 */
-                synchronized (ackLock) {
-                    currentMessageId = message.getMessageId();
-
-                    pendingAcks.clear();
-
-                    for (BankServerInterface bankServer : servers) {
-                        try {
-                            pendingAcks.add(
-                                    bankServer.getServerName());
-                        } catch (RemoteException e) {
-                            System.err.println(
-                                    "Could not get server name: "
-                                            + e.getMessage());
-                        }
-                    }
-                }
-
-                // AFTER pendingAcks is ready:
-                for (BankServerInterface bankServer : servers) {
-                    try {
-                        bankServer.receiveTransaction(
-                                message.getMessageId(),
-                                message.getTransactions());
-                    } catch (RemoteException e) {
-                        System.err.println(
-                                "Could not deliver message: "
-                                        + e.getMessage());
-                    }
-                }
-
-                // Wait for all ACKs to be received, then continue to the next message
-                synchronized (ackLock) {
-                    while (!pendingAcks.isEmpty()) {
-                        ackLock.wait();
-                    }
+                // No replica can join while this message is being
+                // delivered (see join()), so state transfers stay consistent
+                deliveryLock.lock();
+                try {
+                    deliver(message);
+                } finally {
+                    deliveryLock.unlock();
                 }
 
             } catch (InterruptedException e) {
@@ -307,6 +319,133 @@ public class MessageDeliveryServer
             }
         }
     }
+
+
+    /*
+     * Deliver one message to all replicas and wait for ACKs.
+     */
+    private void deliver(Message message) throws InterruptedException {
+
+        System.out.println(
+                "Processing message: " + message.getMessageId()
+        );
+
+        // Snapshot of the current replicas, keyed by name
+        List<BankServerInterface> servers;
+
+        synchronized (this) {
+            servers = new ArrayList<>(bankServers);
+        }
+
+        Map<String, BankServerInterface> byName =
+                new LinkedHashMap<>();
+
+        for (BankServerInterface bankServer : servers) {
+            try {
+                byName.put(bankServer.getServerName(), bankServer);
+            } catch (RemoteException e) {
+                // Cannot even ask for its name: the replica is dead
+                markFailed("unreachable replica", bankServer);
+            }
+        }
+
+        // Prepare pendingAcks BEFORE sending
+        synchronized (ackLock) {
+            currentMessageId = message.getMessageId();
+            pendingAcks.clear();
+            pendingAcks.addAll(byName.keySet());
+        }
+
+        // Send to all replicas in parallel
+        for (BankServerInterface bankServer : byName.values()) {
+            sendAsync(bankServer, message);
+        }
+
+        // Wait for ACKs: resend after 2 s, give up after 5 s
+        long start = System.currentTimeMillis();
+        boolean resent = false;
+        List<String> failed;
+
+        synchronized (ackLock) {
+
+            while (!pendingAcks.isEmpty()) {
+
+                long elapsed = System.currentTimeMillis() - start;
+
+                if (elapsed >= FAIL_AFTER_MS) {
+                    break;
+                }
+
+                if (!resent && elapsed >= RESEND_AFTER_MS) {
+                    resent = true;
+                    for (String name : pendingAcks) {
+                        System.out.println(
+                                "No ACK from " + name
+                                        + " for message "
+                                        + message.getMessageId()
+                                        + ", resending"
+                        );
+                        sendAsync(byName.get(name), message);
+                    }
+                    continue;
+                }
+
+                long nextDeadline =
+                        resent ? FAIL_AFTER_MS : RESEND_AFTER_MS;
+
+                ackLock.wait(nextDeadline - elapsed);
+            }
+
+            failed = new ArrayList<>(pendingAcks);
+        }
+
+        // Replicas that never answered are marked FAIL and removed
+        for (String name : failed) {
+            markFailed(name, byName.get(name));
+        }
+    }
+
+
+    /*
+     * Deliver a message to one replica on its own thread,
+     * so a slow or dead replica cannot block the others.
+     */
+    private void sendAsync(
+            BankServerInterface bankServer,
+            Message message
+    ) {
+        sender.submit(() -> {
+            try {
+                bankServer.receiveTransaction(
+                        message.getMessageId(),
+                        message.getTransactions()
+                );
+            } catch (RemoteException e) {
+                System.err.println(
+                        "Could not deliver message: " + e.getMessage()
+                );
+            }
+        });
+    }
+
+
+    /*
+     * A replica that did not ACK within 5 s is marked FAIL,
+     * removed from the group, and the others are notified.
+     */
+    private void markFailed(String name, BankServerInterface bankServer) {
+
+        System.out.println(
+                "FAIL: " + name
+                        + " did not ACK in time, removing it from the group"
+        );
+
+        synchronized (this) {
+            bankServers.remove(bankServer);
+            notifyMembershipChanged();
+        }
+    }
+
 
     /*
      * -------------------------------------------------
@@ -350,4 +489,4 @@ public class MessageDeliveryServer
                 "MessageDeliveryServer ready on port "
                         + port);
     }
-}
+} 
