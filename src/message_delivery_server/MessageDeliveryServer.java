@@ -16,8 +16,14 @@ import java.util.concurrent.LinkedBlockingQueue;
 import java.util.Set;
 import java.util.Map;
 import java.util.LinkedHashMap;
+import java.util.HashMap;
+import java.util.concurrent.Callable;
+import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
+import java.util.concurrent.TimeUnit;
+import java.util.concurrent.TimeoutException;
 import java.util.concurrent.locks.ReentrantLock;
 import src.bank_server.BankState;
 import java.util.HashSet;
@@ -29,6 +35,11 @@ public class MessageDeliveryServer
 
     // BankServer replicas that have joined
     private final List<BankServerInterface> bankServers = new ArrayList<>();
+
+    // Name of every member, saved at join. We never ask a member for its
+    // name again: a replica that hangs would never answer, and the call
+    // would block the server forever (RMI calls have no timeout).
+    private final Map<BankServerInterface, String> names = new HashMap<>();
 
     // Queue of messages to be broadcast to all replicas
     private final BlockingQueue<Message> messageQueue = new LinkedBlockingQueue<>();
@@ -44,6 +55,10 @@ public class MessageDeliveryServer
     // Timeouts for ACK handling
     private static final long RESEND_AFTER_MS = 2000;
     private static final long FAIL_AFTER_MS = 5000;
+
+    // Timeouts for other calls to a replica (state transfer, member list)
+    private static final long STATE_TRANSFER_TIMEOUT_MS = 2000;
+    private static final long NOTIFY_TIMEOUT_MS = 1000;
 
     // Threads used to send a message to all replicas in parallel
     private final ExecutorService sender =
@@ -101,11 +116,14 @@ public class MessageDeliveryServer
 
                 try {
 
-                    BankState state = other.getState();
+                    // With a timeout: a replica that hangs must not
+                    // block the join (we then try the next one)
+                    BankState state = callWithTimeout(
+                            other::getState, STATE_TRANSFER_TIMEOUT_MS);
                     bankServer.updateState(state);
                     break;
 
-                } catch (RemoteException e) {
+                } catch (Exception e) {
 
                     System.err.println(
                             "State transfer failed, trying next replica: "
@@ -116,9 +134,12 @@ public class MessageDeliveryServer
 
             synchronized (this) {
 
-                bankServers.add(bankServer);
-
+                // The joining replica is calling us, so it is alive
+                // and answers this one at once
                 String serverName = bankServer.getServerName();
+
+                bankServers.add(bankServer);
+                names.put(bankServer, serverName);
 
                 System.out.println(
                         serverName + " joined group " + groupName
@@ -152,13 +173,18 @@ public class MessageDeliveryServer
             String groupName,
             BankServerInterface bankServer) throws RemoteException {
 
-        String serverName = bankServer.getServerName();
+        String serverName;
 
         synchronized (this) {
+
+            serverName = names.containsKey(bankServer)
+                    ? names.get(bankServer)
+                    : bankServer.getServerName();
 
             // RMI stubs that point to the same remote object are
             // equal(), so this removes the stub that join() stored.
             bankServers.remove(bankServer);
+            names.remove(bankServer);
 
             System.out.println(
                     serverName
@@ -223,39 +249,33 @@ public class MessageDeliveryServer
         List<String> memberNames = new ArrayList<>();
 
         /*
-         * First collect the names of all members.
+         * First collect the names of all members (saved at join,
+         * so no remote calls are needed).
          */
         for (BankServerInterface bankServer : bankServers) {
-
-            try {
-
-                memberNames.add(
-                        bankServer.getServerName());
-
-            } catch (RemoteException e) {
-
-                System.err.println(
-                        "Could not get BankServer name: "
-                                + e.getMessage());
-            }
+            memberNames.add(names.get(bankServer));
         }
 
         /*
-         * Then send the updated membership list
-         * to every BankServer.
+         * Then send the updated membership list to every BankServer.
+         * One at a time, so every replica sees the lists in the same
+         * order, but with a timeout, so a replica that hangs cannot
+         * block the server (it is removed by the ACK timeout later).
          */
         for (BankServerInterface bankServer : bankServers) {
 
             try {
 
-                bankServer.membershipChanged(
-                        memberNames);
+                callWithTimeout(() -> {
+                    bankServer.membershipChanged(memberNames);
+                    return null;
+                }, NOTIFY_TIMEOUT_MS);
 
-            } catch (RemoteException e) {
+            } catch (Exception e) {
 
                 System.err.println(
-                        "Could not send membership update: "
-                                + e.getMessage());
+                        "Could not send membership update to "
+                                + names.get(bankServer) + ": " + e);
             }
         }
     }
@@ -265,8 +285,9 @@ public class MessageDeliveryServer
      * ACK
      * -------------------------------------------------
      *
-     * We will implement this properly when we add
-     * retry/failure handling.
+     * Called by a BankServer when it has received AND executed
+     * a message. deliver() waits for these (resend after 2 s,
+     * FAIL after 5 s).
      */
     @Override
     public void ack(
@@ -340,12 +361,9 @@ public class MessageDeliveryServer
         Map<String, BankServerInterface> byName =
                 new LinkedHashMap<>();
 
-        for (BankServerInterface bankServer : servers) {
-            try {
-                byName.put(bankServer.getServerName(), bankServer);
-            } catch (RemoteException e) {
-                // Cannot even ask for its name: the replica is dead
-                markFailed("unreachable replica", bankServer);
+        synchronized (this) {
+            for (BankServerInterface bankServer : servers) {
+                byName.put(names.get(bankServer), bankServer);
             }
         }
 
@@ -442,7 +460,30 @@ public class MessageDeliveryServer
 
         synchronized (this) {
             bankServers.remove(bankServer);
+            names.remove(bankServer);
             notifyMembershipChanged();
+        }
+    }
+
+
+    /*
+     * Runs a remote call on another thread and gives up after timeoutMs.
+     * Used for calls the server makes while holding a lock, so one
+     * frozen replica cannot stop the whole group.
+     */
+    private <T> T callWithTimeout(Callable<T> call, long timeoutMs)
+            throws Exception {
+
+        Future<T> future = sender.submit(call);
+
+        try {
+            return future.get(timeoutMs, TimeUnit.MILLISECONDS);
+        } catch (TimeoutException e) {
+            future.cancel(true);
+            throw e;
+        } catch (ExecutionException e) {
+            Throwable cause = e.getCause();
+            throw cause instanceof Exception ? (Exception) cause : e;
         }
     }
 
