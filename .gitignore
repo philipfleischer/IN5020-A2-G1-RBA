@@ -31,3 +31,6 @@ in
 
 # output
 out
+
+# IGNORE my files
+docs_P
