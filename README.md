@@ -76,5 +76,6 @@ We used an AI tool (Claude) during this assignment, in these ways:
 - **General help:** questions about Java, RMI, threads and how to approach parts of the assignment.
 - **README:** the first draft of this README was made with AI, based on our code and test output.
 - **Scripts:** the first versions of the build and run scripts in `scripts/` were made with AI.
+- **Timestamps (`Log.java`):** the assignment asks for a timestamp on every output line, which also includes lines we do not print ourselves, such as stack traces and RMI errors. We used AI to suggest a solution for this, which led to replacing System.out and System.err with a stream that adds the timestamp. We then tested and changed it ourselves.
 
 We have read, tested and changed everything ourselves, fixed what did not work, and made our own choices about the design. Everyone in the group understands the solution, and we take full responsibility for everything we hand in.
