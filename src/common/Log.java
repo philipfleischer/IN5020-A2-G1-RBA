@@ -7,15 +7,9 @@ import java.io.PrintStream;
 import java.nio.charset.StandardCharsets;
 
 /**
- * Puts a timestamp in front of every line the program prints.
- *
- * The assignment wants "the output log from ALL replicas - with executed
- * timestamp in each line". Instead of changing every println in the code,
- * we replace System.out and System.err once, at the start of main(), with
- * streams that add "[2026-10-10 14:03:27.512] " at the start of each line.
- *
- * This also covers lines we did not write ourselves, such as stack traces
- * and RMI error messages, and every new println added later.
+ * Adds a timestamp at the start of every line we print.
+ * We swap out System.out and System.err once in main(),
+ * so we do not have to change every println.
  */
 public final class Log {
 
@@ -34,11 +28,8 @@ public final class Log {
     }
 
     /**
-     * Call this after the user has typed a command at the interactive
-     * prompt. The prompt ("[BankServer-1234] > ") has no '\n': the line
-     * break comes from the user's Enter key, which the terminal shows but
-     * our program never prints. So we tell the stream ourselves that the
-     * next output starts a new line and needs a timestamp.
+     * Call after the user presses Enter. The prompt has no newline,
+     * so we tell the stream the next line needs a timestamp.
      */
     public static void promptAnswered() {
         if (stdout != null) {
@@ -47,22 +38,13 @@ public final class Log {
     }
 
     private static PrintStream timestamped(TimestampingOutputStream stream) {
-        // autoFlush = true: every println reaches the terminal/log file
-        // at once, so lines from different processes keep their order
-        return new PrintStream(
-                stream,
-                true,
-                StandardCharsets.UTF_8);
+        // autoFlush so every line is written right away
+        return new PrintStream(stream, true, StandardCharsets.UTF_8);
     }
 
     /*
-     * Sits between PrintStream and the real System.out. It sees every byte
-     * that is printed and writes the timestamp before the first byte of a
-     * new line.
-     *
-     * The methods are synchronized: the command thread, the broadcast
-     * thread and the RMI threads all print, and a timestamp must never end
-     * up in the middle of another thread's line.
+     * Writes a timestamp before the first character of each new line.
+     * synchronized, since several threads print at the same time.
      */
     private static final class TimestampingOutputStream extends FilterOutputStream {
 
@@ -76,9 +58,7 @@ public final class Log {
         public synchronized void write(int b) throws IOException {
 
             if (atLineStart) {
-                out.write(
-                        ("[" + Timestamp.now() + "] ")
-                                .getBytes(StandardCharsets.UTF_8));
+                out.write(("[" + Timestamp.now() + "] ").getBytes(StandardCharsets.UTF_8));
                 atLineStart = false;
             }
 
@@ -96,9 +76,8 @@ public final class Log {
             }
         }
 
-        // Only a real '\n' or promptAnswered() starts a new line. (Flushes
-        // can NOT be used for that: on Java 11, PrintStream flushes after
-        // every print, also in the middle of a line.)
+        //Only "\n" or promptAnswered() starts a new line.
+        // We cannot use flush for this, Java 11 flushes in the middle of lines
         synchronized void startNewLine() {
             atLineStart = true;
         }
