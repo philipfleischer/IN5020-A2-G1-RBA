@@ -9,10 +9,10 @@ import java.util.Map;
 /**
  * Converts account balances between currencies.
  *
- * The trading-rate file has one "<Currency> <rate>" line per currency, where
- * the rate is the value of 1 unit of that currency in USD
- * (e.g. "NOK 0.10" means 1 NOK = 0.10 USD). USD is not in the file, it is
- * always 1.0.
+ * The trading-rate file has one "<Currency> <rate>" line per currency,
+ * where the rate is the value of 1 unit of that currency in USD
+ * (e.g. "NOK 0.10" means 1 NOK = 0.10 USD).
+ * USD is not in the file, it is always 1.0.
  */
 public class CurrencyConverter {
 
@@ -23,7 +23,7 @@ public class CurrencyConverter {
         rateToUsd.put("USD", 1.0);
     }
 
-    /** Reads the trading-rate file. Blank and malformed lines are skipped. */
+    // Reads the trading-rate file. Blank and malformed lines are skipped.
     public static CurrencyConverter fromFile(String path) throws IOException {
 
         CurrencyConverter converter = new CurrencyConverter();
@@ -46,13 +46,7 @@ public class CurrencyConverter {
         return converter;
     }
 
-    /**
-     * Total value of all balances, expressed in the target currency.
-     *
-     * @throws IllegalArgumentException if the target currency, or a currency
-     *                                  present in the balances, has no rate in the
-     *                                  trading-rate file
-     */
+    // Total of all balances in the target currency. Throws if a rate is missing.
     public double convertTotal(Map<String, Double> balances, String target) {
 
         double totalInUsd = 0.0;
@@ -69,8 +63,7 @@ public class CurrencyConverter {
         Double rate = rateToUsd.get(currency);
 
         if (rate == null || rate == 0.0) {
-            throw new IllegalArgumentException(
-                    "No trading rate for currency: " + currency);
+            throw new IllegalArgumentException("No trading rate for currency: " + currency);
         }
 
         return rate;

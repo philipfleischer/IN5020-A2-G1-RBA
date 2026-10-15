@@ -3,21 +3,11 @@ package src.bank_server;
 import src.common.Log;
 
 /**
- * Demo: naive vs correct getSyncedBalance under continuous load.
+ * Shows the difference between naive and correct
+ * getSyncedBalance when new transactions keep coming.
  *
- * Run (with a MessageDeliveryServer already running):
- * java -cp out src.bank_server.GetSyncedBalanceDemo localhost:1099
- *
- * What it shows:
- * - A background thread keeps outstanding_collection non-empty: right after
- * every 10 s broadcast it creates a new deposit, before the ordered
- * delivery of the broadcast comes back.
- * - The NAIVE getSyncedBalance waits for an empty outstanding_collection, so
- * it stays blocked for as long as new transactions keep arriving.
- * - The CORRECT getSyncedBalance is ordered like any other transaction, so
- * it returns after the next broadcast no matter how much load there is.
- * - When the load stops, outstanding_collection finally drains and the
- * naive call returns too.
+ * Run (MessageDeliveryServer must be running):
+ *  java -cp out src.bank_serer.GetSyncedBalanceDemo localhost:1099
  */
 public class GetSyncedBalanceDemo {
 
@@ -55,6 +45,7 @@ public class GetSyncedBalanceDemo {
                 }
             }
         });
+
         broadcaster.setDaemon(true);
         broadcaster.start();
 
@@ -99,4 +90,4 @@ public class GetSyncedBalanceDemo {
     private static String seconds(long start) {
         return String.format("%.1f", (System.currentTimeMillis() - start) / 1000.0);
     }
-} 
+}
