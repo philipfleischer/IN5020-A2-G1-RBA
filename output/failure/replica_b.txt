@@ -1,80 +1,69 @@
-[2026-10-13 17:11:27.639] Starting BankServer-75927-011e
-[2026-10-13 17:11:27.640] Account: group01
-[2026-10-13 17:11:27.640] Expected replicas: 3
-[2026-10-13 17:11:27.640] Currency file: input/TradingRate.txt
-[2026-10-13 17:11:27.640] getSyncedBalance mode: correct
-[2026-10-13 17:11:27.739] [BankServer-75927-011e] Received state update
-[2026-10-13 17:11:27.741] [BankServer-75927-011e] State copied: balances {}, 0 executed transactions
-[2026-10-13 17:11:27.744] [BankServer-75927-011e] Membership changed: [BankServer-75921-54b8, BankServer-75927-011e] (2 members)
-[2026-10-13 17:11:27.751] [BankServer-75927-011e] Connected to localhost:1823
-[2026-10-13 17:11:27.753] [BankServer-75927-011e] Waiting for replicas: 2/3
-[2026-10-13 17:11:27.753] [BankServer-75927-011e] Membership changed: [BankServer-75921-54b8, BankServer-75927-011e, BankServer-75931-fb76] (3 members)
-[2026-10-13 17:11:27.755] [BankServer-75927-011e] All 3 initial replicas have joined, starting.
-[2026-10-13 17:11:27.756] Reading commands from: input/tests/FailureTest.txt
-[2026-10-13 17:11:27.757] [BankServer-75927-011e] > deposit USD 10
-[2026-10-13 17:11:27.760] [BankServer-75927-011e] Transaction created: deposit USD 10 [BankServer-75927-011e 0]
-[2026-10-13 17:11:28.508] [BankServer-75927-011e] > sleep 3
-[2026-10-13 17:11:32.466] [BankServer-75927-011e] > deposit USD 10
-[2026-10-13 17:11:32.467] [BankServer-75927-011e] Transaction created: deposit USD 10 [BankServer-75927-011e 1]
-[2026-10-13 17:11:33.835] [BankServer-75927-011e] > sleep 3
-[2026-10-13 17:11:37.504] [BankServer-75927-011e] > deposit USD 10
-[2026-10-13 17:11:37.505] [BankServer-75927-011e] Transaction created: deposit USD 10 [BankServer-75927-011e 2]
-[2026-10-13 17:11:37.777] [BankServer-75927-011e] Received transaction: deposit USD 10
-[2026-10-13 17:11:37.787] [BankServer-75927-011e] USD balance: 10.00
-[2026-10-13 17:11:37.788] [BankServer-75927-011e] Received transaction: deposit USD 10
-[2026-10-13 17:11:37.788] [BankServer-75927-011e] USD balance: 20.00
-[2026-10-13 17:11:37.788] [BankServer-75927-011e] Received transaction: deposit USD 10
-[2026-10-13 17:11:37.788] [BankServer-75927-011e] USD balance: 30.00
-[2026-10-13 17:11:38.261] [BankServer-75927-011e] > sleep 3
-[2026-10-13 17:11:42.090] [BankServer-75927-011e] > deposit USD 10
-[2026-10-13 17:11:42.091] [BankServer-75927-011e] Transaction created: deposit USD 10 [BankServer-75927-011e 3]
-[2026-10-13 17:11:42.780] [BankServer-75927-011e] Membership changed: [BankServer-75921-54b8, BankServer-75927-011e] (2 members)
-[2026-10-13 17:11:42.782] [BankServer-75927-011e] Duplicate ignored: BankServer-75927-011e 0
-[2026-10-13 17:11:42.782] [BankServer-75927-011e] Duplicate ignored: BankServer-75927-011e 1
-[2026-10-13 17:11:42.782] [BankServer-75927-011e] Duplicate ignored: BankServer-75927-011e 2
-[2026-10-13 17:11:42.784] [BankServer-75927-011e] Received transaction: deposit USD 10
-[2026-10-13 17:11:42.785] [BankServer-75927-011e] USD balance: 40.00
-[2026-10-13 17:11:42.785] [BankServer-75927-011e] Received transaction: deposit USD 10
-[2026-10-13 17:11:42.785] [BankServer-75927-011e] USD balance: 50.00
-[2026-10-13 17:11:42.787] [BankServer-75927-011e] Duplicate ignored: BankServer-75921-54b8 0
-[2026-10-13 17:11:42.787] [BankServer-75927-011e] Duplicate ignored: BankServer-75921-54b8 1
-[2026-10-13 17:11:43.273] [BankServer-75927-011e] > sleep 3
-[2026-10-13 17:11:47.765] [BankServer-75927-011e] > deposit USD 10
-[2026-10-13 17:11:47.765] [BankServer-75927-011e] Transaction created: deposit USD 10 [BankServer-75927-011e 4]
-[2026-10-13 17:11:47.777] [BankServer-75927-011e] Received transaction: deposit USD 10
-[2026-10-13 17:11:47.777] [BankServer-75927-011e] USD balance: 60.00
-[2026-10-13 17:11:47.777] [BankServer-75927-011e] Received transaction: deposit USD 10
-[2026-10-13 17:11:47.778] [BankServer-75927-011e] USD balance: 70.00
-[2026-10-13 17:11:47.780] [BankServer-75927-011e] Received transaction: deposit USD 10
-[2026-10-13 17:11:47.780] [BankServer-75927-011e] USD balance: 80.00
-[2026-10-13 17:11:47.780] [BankServer-75927-011e] Received transaction: deposit USD 10
-[2026-10-13 17:11:47.780] [BankServer-75927-011e] USD balance: 90.00
-[2026-10-13 17:11:47.780] [BankServer-75927-011e] Received transaction: deposit USD 10
-[2026-10-13 17:11:47.781] [BankServer-75927-011e] USD balance: 100.00
-[2026-10-13 17:11:47.784] [BankServer-75927-011e] Duplicate ignored: BankServer-75921-54b8 2
-[2026-10-13 17:11:47.784] [BankServer-75927-011e] Duplicate ignored: BankServer-75921-54b8 3
-[2026-10-13 17:11:47.784] [BankServer-75927-011e] Duplicate ignored: BankServer-75921-54b8 4
-[2026-10-13 17:11:47.785] [BankServer-75927-011e] Duplicate ignored: BankServer-75927-011e 3
-[2026-10-13 17:11:47.785] [BankServer-75927-011e] Duplicate ignored: BankServer-75927-011e 4
-[2026-10-13 17:11:48.907] [BankServer-75927-011e] > sleep 12
-[2026-10-13 17:12:01.886] [BankServer-75927-011e] > getSyncedBalance USD
-[2026-10-13 17:12:01.888] [BankServer-75927-011e] getSyncedBalance USD queued [BankServer-75927-011e sync-0], waiting for order...
-[2026-10-13 17:12:02.852] [BankServer-75927-011e] > memberInfo
-[2026-10-13 17:12:02.852] [BankServer-75927-011e] memberInfo: [BankServer-75921-54b8, BankServer-75927-011e] (2 members)
-[2026-10-13 17:12:04.110] [BankServer-75927-011e] > getHistory
-[2026-10-13 17:12:04.111] [BankServer-75927-011e] executed_list
-[2026-10-13 17:12:04.115] 0. 2026-10-13 17:11:37.787 deposit USD 10  [BankServer-75927-011e 0]
-[2026-10-13 17:12:04.115] 1. 2026-10-13 17:11:37.788 deposit USD 10  [BankServer-75927-011e 1]
-[2026-10-13 17:12:04.116] 2. 2026-10-13 17:11:37.788 deposit USD 10  [BankServer-75927-011e 2]
-[2026-10-13 17:12:04.116] 3. 2026-10-13 17:11:42.785 deposit USD 10  [BankServer-75921-54b8 0]
-[2026-10-13 17:12:04.116] 4. 2026-10-13 17:11:42.785 deposit USD 10  [BankServer-75921-54b8 1]
-[2026-10-13 17:12:04.116] 5. 2026-10-13 17:11:47.777 deposit USD 10  [BankServer-75927-011e 3]
-[2026-10-13 17:12:04.116] 6. 2026-10-13 17:11:47.778 deposit USD 10  [BankServer-75927-011e 4]
-[2026-10-13 17:12:04.116] 7. 2026-10-13 17:11:47.780 deposit USD 10  [BankServer-75921-54b8 2]
-[2026-10-13 17:12:04.116] 8. 2026-10-13 17:11:47.780 deposit USD 10  [BankServer-75921-54b8 3]
-[2026-10-13 17:12:04.116] 9. 2026-10-13 17:11:47.781 deposit USD 10  [BankServer-75921-54b8 4]
-[2026-10-13 17:12:04.116] [BankServer-75927-011e] outstanding_collection
-[2026-10-13 17:12:04.552] [BankServer-75927-011e] Membership changed: [BankServer-75927-011e] (1 members)
-[2026-10-13 17:12:04.813] [BankServer-75927-011e] > exit
-[2026-10-13 17:12:04.817] [BankServer-75927-011e] Synced balance USD: 100.00
-[2026-10-13 17:12:04.819] [BankServer-75927-011e] exiting.
+[2026-10-15 14:00:35.841] Starting BankServer-97190-1fd3
+[2026-10-15 14:00:35.842] Account: group01
+[2026-10-15 14:00:35.842] Expected replicas: 3
+[2026-10-15 14:00:35.842] Currency file: input/TradingRate.txt
+[2026-10-15 14:00:35.842] getSyncedBalance mode: correct
+[2026-10-15 14:00:35.884] [BankServer-97190-1fd3] Membership changed: [BankServer-97190-1fd3] (1 members)
+[2026-10-15 14:00:35.884] [BankServer-97190-1fd3] Connected to localhost:1099
+[2026-10-15 14:00:35.885] [BankServer-97190-1fd3] Waiting for replicas: 1/3
+[2026-10-15 14:00:35.891] [BankServer-97190-1fd3] Membership changed: [BankServer-97190-1fd3, BankServer-97191-bc03] (2 members)
+[2026-10-15 14:00:35.891] [BankServer-97190-1fd3] Waiting for replicas: 2/3
+[2026-10-15 14:00:35.896] [BankServer-97190-1fd3] Membership changed: [BankServer-97190-1fd3, BankServer-97191-bc03, BankServer-97189-46ef] (3 members)
+[2026-10-15 14:00:35.897] [BankServer-97190-1fd3] All 3 initial replicas have joined, starting.
+[2026-10-15 14:00:35.900] Reading commands from: input/tests/FailureTest.txt
+[2026-10-15 14:00:35.901] [BankServer-97190-1fd3] > deposit USD 10
+[2026-10-15 14:00:35.902] [BankServer-97190-1fd3] Transaction created: deposit USD 10 [BankServer-97190-1fd3 0]
+[2026-10-15 14:00:36.502] [BankServer-97190-1fd3] > sleep 3
+[2026-10-15 14:00:40.655] [BankServer-97190-1fd3] > deposit USD 10
+[2026-10-15 14:00:40.655] [BankServer-97190-1fd3] Transaction created: deposit USD 10 [BankServer-97190-1fd3 1]
+[2026-10-15 14:00:41.985] [BankServer-97190-1fd3] > sleep 3
+[2026-10-15 14:00:45.904] [BankServer-97190-1fd3] Received transaction: deposit USD 10
+[2026-10-15 14:00:45.908] [BankServer-97190-1fd3] USD balance: 10.00
+[2026-10-15 14:00:45.908] [BankServer-97190-1fd3] Received transaction: deposit USD 10
+[2026-10-15 14:00:45.908] [BankServer-97190-1fd3] USD balance: 20.00
+[2026-10-15 14:00:46.343] [BankServer-97190-1fd3] > deposit USD 10
+[2026-10-15 14:00:46.344] [BankServer-97190-1fd3] Transaction created: deposit USD 10 [BankServer-97190-1fd3 2]
+[2026-10-15 14:00:47.694] [BankServer-97190-1fd3] > sleep 3
+[2026-10-15 14:00:50.908] [BankServer-97190-1fd3] Membership changed: [BankServer-97190-1fd3, BankServer-97189-46ef] (2 members)
+[2026-10-15 14:00:50.909] [BankServer-97190-1fd3] Received transaction: deposit USD 10
+[2026-10-15 14:00:50.909] [BankServer-97190-1fd3] USD balance: 30.00
+[2026-10-15 14:00:50.909] [BankServer-97190-1fd3] Received transaction: deposit USD 10
+[2026-10-15 14:00:50.909] [BankServer-97190-1fd3] USD balance: 40.00
+[2026-10-15 14:00:51.963] [BankServer-97190-1fd3] > deposit USD 10
+[2026-10-15 14:00:51.964] [BankServer-97190-1fd3] Transaction created: deposit USD 10 [BankServer-97190-1fd3 3]
+[2026-10-15 14:00:52.909] [BankServer-97190-1fd3] > sleep 3
+[2026-10-15 14:00:55.909] [BankServer-97190-1fd3] Received transaction: deposit USD 10
+[2026-10-15 14:00:55.910] [BankServer-97190-1fd3] USD balance: 50.00
+[2026-10-15 14:00:55.910] [BankServer-97190-1fd3] Received transaction: deposit USD 10
+[2026-10-15 14:00:55.910] [BankServer-97190-1fd3] USD balance: 60.00
+[2026-10-15 14:00:55.915] [BankServer-97190-1fd3] Received transaction: deposit USD 10
+[2026-10-15 14:00:55.916] [BankServer-97190-1fd3] USD balance: 70.00
+[2026-10-15 14:00:55.916] [BankServer-97190-1fd3] Received transaction: deposit USD 10
+[2026-10-15 14:00:55.916] [BankServer-97190-1fd3] USD balance: 80.00
+[2026-10-15 14:00:56.519] [BankServer-97190-1fd3] > deposit USD 10
+[2026-10-15 14:00:56.519] [BankServer-97190-1fd3] Transaction created: deposit USD 10 [BankServer-97190-1fd3 4]
+[2026-10-15 14:00:57.177] [BankServer-97190-1fd3] > sleep 12
+[2026-10-15 14:01:05.916] [BankServer-97190-1fd3] Received transaction: deposit USD 10
+[2026-10-15 14:01:05.917] [BankServer-97190-1fd3] USD balance: 90.00
+[2026-10-15 14:01:05.919] [BankServer-97190-1fd3] Received transaction: deposit USD 10
+[2026-10-15 14:01:05.919] [BankServer-97190-1fd3] USD balance: 100.00
+[2026-10-15 14:01:10.106] [BankServer-97190-1fd3] > getSyncedBalance USD
+[2026-10-15 14:01:10.108] [BankServer-97190-1fd3] getSyncedBalance USD queued [BankServer-97190-1fd3 sync-0], waiting for order...
+[2026-10-15 14:01:11.210] [BankServer-97190-1fd3] > memberInfo
+[2026-10-15 14:01:11.211] [BankServer-97190-1fd3] memberInfo: [BankServer-97190-1fd3, BankServer-97189-46ef] (2 members)
+[2026-10-15 14:01:11.799] [BankServer-97190-1fd3] > getHistory
+[2026-10-15 14:01:11.800] [BankServer-97190-1fd3] executed_list
+[2026-10-15 14:01:11.803] 0. 2026-10-15 14:00:45.908 deposit USD 10  [BankServer-97190-1fd3 0]
+[2026-10-15 14:01:11.803] 1. 2026-10-15 14:00:45.908 deposit USD 10  [BankServer-97190-1fd3 1]
+[2026-10-15 14:01:11.803] 2. 2026-10-15 14:00:50.909 deposit USD 10  [BankServer-97189-46ef 0]
+[2026-10-15 14:01:11.803] 3. 2026-10-15 14:00:50.909 deposit USD 10  [BankServer-97189-46ef 1]
+[2026-10-15 14:01:11.803] 4. 2026-10-15 14:00:55.910 deposit USD 10  [BankServer-97190-1fd3 2]
+[2026-10-15 14:01:11.803] 5. 2026-10-15 14:00:55.910 deposit USD 10  [BankServer-97190-1fd3 3]
+[2026-10-15 14:01:11.803] 6. 2026-10-15 14:00:55.916 deposit USD 10  [BankServer-97189-46ef 2]
+[2026-10-15 14:01:11.804] 7. 2026-10-15 14:00:55.916 deposit USD 10  [BankServer-97189-46ef 3]
+[2026-10-15 14:01:11.804] 8. 2026-10-15 14:01:05.917 deposit USD 10  [BankServer-97190-1fd3 4]
+[2026-10-15 14:01:11.804] 9. 2026-10-15 14:01:05.919 deposit USD 10  [BankServer-97189-46ef 4]
+[2026-10-15 14:01:11.804] [BankServer-97190-1fd3] outstanding_collection
+[2026-10-15 14:01:12.546] [BankServer-97190-1fd3] > exit
+[2026-10-15 14:01:12.551] [BankServer-97190-1fd3] Synced balance USD: 100.00
+[2026-10-15 14:01:12.555] [BankServer-97190-1fd3] exiting.

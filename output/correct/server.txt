@@ -1,484 +1,319 @@
-[2026-10-15 13:36:28.190] MessageDeliveryServer ready on port 1099
-[2026-10-15 13:36:29.196] BankServer-94720-98e5 joined group group01
-[2026-10-15 13:36:29.196] Number of replicas: 1
-[2026-10-15 13:36:29.206] BankServer-94721-7c44 joined group group01
-[2026-10-15 13:36:29.206] Number of replicas: 2
-[2026-10-15 13:36:29.212] BankServer-94719-8d71 joined group group01
-[2026-10-15 13:36:29.212] Number of replicas: 3
-[2026-10-15 13:36:36.198] BankServer-94738-e3ff joined group group01
-[2026-10-15 13:36:36.198] Number of replicas: 4
-[2026-10-15 13:36:36.204] BankServer-94739-9508 joined group group01
-[2026-10-15 13:36:36.204] Number of replicas: 5
-[2026-10-15 13:36:39.226] Message added to queue: [getSyncedBalance USD [BankServer-94719-8d71 sync-0], deposit USD 90 [BankServer-94719-8d71 0], getSyncedBalance EUR [BankServer-94719-8d71 sync-1], deposit NOK 120 [BankServer-94719-8d71 1]]
-[2026-10-15 13:36:39.226] Message added to queue: [getSyncedBalance USD [BankServer-94721-7c44 sync-0], deposit USD 90 [BankServer-94721-7c44 0], getSyncedBalance EUR [BankServer-94721-7c44 sync-1], deposit NOK 120 [BankServer-94721-7c44 1]]
-[2026-10-15 13:36:39.226] Message added to queue: [getSyncedBalance USD [BankServer-94721-7c44 sync-0], deposit USD 90 [BankServer-94721-7c44 0], getSyncedBalance EUR [BankServer-94721-7c44 sync-1], deposit NOK 120 [BankServer-94721-7c44 1]]
-[2026-10-15 13:36:39.226] Message added to queue: [getSyncedBalance USD [BankServer-94720-98e5 sync-0], deposit USD 90 [BankServer-94720-98e5 0], getSyncedBalance EUR [BankServer-94720-98e5 sync-1], deposit NOK 120 [BankServer-94720-98e5 1]]
-[2026-10-15 13:36:39.226] Message added to queue: [getSyncedBalance USD [BankServer-94719-8d71 sync-0], deposit USD 90 [BankServer-94719-8d71 0], getSyncedBalance EUR [BankServer-94719-8d71 sync-1], deposit NOK 120 [BankServer-94719-8d71 1]]
-[2026-10-15 13:36:39.227] Message added to queue: [getSyncedBalance USD [BankServer-94720-98e5 sync-0], deposit USD 90 [BankServer-94720-98e5 0], getSyncedBalance EUR [BankServer-94720-98e5 sync-1], deposit NOK 120 [BankServer-94720-98e5 1]]
-[2026-10-15 13:36:39.228] Processing message: 0
-[2026-10-15 13:36:39.246] ACK from BankServer-94739-9508 for message 0
-[2026-10-15 13:36:39.247] ACK from BankServer-94719-8d71 for message 0
-[2026-10-15 13:36:39.247] ACK from BankServer-94720-98e5 for message 0
-[2026-10-15 13:36:39.247] ACK from BankServer-94738-e3ff for message 0
-[2026-10-15 13:36:39.247] ACK from BankServer-94721-7c44 for message 0
-[2026-10-15 13:36:39.247] Processing message: 1
-[2026-10-15 13:36:39.249] ACK from BankServer-94739-9508 for message 1
-[2026-10-15 13:36:39.249] ACK from BankServer-94720-98e5 for message 1
-[2026-10-15 13:36:39.249] ACK from BankServer-94719-8d71 for message 1
-[2026-10-15 13:36:39.250] ACK from BankServer-94738-e3ff for message 1
-[2026-10-15 13:36:39.251] ACK from BankServer-94721-7c44 for message 1
-[2026-10-15 13:36:39.251] Processing message: 2
-[2026-10-15 13:36:39.252] ACK from BankServer-94738-e3ff for message 2
-[2026-10-15 13:36:39.252] ACK from BankServer-94739-9508 for message 2
-[2026-10-15 13:36:39.252] ACK from BankServer-94719-8d71 for message 2
-[2026-10-15 13:36:39.252] ACK from BankServer-94721-7c44 for message 2
-[2026-10-15 13:36:39.253] ACK from BankServer-94720-98e5 for message 2
-[2026-10-15 13:36:39.253] Processing message: 3
-[2026-10-15 13:36:39.254] ACK from BankServer-94738-e3ff for message 3
-[2026-10-15 13:36:39.254] ACK from BankServer-94721-7c44 for message 3
-[2026-10-15 13:36:39.254] ACK from BankServer-94719-8d71 for message 3
-[2026-10-15 13:36:39.254] ACK from BankServer-94739-9508 for message 3
-[2026-10-15 13:36:39.256] ACK from BankServer-94720-98e5 for message 3
-[2026-10-15 13:36:39.256] Processing message: 4
-[2026-10-15 13:36:39.257] ACK from BankServer-94738-e3ff for message 4
-[2026-10-15 13:36:39.257] ACK from BankServer-94721-7c44 for message 4
-[2026-10-15 13:36:39.257] ACK from BankServer-94719-8d71 for message 4
-[2026-10-15 13:36:39.258] ACK from BankServer-94739-9508 for message 4
-[2026-10-15 13:36:39.258] ACK from BankServer-94720-98e5 for message 4
-[2026-10-15 13:36:39.258] Processing message: 5
-[2026-10-15 13:36:39.259] ACK from BankServer-94738-e3ff for message 5
-[2026-10-15 13:36:39.259] ACK from BankServer-94720-98e5 for message 5
-[2026-10-15 13:36:39.259] ACK from BankServer-94721-7c44 for message 5
-[2026-10-15 13:36:39.259] ACK from BankServer-94719-8d71 for message 5
-[2026-10-15 13:36:39.259] ACK from BankServer-94739-9508 for message 5
-[2026-10-15 13:36:41.195] BankServer-94751-2f3c joined group group01
-[2026-10-15 13:36:41.195] Number of replicas: 6
-[2026-10-15 13:36:46.204] Processing message: 6
-[2026-10-15 13:36:46.205] Message added to queue: [getSyncedBalance USD [BankServer-94738-e3ff sync-0], deposit EUR 75 [BankServer-94738-e3ff 0], getSyncedBalance EUR [BankServer-94738-e3ff sync-1], deposit USD 115 [BankServer-94738-e3ff 1]]
-[2026-10-15 13:36:46.208] ACK from BankServer-94738-e3ff for message 6
-[2026-10-15 13:36:46.208] ACK from BankServer-94721-7c44 for message 6
-[2026-10-15 13:36:46.208] ACK from BankServer-94739-9508 for message 6
-[2026-10-15 13:36:46.208] ACK from BankServer-94720-98e5 for message 6
-[2026-10-15 13:36:46.208] ACK from BankServer-94719-8d71 for message 6
-[2026-10-15 13:36:46.210] ACK from BankServer-94751-2f3c for message 6
-[2026-10-15 13:36:46.212] Processing message: 7
-[2026-10-15 13:36:46.212] Message added to queue: [getSyncedBalance USD [BankServer-94739-9508 sync-0], deposit EUR 75 [BankServer-94739-9508 0], getSyncedBalance EUR [BankServer-94739-9508 sync-1], deposit USD 115 [BankServer-94739-9508 1]]
-[2026-10-15 13:36:46.215] ACK from BankServer-94721-7c44 for message 7
-[2026-10-15 13:36:46.215] ACK from BankServer-94751-2f3c for message 7
-[2026-10-15 13:36:46.215] Message added to queue: [getSyncedBalance USD [BankServer-94739-9508 sync-0], deposit EUR 75 [BankServer-94739-9508 0], getSyncedBalance EUR [BankServer-94739-9508 sync-1], deposit USD 115 [BankServer-94739-9508 1]]
-[2026-10-15 13:36:46.215] ACK from BankServer-94720-98e5 for message 7
-[2026-10-15 13:36:46.215] ACK from BankServer-94738-e3ff for message 7
-[2026-10-15 13:36:46.216] ACK from BankServer-94719-8d71 for message 7
-[2026-10-15 13:36:46.216] ACK from BankServer-94739-9508 for message 7
-[2026-10-15 13:36:46.216] Processing message: 8
-[2026-10-15 13:36:46.217] ACK from BankServer-94720-98e5 for message 8
-[2026-10-15 13:36:46.217] ACK from BankServer-94739-9508 for message 8
-[2026-10-15 13:36:46.217] ACK from BankServer-94738-e3ff for message 8
-[2026-10-15 13:36:46.217] ACK from BankServer-94719-8d71 for message 8
-[2026-10-15 13:36:46.217] ACK from BankServer-94721-7c44 for message 8
-[2026-10-15 13:36:46.217] ACK from BankServer-94751-2f3c for message 8
-[2026-10-15 13:36:49.229] Processing message: 9
-[2026-10-15 13:36:49.229] Message added to queue: [getSyncedBalance USD [BankServer-94719-8d71 sync-2], addInterest NOK 15 [BankServer-94719-8d71 2], getSyncedBalance USD [BankServer-94719-8d71 sync-3], deposit DKK 120 [BankServer-94719-8d71 3], deposit NOK 70 [BankServer-94719-8d71 4]]
-[2026-10-15 13:36:49.230] Message added to queue: [getSyncedBalance USD [BankServer-94721-7c44 sync-2], addInterest NOK 15 [BankServer-94721-7c44 2], getSyncedBalance USD [BankServer-94721-7c44 sync-3], deposit DKK 120 [BankServer-94721-7c44 3], deposit NOK 70 [BankServer-94721-7c44 4]]
-[2026-10-15 13:36:49.233] Message added to queue: [getSyncedBalance USD [BankServer-94719-8d71 sync-2], addInterest NOK 15 [BankServer-94719-8d71 2], getSyncedBalance USD [BankServer-94719-8d71 sync-3], deposit DKK 120 [BankServer-94719-8d71 3], deposit NOK 70 [BankServer-94719-8d71 4]]
-[2026-10-15 13:36:49.234] Message added to queue: [getSyncedBalance USD [BankServer-94720-98e5 sync-2], addInterest NOK 15 [BankServer-94720-98e5 2], getSyncedBalance USD [BankServer-94720-98e5 sync-3], deposit DKK 120 [BankServer-94720-98e5 3], deposit NOK 70 [BankServer-94720-98e5 4]]
-[2026-10-15 13:36:49.234] Message added to queue: [getSyncedBalance USD [BankServer-94720-98e5 sync-2], addInterest NOK 15 [BankServer-94720-98e5 2], getSyncedBalance USD [BankServer-94720-98e5 sync-3], deposit DKK 120 [BankServer-94720-98e5 3], deposit NOK 70 [BankServer-94720-98e5 4]]
-[2026-10-15 13:36:49.235] ACK from BankServer-94739-9508 for message 9
-[2026-10-15 13:36:49.235] ACK from BankServer-94751-2f3c for message 9
-[2026-10-15 13:36:49.236] ACK from BankServer-94721-7c44 for message 9
-[2026-10-15 13:36:49.236] ACK from BankServer-94719-8d71 for message 9
-[2026-10-15 13:36:49.236] ACK from BankServer-94738-e3ff for message 9
-[2026-10-15 13:36:49.237] ACK from BankServer-94720-98e5 for message 9
-[2026-10-15 13:36:49.237] Processing message: 10
-[2026-10-15 13:36:49.237] Message added to queue: [getSyncedBalance USD [BankServer-94721-7c44 sync-2], addInterest NOK 15 [BankServer-94721-7c44 2], getSyncedBalance USD [BankServer-94721-7c44 sync-3], deposit DKK 120 [BankServer-94721-7c44 3], deposit NOK 70 [BankServer-94721-7c44 4]]
-[2026-10-15 13:36:49.241] ACK from BankServer-94738-e3ff for message 10
-[2026-10-15 13:36:49.243] ACK from BankServer-94720-98e5 for message 10
-[2026-10-15 13:36:49.243] ACK from BankServer-94739-9508 for message 10
-[2026-10-15 13:36:49.243] ACK from BankServer-94751-2f3c for message 10
-[2026-10-15 13:36:49.243] ACK from BankServer-94719-8d71 for message 10
-[2026-10-15 13:36:49.244] ACK from BankServer-94721-7c44 for message 10
-[2026-10-15 13:36:49.244] Processing message: 11
-[2026-10-15 13:36:49.247] ACK from BankServer-94719-8d71 for message 11
-[2026-10-15 13:36:49.247] ACK from BankServer-94721-7c44 for message 11
-[2026-10-15 13:36:49.247] ACK from BankServer-94738-e3ff for message 11
-[2026-10-15 13:36:49.247] ACK from BankServer-94720-98e5 for message 11
-[2026-10-15 13:36:49.248] ACK from BankServer-94739-9508 for message 11
-[2026-10-15 13:36:49.248] ACK from BankServer-94751-2f3c for message 11
-[2026-10-15 13:36:49.248] Processing message: 12
-[2026-10-15 13:36:49.251] ACK from BankServer-94721-7c44 for message 12
-[2026-10-15 13:36:49.251] ACK from BankServer-94720-98e5 for message 12
-[2026-10-15 13:36:49.251] ACK from BankServer-94751-2f3c for message 12
-[2026-10-15 13:36:49.251] ACK from BankServer-94739-9508 for message 12
-[2026-10-15 13:36:49.251] ACK from BankServer-94719-8d71 for message 12
-[2026-10-15 13:36:49.251] ACK from BankServer-94738-e3ff for message 12
-[2026-10-15 13:36:49.251] Processing message: 13
-[2026-10-15 13:36:49.253] ACK from BankServer-94751-2f3c for message 13
-[2026-10-15 13:36:49.254] ACK from BankServer-94721-7c44 for message 13
-[2026-10-15 13:36:49.254] ACK from BankServer-94720-98e5 for message 13
-[2026-10-15 13:36:49.254] ACK from BankServer-94739-9508 for message 13
-[2026-10-15 13:36:49.254] ACK from BankServer-94719-8d71 for message 13
-[2026-10-15 13:36:49.254] ACK from BankServer-94738-e3ff for message 13
-[2026-10-15 13:36:49.254] Processing message: 14
-[2026-10-15 13:36:49.256] ACK from BankServer-94751-2f3c for message 14
-[2026-10-15 13:36:49.256] ACK from BankServer-94739-9508 for message 14
-[2026-10-15 13:36:49.256] ACK from BankServer-94738-e3ff for message 14
-[2026-10-15 13:36:49.257] ACK from BankServer-94721-7c44 for message 14
-[2026-10-15 13:36:49.257] ACK from BankServer-94719-8d71 for message 14
-[2026-10-15 13:36:49.257] ACK from BankServer-94720-98e5 for message 14
-[2026-10-15 13:36:51.206] Processing message: 15
-[2026-10-15 13:36:51.206] Message added to queue: [getSyncedBalance EUR [BankServer-94751-2f3c sync-0], deposit NOK 50 [BankServer-94751-2f3c 0]]
-[2026-10-15 13:36:51.206] Message added to queue: [getSyncedBalance EUR [BankServer-94751-2f3c sync-0], deposit NOK 50 [BankServer-94751-2f3c 0]]
-[2026-10-15 13:36:51.209] ACK from BankServer-94739-9508 for message 15
-[2026-10-15 13:36:51.209] ACK from BankServer-94720-98e5 for message 15
-[2026-10-15 13:36:51.209] ACK from BankServer-94751-2f3c for message 15
-[2026-10-15 13:36:51.209] ACK from BankServer-94738-e3ff for message 15
-[2026-10-15 13:36:51.209] ACK from BankServer-94719-8d71 for message 15
-[2026-10-15 13:36:51.209] ACK from BankServer-94721-7c44 for message 15
-[2026-10-15 13:36:51.209] Processing message: 16
-[2026-10-15 13:36:51.211] ACK from BankServer-94738-e3ff for message 16
-[2026-10-15 13:36:51.211] ACK from BankServer-94751-2f3c for message 16
-[2026-10-15 13:36:51.211] ACK from BankServer-94720-98e5 for message 16
-[2026-10-15 13:36:51.211] ACK from BankServer-94739-9508 for message 16
-[2026-10-15 13:36:51.211] ACK from BankServer-94719-8d71 for message 16
-[2026-10-15 13:36:51.211] ACK from BankServer-94721-7c44 for message 16
-[2026-10-15 13:36:56.206] Processing message: 17
-[2026-10-15 13:36:56.206] Message added to queue: [getSyncedBalance USD [BankServer-94738-e3ff sync-2], addInterest USD 7 [BankServer-94738-e3ff 2], getSyncedBalance USD [BankServer-94738-e3ff sync-3], deposit NOK 10 [BankServer-94738-e3ff 3], deposit DKK 80 [BankServer-94738-e3ff 4], deposit EUR 40 [BankServer-94738-e3ff 5], deposit CHF 35 [BankServer-94738-e3ff 6]]
-[2026-10-15 13:36:56.208] ACK from BankServer-94738-e3ff for message 17
-[2026-10-15 13:36:56.208] ACK from BankServer-94721-7c44 for message 17
-[2026-10-15 13:36:56.209] ACK from BankServer-94720-98e5 for message 17
-[2026-10-15 13:36:56.209] ACK from BankServer-94739-9508 for message 17
-[2026-10-15 13:36:56.209] ACK from BankServer-94719-8d71 for message 17
-[2026-10-15 13:36:56.209] ACK from BankServer-94751-2f3c for message 17
-[2026-10-15 13:36:56.218] Message added to queue: [getSyncedBalance USD [BankServer-94739-9508 sync-2], addInterest USD 7 [BankServer-94739-9508 2], getSyncedBalance USD [BankServer-94739-9508 sync-3], deposit NOK 10 [BankServer-94739-9508 3]]
-[2026-10-15 13:36:56.218] Processing message: 18
-[2026-10-15 13:36:56.219] ACK from BankServer-94739-9508 for message 18
-[2026-10-15 13:36:56.219] ACK from BankServer-94721-7c44 for message 18
-[2026-10-15 13:36:56.219] ACK from BankServer-94751-2f3c for message 18
-[2026-10-15 13:36:56.219] ACK from BankServer-94720-98e5 for message 18
-[2026-10-15 13:36:56.219] ACK from BankServer-94738-e3ff for message 18
-[2026-10-15 13:36:56.219] ACK from BankServer-94719-8d71 for message 18
-[2026-10-15 13:36:59.235] Message added to queue: [deposit GBP 50 [BankServer-94719-8d71 5], deposit USD 25 [BankServer-94719-8d71 6], deposit CHF 30 [BankServer-94719-8d71 7], deposit EUR 25 [BankServer-94719-8d71 8], addInterest 10 [BankServer-94719-8d71 9]]
-[2026-10-15 13:36:59.235] Processing message: 19
-[2026-10-15 13:36:59.236] Message added to queue: [deposit GBP 50 [BankServer-94721-7c44 5], deposit USD 25 [BankServer-94721-7c44 6], deposit CHF 30 [BankServer-94721-7c44 7], deposit EUR 25 [BankServer-94721-7c44 8], addInterest 10 [BankServer-94721-7c44 9]]
-[2026-10-15 13:36:59.237] ACK from BankServer-94721-7c44 for message 19
-[2026-10-15 13:36:59.238] ACK from BankServer-94720-98e5 for message 19
-[2026-10-15 13:36:59.238] ACK from BankServer-94739-9508 for message 19
-[2026-10-15 13:36:59.238] ACK from BankServer-94738-e3ff for message 19
-[2026-10-15 13:36:59.238] ACK from BankServer-94751-2f3c for message 19
-[2026-10-15 13:36:59.238] ACK from BankServer-94719-8d71 for message 19
-[2026-10-15 13:36:59.238] Processing message: 20
-[2026-10-15 13:36:59.239] ACK from BankServer-94721-7c44 for message 20
-[2026-10-15 13:36:59.240] ACK from BankServer-94738-e3ff for message 20
-[2026-10-15 13:36:59.240] ACK from BankServer-94739-9508 for message 20
-[2026-10-15 13:36:59.240] ACK from BankServer-94720-98e5 for message 20
-[2026-10-15 13:36:59.240] ACK from BankServer-94719-8d71 for message 20
-[2026-10-15 13:36:59.241] Message added to queue: [deposit GBP 50 [BankServer-94720-98e5 5], deposit USD 25 [BankServer-94720-98e5 6], deposit CHF 30 [BankServer-94720-98e5 7], deposit EUR 25 [BankServer-94720-98e5 8], addInterest 10 [BankServer-94720-98e5 9]]
-[2026-10-15 13:36:59.241] Message added to queue: [deposit GBP 50 [BankServer-94720-98e5 5], deposit USD 25 [BankServer-94720-98e5 6], deposit CHF 30 [BankServer-94720-98e5 7], deposit EUR 25 [BankServer-94720-98e5 8], addInterest 10 [BankServer-94720-98e5 9]]
-[2026-10-15 13:36:59.241] ACK from BankServer-94751-2f3c for message 20
-[2026-10-15 13:36:59.241] Processing message: 21
-[2026-10-15 13:36:59.243] ACK from BankServer-94719-8d71 for message 21
-[2026-10-15 13:36:59.244] ACK from BankServer-94751-2f3c for message 21
-[2026-10-15 13:36:59.244] ACK from BankServer-94721-7c44 for message 21
-[2026-10-15 13:36:59.244] ACK from BankServer-94738-e3ff for message 21
-[2026-10-15 13:36:59.244] ACK from BankServer-94739-9508 for message 21
-[2026-10-15 13:36:59.244] ACK from BankServer-94720-98e5 for message 21
-[2026-10-15 13:36:59.244] Processing message: 22
-[2026-10-15 13:36:59.245] ACK from BankServer-94719-8d71 for message 22
-[2026-10-15 13:36:59.245] ACK from BankServer-94738-e3ff for message 22
-[2026-10-15 13:36:59.245] ACK from BankServer-94739-9508 for message 22
-[2026-10-15 13:36:59.245] ACK from BankServer-94751-2f3c for message 22
-[2026-10-15 13:36:59.245] ACK from BankServer-94721-7c44 for message 22
-[2026-10-15 13:36:59.246] ACK from BankServer-94720-98e5 for message 22
-[2026-10-15 13:37:01.209] Message added to queue: [getSyncedBalance USD [BankServer-94751-2f3c sync-1], addInterest 7 [BankServer-94751-2f3c 1], getSyncedBalance USD [BankServer-94751-2f3c sync-2], deposit EUR -150 [BankServer-94751-2f3c 2], deposit USD -100 [BankServer-94751-2f3c 3]]
-[2026-10-15 13:37:01.209] Processing message: 23
-[2026-10-15 13:37:01.209] Message added to queue: [getSyncedBalance USD [BankServer-94751-2f3c sync-1], addInterest 7 [BankServer-94751-2f3c 1], getSyncedBalance USD [BankServer-94751-2f3c sync-2], deposit EUR -150 [BankServer-94751-2f3c 2], deposit USD -100 [BankServer-94751-2f3c 3]]
-[2026-10-15 13:37:01.212] ACK from BankServer-94721-7c44 for message 23
-[2026-10-15 13:37:01.212] ACK from BankServer-94719-8d71 for message 23
-[2026-10-15 13:37:01.212] ACK from BankServer-94738-e3ff for message 23
-[2026-10-15 13:37:01.212] ACK from BankServer-94720-98e5 for message 23
-[2026-10-15 13:37:01.212] ACK from BankServer-94751-2f3c for message 23
-[2026-10-15 13:37:01.212] ACK from BankServer-94739-9508 for message 23
-[2026-10-15 13:37:01.213] Processing message: 24
-[2026-10-15 13:37:01.220] ACK from BankServer-94751-2f3c for message 24
-[2026-10-15 13:37:01.221] ACK from BankServer-94719-8d71 for message 24
-[2026-10-15 13:37:01.221] ACK from BankServer-94721-7c44 for message 24
-[2026-10-15 13:37:01.221] ACK from BankServer-94720-98e5 for message 24
-[2026-10-15 13:37:01.222] ACK from BankServer-94739-9508 for message 24
-[2026-10-15 13:37:01.222] ACK from BankServer-94738-e3ff for message 24
-[2026-10-15 13:37:06.213] Processing message: 25
-[2026-10-15 13:37:06.214] Message added to queue: [deposit GBP 25 [BankServer-94738-e3ff 7], deposit USD 95 [BankServer-94738-e3ff 8], addInterest NOK 3 [BankServer-94738-e3ff 9]]
-[2026-10-15 13:37:06.219] ACK from BankServer-94738-e3ff for message 25
-[2026-10-15 13:37:06.219] ACK from BankServer-94739-9508 for message 25
-[2026-10-15 13:37:06.219] ACK from BankServer-94719-8d71 for message 25
-[2026-10-15 13:37:06.220] ACK from BankServer-94720-98e5 for message 25
-[2026-10-15 13:37:06.220] ACK from BankServer-94721-7c44 for message 25
-[2026-10-15 13:37:06.220] ACK from BankServer-94751-2f3c for message 25
-[2026-10-15 13:37:06.224] Processing message: 26
-[2026-10-15 13:37:06.224] Message added to queue: [deposit DKK 80 [BankServer-94739-9508 4], deposit EUR 40 [BankServer-94739-9508 5], deposit CHF 35 [BankServer-94739-9508 6], deposit GBP 25 [BankServer-94739-9508 7], deposit USD 95 [BankServer-94739-9508 8], addInterest NOK 3 [BankServer-94739-9508 9]]
-[2026-10-15 13:37:06.228] ACK from BankServer-94720-98e5 for message 26
-[2026-10-15 13:37:06.228] ACK from BankServer-94739-9508 for message 26
-[2026-10-15 13:37:06.229] ACK from BankServer-94738-e3ff for message 26
-[2026-10-15 13:37:06.229] ACK from BankServer-94719-8d71 for message 26
-[2026-10-15 13:37:06.230] ACK from BankServer-94751-2f3c for message 26
-[2026-10-15 13:37:06.230] ACK from BankServer-94721-7c44 for message 26
-[2026-10-15 13:37:09.242] Processing message: 27
-[2026-10-15 13:37:09.242] Message added to queue: [getSyncedBalance EUR [BankServer-94721-7c44 sync-4], deposit EUR 110 [BankServer-94721-7c44 10], deposit USD 90 [BankServer-94721-7c44 11], addInterest EUR 15 [BankServer-94721-7c44 12]]
-[2026-10-15 13:37:09.243] Message added to queue: [getSyncedBalance EUR [BankServer-94720-98e5 sync-4], deposit EUR 110 [BankServer-94720-98e5 10], deposit USD 90 [BankServer-94720-98e5 11], addInterest EUR 15 [BankServer-94720-98e5 12]]
-[2026-10-15 13:37:09.243] Message added to queue: [getSyncedBalance EUR [BankServer-94719-8d71 sync-4], deposit EUR 110 [BankServer-94719-8d71 10], deposit USD 90 [BankServer-94719-8d71 11], addInterest EUR 15 [BankServer-94719-8d71 12]]
-[2026-10-15 13:37:09.246] Message added to queue: [getSyncedBalance EUR [BankServer-94721-7c44 sync-4], deposit EUR 110 [BankServer-94721-7c44 10], deposit USD 90 [BankServer-94721-7c44 11], addInterest EUR 15 [BankServer-94721-7c44 12]]
-[2026-10-15 13:37:09.248] Message added to queue: [getSyncedBalance EUR [BankServer-94720-98e5 sync-4], deposit EUR 110 [BankServer-94720-98e5 10], deposit USD 90 [BankServer-94720-98e5 11], addInterest EUR 15 [BankServer-94720-98e5 12]]
-[2026-10-15 13:37:09.248] ACK from BankServer-94719-8d71 for message 27
-[2026-10-15 13:37:09.248] ACK from BankServer-94738-e3ff for message 27
-[2026-10-15 13:37:09.249] ACK from BankServer-94720-98e5 for message 27
-[2026-10-15 13:37:09.249] ACK from BankServer-94739-9508 for message 27
-[2026-10-15 13:37:09.249] ACK from BankServer-94751-2f3c for message 27
-[2026-10-15 13:37:09.249] ACK from BankServer-94721-7c44 for message 27
-[2026-10-15 13:37:09.249] Processing message: 28
-[2026-10-15 13:37:09.249] Message added to queue: [getSyncedBalance EUR [BankServer-94719-8d71 sync-4], deposit EUR 110 [BankServer-94719-8d71 10], deposit USD 90 [BankServer-94719-8d71 11], addInterest EUR 15 [BankServer-94719-8d71 12]]
-[2026-10-15 13:37:09.252] ACK from BankServer-94721-7c44 for message 28
-[2026-10-15 13:37:09.253] ACK from BankServer-94719-8d71 for message 28
-[2026-10-15 13:37:09.253] ACK from BankServer-94720-98e5 for message 28
-[2026-10-15 13:37:09.253] ACK from BankServer-94738-e3ff for message 28
-[2026-10-15 13:37:09.253] ACK from BankServer-94739-9508 for message 28
-[2026-10-15 13:37:09.253] ACK from BankServer-94751-2f3c for message 28
-[2026-10-15 13:37:09.253] Processing message: 29
-[2026-10-15 13:37:09.255] ACK from BankServer-94751-2f3c for message 29
-[2026-10-15 13:37:09.255] ACK from BankServer-94738-e3ff for message 29
-[2026-10-15 13:37:09.255] ACK from BankServer-94739-9508 for message 29
-[2026-10-15 13:37:09.255] ACK from BankServer-94720-98e5 for message 29
-[2026-10-15 13:37:09.256] ACK from BankServer-94721-7c44 for message 29
-[2026-10-15 13:37:09.256] ACK from BankServer-94719-8d71 for message 29
-[2026-10-15 13:37:09.257] Processing message: 30
-[2026-10-15 13:37:09.258] ACK from BankServer-94738-e3ff for message 30
-[2026-10-15 13:37:09.258] ACK from BankServer-94721-7c44 for message 30
-[2026-10-15 13:37:09.259] ACK from BankServer-94751-2f3c for message 30
-[2026-10-15 13:37:09.259] ACK from BankServer-94739-9508 for message 30
-[2026-10-15 13:37:09.259] ACK from BankServer-94719-8d71 for message 30
-[2026-10-15 13:37:09.259] ACK from BankServer-94720-98e5 for message 30
-[2026-10-15 13:37:09.259] Processing message: 31
-[2026-10-15 13:37:09.260] ACK from BankServer-94739-9508 for message 31
-[2026-10-15 13:37:09.260] ACK from BankServer-94720-98e5 for message 31
-[2026-10-15 13:37:09.261] ACK from BankServer-94738-e3ff for message 31
-[2026-10-15 13:37:09.261] ACK from BankServer-94719-8d71 for message 31
-[2026-10-15 13:37:09.261] ACK from BankServer-94751-2f3c for message 31
-[2026-10-15 13:37:09.261] ACK from BankServer-94721-7c44 for message 31
-[2026-10-15 13:37:09.261] Processing message: 32
-[2026-10-15 13:37:09.262] ACK from BankServer-94738-e3ff for message 32
-[2026-10-15 13:37:09.262] ACK from BankServer-94720-98e5 for message 32
-[2026-10-15 13:37:09.262] ACK from BankServer-94721-7c44 for message 32
-[2026-10-15 13:37:09.263] ACK from BankServer-94719-8d71 for message 32
-[2026-10-15 13:37:09.263] ACK from BankServer-94739-9508 for message 32
-[2026-10-15 13:37:09.263] ACK from BankServer-94751-2f3c for message 32
-[2026-10-15 13:37:11.216] Processing message: 33
-[2026-10-15 13:37:11.216] Message added to queue: [deposit DKK 10 [BankServer-94751-2f3c 4], deposit CHF 30 [BankServer-94751-2f3c 5], deposit NOK -100 [BankServer-94751-2f3c 6], deposit GBP 50 [BankServer-94751-2f3c 7], addInterest 20 [BankServer-94751-2f3c 8]]
-[2026-10-15 13:37:11.216] Message added to queue: [deposit DKK 10 [BankServer-94751-2f3c 4], deposit CHF 30 [BankServer-94751-2f3c 5], deposit NOK -100 [BankServer-94751-2f3c 6], deposit GBP 50 [BankServer-94751-2f3c 7], addInterest 20 [BankServer-94751-2f3c 8]]
-[2026-10-15 13:37:11.221] ACK from BankServer-94720-98e5 for message 33
-[2026-10-15 13:37:11.221] ACK from BankServer-94721-7c44 for message 33
-[2026-10-15 13:37:11.221] ACK from BankServer-94739-9508 for message 33
-[2026-10-15 13:37:11.221] ACK from BankServer-94719-8d71 for message 33
-[2026-10-15 13:37:11.221] ACK from BankServer-94738-e3ff for message 33
-[2026-10-15 13:37:11.221] ACK from BankServer-94751-2f3c for message 33
-[2026-10-15 13:37:11.221] Processing message: 34
-[2026-10-15 13:37:11.225] ACK from BankServer-94739-9508 for message 34
-[2026-10-15 13:37:11.225] ACK from BankServer-94719-8d71 for message 34
-[2026-10-15 13:37:11.225] ACK from BankServer-94751-2f3c for message 34
-[2026-10-15 13:37:11.226] ACK from BankServer-94721-7c44 for message 34
-[2026-10-15 13:37:11.226] ACK from BankServer-94720-98e5 for message 34
-[2026-10-15 13:37:11.226] ACK from BankServer-94738-e3ff for message 34
-[2026-10-15 13:37:16.217] Processing message: 35
-[2026-10-15 13:37:16.218] Message added to queue: [getSyncedBalance EUR [BankServer-94738-e3ff sync-4], deposit USD 120 [BankServer-94738-e3ff 10], deposit EUR 130 [BankServer-94738-e3ff 11], addInterest 10 [BankServer-94738-e3ff 12]]
-[2026-10-15 13:37:16.222] ACK from BankServer-94739-9508 for message 35
-[2026-10-15 13:37:16.222] ACK from BankServer-94720-98e5 for message 35
-[2026-10-15 13:37:16.223] ACK from BankServer-94751-2f3c for message 35
-[2026-10-15 13:37:16.223] ACK from BankServer-94738-e3ff for message 35
-[2026-10-15 13:37:16.223] ACK from BankServer-94719-8d71 for message 35
-[2026-10-15 13:37:16.223] ACK from BankServer-94721-7c44 for message 35
-[2026-10-15 13:37:16.225] Processing message: 36
-[2026-10-15 13:37:16.225] Message added to queue: [getSyncedBalance EUR [BankServer-94739-9508 sync-4], deposit USD 120 [BankServer-94739-9508 10], deposit EUR 130 [BankServer-94739-9508 11], addInterest 10 [BankServer-94739-9508 12]]
-[2026-10-15 13:37:16.228] ACK from BankServer-94738-e3ff for message 36
-[2026-10-15 13:37:16.229] ACK from BankServer-94720-98e5 for message 36
-[2026-10-15 13:37:16.229] ACK from BankServer-94739-9508 for message 36
-[2026-10-15 13:37:16.229] ACK from BankServer-94721-7c44 for message 36
-[2026-10-15 13:37:16.229] ACK from BankServer-94719-8d71 for message 36
-[2026-10-15 13:37:16.229] ACK from BankServer-94751-2f3c for message 36
-[2026-10-15 13:37:19.249] Message added to queue: [deposit EUR 110 [BankServer-94721-7c44 13]]
-[2026-10-15 13:37:19.250] Processing message: 37
-[2026-10-15 13:37:19.250] Message added to queue: [deposit EUR 110 [BankServer-94720-98e5 13]]
-[2026-10-15 13:37:19.250] Message added to queue: [deposit EUR 110 [BankServer-94721-7c44 13]]
-[2026-10-15 13:37:19.250] Message added to queue: [deposit EUR 110 [BankServer-94719-8d71 13]]
-[2026-10-15 13:37:19.253] ACK from BankServer-94721-7c44 for message 37
-[2026-10-15 13:37:19.253] ACK from BankServer-94720-98e5 for message 37
-[2026-10-15 13:37:19.253] ACK from BankServer-94738-e3ff for message 37
-[2026-10-15 13:37:19.254] ACK from BankServer-94719-8d71 for message 37
-[2026-10-15 13:37:19.254] ACK from BankServer-94739-9508 for message 37
-[2026-10-15 13:37:19.254] ACK from BankServer-94751-2f3c for message 37
-[2026-10-15 13:37:19.254] Processing message: 38
-[2026-10-15 13:37:19.254] Message added to queue: [deposit EUR 110 [BankServer-94720-98e5 13]]
-[2026-10-15 13:37:19.255] Message added to queue: [deposit EUR 110 [BankServer-94719-8d71 13]]
-[2026-10-15 13:37:19.256] ACK from BankServer-94739-9508 for message 38
-[2026-10-15 13:37:19.256] ACK from BankServer-94738-e3ff for message 38
-[2026-10-15 13:37:19.257] ACK from BankServer-94720-98e5 for message 38
-[2026-10-15 13:37:19.257] ACK from BankServer-94721-7c44 for message 38
-[2026-10-15 13:37:19.257] ACK from BankServer-94719-8d71 for message 38
-[2026-10-15 13:37:19.257] ACK from BankServer-94751-2f3c for message 38
-[2026-10-15 13:37:19.257] Processing message: 39
-[2026-10-15 13:37:19.258] ACK from BankServer-94738-e3ff for message 39
-[2026-10-15 13:37:19.258] ACK from BankServer-94719-8d71 for message 39
-[2026-10-15 13:37:19.258] ACK from BankServer-94721-7c44 for message 39
-[2026-10-15 13:37:19.259] ACK from BankServer-94751-2f3c for message 39
-[2026-10-15 13:37:19.259] ACK from BankServer-94739-9508 for message 39
-[2026-10-15 13:37:19.259] ACK from BankServer-94720-98e5 for message 39
-[2026-10-15 13:37:19.259] Processing message: 40
-[2026-10-15 13:37:19.261] ACK from BankServer-94721-7c44 for message 40
-[2026-10-15 13:37:19.261] ACK from BankServer-94719-8d71 for message 40
-[2026-10-15 13:37:19.261] ACK from BankServer-94739-9508 for message 40
-[2026-10-15 13:37:19.261] ACK from BankServer-94751-2f3c for message 40
-[2026-10-15 13:37:19.261] ACK from BankServer-94738-e3ff for message 40
-[2026-10-15 13:37:19.262] ACK from BankServer-94720-98e5 for message 40
-[2026-10-15 13:37:19.262] Processing message: 41
-[2026-10-15 13:37:19.263] ACK from BankServer-94719-8d71 for message 41
-[2026-10-15 13:37:19.263] ACK from BankServer-94721-7c44 for message 41
-[2026-10-15 13:37:19.264] ACK from BankServer-94720-98e5 for message 41
-[2026-10-15 13:37:19.264] ACK from BankServer-94738-e3ff for message 41
-[2026-10-15 13:37:19.264] ACK from BankServer-94751-2f3c for message 41
-[2026-10-15 13:37:19.264] ACK from BankServer-94739-9508 for message 41
-[2026-10-15 13:37:19.264] Processing message: 42
-[2026-10-15 13:37:19.265] ACK from BankServer-94721-7c44 for message 42
-[2026-10-15 13:37:19.265] ACK from BankServer-94720-98e5 for message 42
-[2026-10-15 13:37:19.265] ACK from BankServer-94719-8d71 for message 42
-[2026-10-15 13:37:19.265] ACK from BankServer-94751-2f3c for message 42
-[2026-10-15 13:37:19.265] ACK from BankServer-94738-e3ff for message 42
-[2026-10-15 13:37:19.266] ACK from BankServer-94739-9508 for message 42
-[2026-10-15 13:37:21.223] Processing message: 43
-[2026-10-15 13:37:21.223] Message added to queue: [getSyncedBalance USD [BankServer-94751-2f3c sync-3]]
-[2026-10-15 13:37:21.223] Message added to queue: [getSyncedBalance USD [BankServer-94751-2f3c sync-3]]
-[2026-10-15 13:37:21.226] ACK from BankServer-94751-2f3c for message 43
-[2026-10-15 13:37:21.226] ACK from BankServer-94721-7c44 for message 43
-[2026-10-15 13:37:21.226] ACK from BankServer-94720-98e5 for message 43
-[2026-10-15 13:37:21.226] ACK from BankServer-94739-9508 for message 43
-[2026-10-15 13:37:21.227] ACK from BankServer-94738-e3ff for message 43
-[2026-10-15 13:37:21.227] ACK from BankServer-94719-8d71 for message 43
-[2026-10-15 13:37:21.227] Processing message: 44
-[2026-10-15 13:37:21.228] ACK from BankServer-94719-8d71 for message 44
-[2026-10-15 13:37:21.228] ACK from BankServer-94721-7c44 for message 44
-[2026-10-15 13:37:21.228] ACK from BankServer-94720-98e5 for message 44
-[2026-10-15 13:37:21.229] ACK from BankServer-94738-e3ff for message 44
-[2026-10-15 13:37:21.229] ACK from BankServer-94739-9508 for message 44
-[2026-10-15 13:37:21.229] ACK from BankServer-94751-2f3c for message 44
-[2026-10-15 13:37:26.222] Processing message: 45
-[2026-10-15 13:37:26.223] Message added to queue: [deposit NOK 90 [BankServer-94738-e3ff 13], getSyncedBalance USD [BankServer-94738-e3ff sync-5]]
-[2026-10-15 13:37:26.226] ACK from BankServer-94738-e3ff for message 45
-[2026-10-15 13:37:26.227] ACK from BankServer-94739-9508 for message 45
-[2026-10-15 13:37:26.227] ACK from BankServer-94751-2f3c for message 45
-[2026-10-15 13:37:26.227] ACK from BankServer-94721-7c44 for message 45
-[2026-10-15 13:37:26.227] ACK from BankServer-94720-98e5 for message 45
-[2026-10-15 13:37:26.227] ACK from BankServer-94719-8d71 for message 45
-[2026-10-15 13:37:26.231] Message added to queue: [deposit NOK 90 [BankServer-94739-9508 13]]
-[2026-10-15 13:37:26.231] Processing message: 46
-[2026-10-15 13:37:26.233] ACK from BankServer-94738-e3ff for message 46
-[2026-10-15 13:37:26.233] ACK from BankServer-94751-2f3c for message 46
-[2026-10-15 13:37:26.233] ACK from BankServer-94720-98e5 for message 46
-[2026-10-15 13:37:26.234] ACK from BankServer-94739-9508 for message 46
-[2026-10-15 13:37:26.234] ACK from BankServer-94721-7c44 for message 46
-[2026-10-15 13:37:26.234] ACK from BankServer-94719-8d71 for message 46
-[2026-10-15 13:37:29.256] Message added to queue: [getSyncedBalance USD [BankServer-94721-7c44 sync-5]]
-[2026-10-15 13:37:29.257] Processing message: 47
-[2026-10-15 13:37:29.257] Message added to queue: [getSyncedBalance USD [BankServer-94719-8d71 sync-5]]
-[2026-10-15 13:37:29.257] Message added to queue: [getSyncedBalance USD [BankServer-94721-7c44 sync-5]]
-[2026-10-15 13:37:29.257] Message added to queue: [getSyncedBalance USD [BankServer-94720-98e5 sync-5]]
-[2026-10-15 13:37:29.259] Message added to queue: [getSyncedBalance USD [BankServer-94719-8d71 sync-5]]
-[2026-10-15 13:37:29.260] ACK from BankServer-94719-8d71 for message 47
-[2026-10-15 13:37:29.260] ACK from BankServer-94720-98e5 for message 47
-[2026-10-15 13:37:29.260] ACK from BankServer-94739-9508 for message 47
-[2026-10-15 13:37:29.261] ACK from BankServer-94738-e3ff for message 47
-[2026-10-15 13:37:29.261] ACK from BankServer-94751-2f3c for message 47
-[2026-10-15 13:37:29.261] ACK from BankServer-94721-7c44 for message 47
-[2026-10-15 13:37:29.261] Processing message: 48
-[2026-10-15 13:37:29.261] Message added to queue: [getSyncedBalance USD [BankServer-94720-98e5 sync-5]]
-[2026-10-15 13:37:29.263] ACK from BankServer-94739-9508 for message 48
-[2026-10-15 13:37:29.263] ACK from BankServer-94738-e3ff for message 48
-[2026-10-15 13:37:29.263] ACK from BankServer-94720-98e5 for message 48
-[2026-10-15 13:37:29.263] ACK from BankServer-94751-2f3c for message 48
-[2026-10-15 13:37:29.263] ACK from BankServer-94719-8d71 for message 48
-[2026-10-15 13:37:29.264] ACK from BankServer-94721-7c44 for message 48
-[2026-10-15 13:37:29.264] Processing message: 49
-[2026-10-15 13:37:29.264] ACK from BankServer-94720-98e5 for message 49
-[2026-10-15 13:37:29.264] ACK from BankServer-94719-8d71 for message 49
-[2026-10-15 13:37:29.265] ACK from BankServer-94738-e3ff for message 49
-[2026-10-15 13:37:29.265] ACK from BankServer-94721-7c44 for message 49
-[2026-10-15 13:37:29.265] ACK from BankServer-94739-9508 for message 49
-[2026-10-15 13:37:29.265] ACK from BankServer-94751-2f3c for message 49
-[2026-10-15 13:37:29.265] Processing message: 50
-[2026-10-15 13:37:29.266] ACK from BankServer-94719-8d71 for message 50
-[2026-10-15 13:37:29.266] ACK from BankServer-94751-2f3c for message 50
-[2026-10-15 13:37:29.266] ACK from BankServer-94738-e3ff for message 50
-[2026-10-15 13:37:29.266] ACK from BankServer-94721-7c44 for message 50
-[2026-10-15 13:37:29.266] ACK from BankServer-94739-9508 for message 50
-[2026-10-15 13:37:29.266] ACK from BankServer-94720-98e5 for message 50
-[2026-10-15 13:37:29.266] Processing message: 51
-[2026-10-15 13:37:29.267] ACK from BankServer-94719-8d71 for message 51
-[2026-10-15 13:37:29.267] ACK from BankServer-94739-9508 for message 51
-[2026-10-15 13:37:29.267] ACK from BankServer-94738-e3ff for message 51
-[2026-10-15 13:37:29.267] ACK from BankServer-94720-98e5 for message 51
-[2026-10-15 13:37:29.267] ACK from BankServer-94721-7c44 for message 51
-[2026-10-15 13:37:29.267] ACK from BankServer-94751-2f3c for message 51
-[2026-10-15 13:37:29.268] Processing message: 52
-[2026-10-15 13:37:29.268] ACK from BankServer-94719-8d71 for message 52
-[2026-10-15 13:37:29.268] ACK from BankServer-94738-e3ff for message 52
-[2026-10-15 13:37:29.269] ACK from BankServer-94721-7c44 for message 52
-[2026-10-15 13:37:29.269] ACK from BankServer-94739-9508 for message 52
-[2026-10-15 13:37:29.270] ACK from BankServer-94751-2f3c for message 52
-[2026-10-15 13:37:29.270] ACK from BankServer-94720-98e5 for message 52
-[2026-10-15 13:37:36.238] Message added to queue: [getSyncedBalance USD [BankServer-94739-9508 sync-5]]
-[2026-10-15 13:37:36.238] Processing message: 53
-[2026-10-15 13:37:36.240] ACK from BankServer-94738-e3ff for message 53
-[2026-10-15 13:37:36.241] ACK from BankServer-94751-2f3c for message 53
-[2026-10-15 13:37:36.241] ACK from BankServer-94739-9508 for message 53
-[2026-10-15 13:37:36.241] ACK from BankServer-94721-7c44 for message 53
-[2026-10-15 13:37:36.241] ACK from BankServer-94720-98e5 for message 53
-[2026-10-15 13:37:36.241] ACK from BankServer-94719-8d71 for message 53
-[2026-10-15 13:37:54.752] Message added to queue: [getSyncedBalance USD [BankServer-94751-2f3c sync-4]]
-[2026-10-15 13:37:54.752] Processing message: 54
-[2026-10-15 13:37:54.753] ACK from BankServer-94721-7c44 for message 54
-[2026-10-15 13:37:54.753] ACK from BankServer-94739-9508 for message 54
-[2026-10-15 13:37:54.753] ACK from BankServer-94719-8d71 for message 54
-[2026-10-15 13:37:54.753] ACK from BankServer-94738-e3ff for message 54
-[2026-10-15 13:37:54.753] ACK from BankServer-94720-98e5 for message 54
-[2026-10-15 13:37:54.753] ACK from BankServer-94751-2f3c for message 54
-[2026-10-15 13:37:54.754] BankServer-94751-2f3c left group group01
-[2026-10-15 13:37:54.754] Number of replicas: 5
-[2026-10-15 13:37:57.414] Message added to queue: [getSyncedBalance USD [BankServer-94721-7c44 sync-6]]
-[2026-10-15 13:37:57.415] Processing message: 55
-[2026-10-15 13:37:57.417] ACK from BankServer-94738-e3ff for message 55
-[2026-10-15 13:37:57.417] ACK from BankServer-94739-9508 for message 55
-[2026-10-15 13:37:57.417] ACK from BankServer-94720-98e5 for message 55
-[2026-10-15 13:37:57.417] ACK from BankServer-94721-7c44 for message 55
-[2026-10-15 13:37:57.417] ACK from BankServer-94719-8d71 for message 55
-[2026-10-15 13:37:57.418] BankServer-94721-7c44 left group group01
-[2026-10-15 13:37:57.418] Number of replicas: 4
-[2026-10-15 13:37:57.607] Message added to queue: [getSyncedBalance USD [BankServer-94719-8d71 sync-6]]
-[2026-10-15 13:37:57.607] Processing message: 56
-[2026-10-15 13:37:57.609] ACK from BankServer-94720-98e5 for message 56
-[2026-10-15 13:37:57.609] ACK from BankServer-94739-9508 for message 56
-[2026-10-15 13:37:57.610] ACK from BankServer-94738-e3ff for message 56
-[2026-10-15 13:37:57.610] ACK from BankServer-94719-8d71 for message 56
-[2026-10-15 13:37:57.610] BankServer-94719-8d71 left group group01
-[2026-10-15 13:37:57.610] Number of replicas: 3
-[2026-10-15 13:37:58.196] Message added to queue: [getSyncedBalance USD [BankServer-94720-98e5 sync-6]]
-[2026-10-15 13:37:58.196] Processing message: 57
-[2026-10-15 13:37:58.197] ACK from BankServer-94738-e3ff for message 57
-[2026-10-15 13:37:58.198] ACK from BankServer-94739-9508 for message 57
-[2026-10-15 13:37:58.199] BankServer-94720-98e5 left group group01
-[2026-10-15 13:37:58.199] Number of replicas: 2
-[2026-10-15 13:37:58.199] ACK from BankServer-94720-98e5 for message 57
-[2026-10-15 13:38:01.145] Message added to queue: [getSyncedBalance USD [BankServer-94738-e3ff sync-6]]
-[2026-10-15 13:38:01.145] Processing message: 58
-[2026-10-15 13:38:01.146] ACK from BankServer-94739-9508 for message 58
-[2026-10-15 13:38:01.146] ACK from BankServer-94738-e3ff for message 58
-[2026-10-15 13:38:01.147] BankServer-94738-e3ff left group group01
-[2026-10-15 13:38:01.147] Number of replicas: 1
-[2026-10-15 13:38:02.820] Message added to queue: [getSyncedBalance USD [BankServer-94739-9508 sync-6]]
-[2026-10-15 13:38:02.820] Processing message: 59
-[2026-10-15 13:38:02.821] ACK from BankServer-94739-9508 for message 59
-[2026-10-15 13:38:02.822] BankServer-94739-9508 left group group01
-[2026-10-15 13:38:02.823] Number of replicas: 0
+[2026-10-15 13:56:50.090] MessageDeliveryServer ready on port 1099
+[2026-10-15 13:56:51.127] BankServer-96521-d60b joined group group01
+[2026-10-15 13:56:51.127] Number of replicas: 1
+[2026-10-15 13:56:51.137] BankServer-96522-1cf3 joined group group01
+[2026-10-15 13:56:51.137] Number of replicas: 2
+[2026-10-15 13:56:51.142] BankServer-96523-266c joined group group01
+[2026-10-15 13:56:51.143] Number of replicas: 3
+[2026-10-15 13:56:58.162] BankServer-96538-20b1 joined group group01
+[2026-10-15 13:56:58.162] Number of replicas: 4
+[2026-10-15 13:56:58.168] BankServer-96537-f600 joined group group01
+[2026-10-15 13:56:58.168] Number of replicas: 5
+[2026-10-15 13:57:01.156] Message added to queue: [getSyncedBalance USD [BankServer-96522-1cf3 sync-0], deposit USD 90 [BankServer-96522-1cf3 0], getSyncedBalance EUR [BankServer-96522-1cf3 sync-1], deposit NOK 120 [BankServer-96522-1cf3 1]]
+[2026-10-15 13:57:01.156] Message added to queue: [getSyncedBalance USD [BankServer-96523-266c sync-0], deposit USD 90 [BankServer-96523-266c 0], getSyncedBalance EUR [BankServer-96523-266c sync-1], deposit NOK 120 [BankServer-96523-266c 1]]
+[2026-10-15 13:57:01.156] Message added to queue: [getSyncedBalance USD [BankServer-96521-d60b sync-0], deposit USD 90 [BankServer-96521-d60b 0], getSyncedBalance EUR [BankServer-96521-d60b sync-1], deposit NOK 120 [BankServer-96521-d60b 1]]
+[2026-10-15 13:57:01.158] Processing message: 0
+[2026-10-15 13:57:01.175] ACK from BankServer-96537-f600 for message 0
+[2026-10-15 13:57:01.175] ACK from BankServer-96523-266c for message 0
+[2026-10-15 13:57:01.175] ACK from BankServer-96538-20b1 for message 0
+[2026-10-15 13:57:01.175] ACK from BankServer-96522-1cf3 for message 0
+[2026-10-15 13:57:01.175] ACK from BankServer-96521-d60b for message 0
+[2026-10-15 13:57:01.176] Processing message: 1
+[2026-10-15 13:57:01.177] ACK from BankServer-96522-1cf3 for message 1
+[2026-10-15 13:57:01.178] ACK from BankServer-96537-f600 for message 1
+[2026-10-15 13:57:01.178] ACK from BankServer-96538-20b1 for message 1
+[2026-10-15 13:57:01.178] ACK from BankServer-96523-266c for message 1
+[2026-10-15 13:57:01.178] ACK from BankServer-96521-d60b for message 1
+[2026-10-15 13:57:01.179] Processing message: 2
+[2026-10-15 13:57:01.180] ACK from BankServer-96537-f600 for message 2
+[2026-10-15 13:57:01.180] ACK from BankServer-96523-266c for message 2
+[2026-10-15 13:57:01.180] ACK from BankServer-96538-20b1 for message 2
+[2026-10-15 13:57:01.181] ACK from BankServer-96521-d60b for message 2
+[2026-10-15 13:57:01.181] ACK from BankServer-96522-1cf3 for message 2
+[2026-10-15 13:57:03.144] BankServer-96549-0d4d joined group group01
+[2026-10-15 13:57:03.144] Number of replicas: 6
+[2026-10-15 13:57:08.174] Processing message: 3
+[2026-10-15 13:57:08.174] Message added to queue: [getSyncedBalance USD [BankServer-96538-20b1 sync-0], deposit EUR 75 [BankServer-96538-20b1 0], getSyncedBalance EUR [BankServer-96538-20b1 sync-1], deposit USD 115 [BankServer-96538-20b1 1]]
+[2026-10-15 13:57:08.181] ACK from BankServer-96522-1cf3 for message 3
+[2026-10-15 13:57:08.181] ACK from BankServer-96538-20b1 for message 3
+[2026-10-15 13:57:08.181] ACK from BankServer-96537-f600 for message 3
+[2026-10-15 13:57:08.181] ACK from BankServer-96523-266c for message 3
+[2026-10-15 13:57:08.182] ACK from BankServer-96521-d60b for message 3
+[2026-10-15 13:57:08.183] ACK from BankServer-96549-0d4d for message 3
+[2026-10-15 13:57:08.183] Processing message: 4
+[2026-10-15 13:57:08.183] Message added to queue: [getSyncedBalance USD [BankServer-96537-f600 sync-0], deposit EUR 75 [BankServer-96537-f600 0], getSyncedBalance EUR [BankServer-96537-f600 sync-1], deposit USD 115 [BankServer-96537-f600 1]]
+[2026-10-15 13:57:08.186] ACK from BankServer-96523-266c for message 4
+[2026-10-15 13:57:08.187] ACK from BankServer-96521-d60b for message 4
+[2026-10-15 13:57:08.187] ACK from BankServer-96522-1cf3 for message 4
+[2026-10-15 13:57:08.187] ACK from BankServer-96549-0d4d for message 4
+[2026-10-15 13:57:08.187] ACK from BankServer-96538-20b1 for message 4
+[2026-10-15 13:57:08.188] ACK from BankServer-96537-f600 for message 4
+[2026-10-15 13:57:11.161] Processing message: 5
+[2026-10-15 13:57:11.161] Message added to queue: [getSyncedBalance USD [BankServer-96521-d60b sync-2], addInterest NOK 15 [BankServer-96521-d60b 2], getSyncedBalance USD [BankServer-96521-d60b sync-3], deposit DKK 120 [BankServer-96521-d60b 3], deposit NOK 70 [BankServer-96521-d60b 4]]
+[2026-10-15 13:57:11.163] Message added to queue: [getSyncedBalance USD [BankServer-96522-1cf3 sync-2], addInterest NOK 15 [BankServer-96522-1cf3 2], getSyncedBalance USD [BankServer-96522-1cf3 sync-3], deposit DKK 120 [BankServer-96522-1cf3 3], deposit NOK 70 [BankServer-96522-1cf3 4]]
+[2026-10-15 13:57:11.165] Message added to queue: [getSyncedBalance USD [BankServer-96523-266c sync-2], addInterest NOK 15 [BankServer-96523-266c 2], getSyncedBalance USD [BankServer-96523-266c sync-3], deposit DKK 120 [BankServer-96523-266c 3]]
+[2026-10-15 13:57:11.168] ACK from BankServer-96537-f600 for message 5
+[2026-10-15 13:57:11.168] ACK from BankServer-96538-20b1 for message 5
+[2026-10-15 13:57:11.168] ACK from BankServer-96549-0d4d for message 5
+[2026-10-15 13:57:11.168] ACK from BankServer-96521-d60b for message 5
+[2026-10-15 13:57:11.172] ACK from BankServer-96523-266c for message 5
+[2026-10-15 13:57:11.172] ACK from BankServer-96522-1cf3 for message 5
+[2026-10-15 13:57:11.172] Processing message: 6
+[2026-10-15 13:57:11.175] ACK from BankServer-96523-266c for message 6
+[2026-10-15 13:57:11.176] ACK from BankServer-96521-d60b for message 6
+[2026-10-15 13:57:11.176] ACK from BankServer-96537-f600 for message 6
+[2026-10-15 13:57:11.176] ACK from BankServer-96538-20b1 for message 6
+[2026-10-15 13:57:11.176] ACK from BankServer-96549-0d4d for message 6
+[2026-10-15 13:57:11.178] ACK from BankServer-96522-1cf3 for message 6
+[2026-10-15 13:57:11.178] Processing message: 7
+[2026-10-15 13:57:11.180] ACK from BankServer-96522-1cf3 for message 7
+[2026-10-15 13:57:11.181] ACK from BankServer-96521-d60b for message 7
+[2026-10-15 13:57:11.181] ACK from BankServer-96523-266c for message 7
+[2026-10-15 13:57:11.181] ACK from BankServer-96538-20b1 for message 7
+[2026-10-15 13:57:11.181] ACK from BankServer-96537-f600 for message 7
+[2026-10-15 13:57:11.182] ACK from BankServer-96549-0d4d for message 7
+[2026-10-15 13:57:13.156] Processing message: 8
+[2026-10-15 13:57:13.156] Message added to queue: [getSyncedBalance EUR [BankServer-96549-0d4d sync-0], deposit NOK 50 [BankServer-96549-0d4d 0]]
+[2026-10-15 13:57:13.159] ACK from BankServer-96522-1cf3 for message 8
+[2026-10-15 13:57:13.160] ACK from BankServer-96523-266c for message 8
+[2026-10-15 13:57:13.160] ACK from BankServer-96549-0d4d for message 8
+[2026-10-15 13:57:13.160] ACK from BankServer-96521-d60b for message 8
+[2026-10-15 13:57:13.160] ACK from BankServer-96538-20b1 for message 8
+[2026-10-15 13:57:13.160] ACK from BankServer-96537-f600 for message 8
+[2026-10-15 13:57:18.182] Processing message: 9
+[2026-10-15 13:57:18.182] Message added to queue: [getSyncedBalance USD [BankServer-96538-20b1 sync-2], addInterest USD 7 [BankServer-96538-20b1 2], getSyncedBalance USD [BankServer-96538-20b1 sync-3], deposit NOK 10 [BankServer-96538-20b1 3], deposit DKK 80 [BankServer-96538-20b1 4], deposit EUR 40 [BankServer-96538-20b1 5]]
+[2026-10-15 13:57:18.190] ACK from BankServer-96523-266c for message 9
+[2026-10-15 13:57:18.190] ACK from BankServer-96549-0d4d for message 9
+[2026-10-15 13:57:18.190] ACK from BankServer-96537-f600 for message 9
+[2026-10-15 13:57:18.190] ACK from BankServer-96538-20b1 for message 9
+[2026-10-15 13:57:18.190] ACK from BankServer-96521-d60b for message 9
+[2026-10-15 13:57:18.190] ACK from BankServer-96522-1cf3 for message 9
+[2026-10-15 13:57:18.191] Processing message: 10
+[2026-10-15 13:57:18.191] Message added to queue: [getSyncedBalance USD [BankServer-96537-f600 sync-2], addInterest USD 7 [BankServer-96537-f600 2], getSyncedBalance USD [BankServer-96537-f600 sync-3], deposit NOK 10 [BankServer-96537-f600 3], deposit DKK 80 [BankServer-96537-f600 4], deposit EUR 40 [BankServer-96537-f600 5]]
+[2026-10-15 13:57:18.198] ACK from BankServer-96538-20b1 for message 10
+[2026-10-15 13:57:18.199] ACK from BankServer-96521-d60b for message 10
+[2026-10-15 13:57:18.199] ACK from BankServer-96523-266c for message 10
+[2026-10-15 13:57:18.199] ACK from BankServer-96522-1cf3 for message 10
+[2026-10-15 13:57:18.199] ACK from BankServer-96537-f600 for message 10
+[2026-10-15 13:57:18.199] ACK from BankServer-96549-0d4d for message 10
+[2026-10-15 13:57:21.169] Processing message: 11
+[2026-10-15 13:57:21.169] Message added to queue: [deposit GBP 50 [BankServer-96521-d60b 5], deposit USD 25 [BankServer-96521-d60b 6], deposit CHF 30 [BankServer-96521-d60b 7], deposit EUR 25 [BankServer-96521-d60b 8], addInterest 10 [BankServer-96521-d60b 9]]
+[2026-10-15 13:57:21.170] Message added to queue: [deposit GBP 50 [BankServer-96522-1cf3 5], deposit USD 25 [BankServer-96522-1cf3 6], deposit CHF 30 [BankServer-96522-1cf3 7], deposit EUR 25 [BankServer-96522-1cf3 8], addInterest 10 [BankServer-96522-1cf3 9]]
+[2026-10-15 13:57:21.176] ACK from BankServer-96522-1cf3 for message 11
+[2026-10-15 13:57:21.176] ACK from BankServer-96537-f600 for message 11
+[2026-10-15 13:57:21.176] ACK from BankServer-96538-20b1 for message 11
+[2026-10-15 13:57:21.176] ACK from BankServer-96523-266c for message 11
+[2026-10-15 13:57:21.177] ACK from BankServer-96521-d60b for message 11
+[2026-10-15 13:57:21.177] ACK from BankServer-96549-0d4d for message 11
+[2026-10-15 13:57:21.178] Processing message: 12
+[2026-10-15 13:57:21.179] Message added to queue: [deposit NOK 70 [BankServer-96523-266c 4], deposit GBP 50 [BankServer-96523-266c 5], deposit USD 25 [BankServer-96523-266c 6], deposit CHF 30 [BankServer-96523-266c 7], deposit EUR 25 [BankServer-96523-266c 8], addInterest 10 [BankServer-96523-266c 9]]
+[2026-10-15 13:57:21.184] ACK from BankServer-96521-d60b for message 12
+[2026-10-15 13:57:21.184] ACK from BankServer-96523-266c for message 12
+[2026-10-15 13:57:21.187] ACK from BankServer-96538-20b1 for message 12
+[2026-10-15 13:57:21.187] ACK from BankServer-96522-1cf3 for message 12
+[2026-10-15 13:57:21.187] ACK from BankServer-96537-f600 for message 12
+[2026-10-15 13:57:21.188] ACK from BankServer-96549-0d4d for message 12
+[2026-10-15 13:57:21.188] Processing message: 13
+[2026-10-15 13:57:21.191] ACK from BankServer-96522-1cf3 for message 13
+[2026-10-15 13:57:21.191] ACK from BankServer-96537-f600 for message 13
+[2026-10-15 13:57:21.191] ACK from BankServer-96523-266c for message 13
+[2026-10-15 13:57:21.191] ACK from BankServer-96549-0d4d for message 13
+[2026-10-15 13:57:21.192] ACK from BankServer-96521-d60b for message 13
+[2026-10-15 13:57:21.192] ACK from BankServer-96538-20b1 for message 13
+[2026-10-15 13:57:23.163] Processing message: 14
+[2026-10-15 13:57:23.164] Message added to queue: [getSyncedBalance USD [BankServer-96549-0d4d sync-1], addInterest 7 [BankServer-96549-0d4d 1], getSyncedBalance USD [BankServer-96549-0d4d sync-2], deposit EUR -150 [BankServer-96549-0d4d 2]]
+[2026-10-15 13:57:23.167] ACK from BankServer-96537-f600 for message 14
+[2026-10-15 13:57:23.167] ACK from BankServer-96538-20b1 for message 14
+[2026-10-15 13:57:23.167] ACK from BankServer-96523-266c for message 14
+[2026-10-15 13:57:23.168] ACK from BankServer-96549-0d4d for message 14
+[2026-10-15 13:57:23.168] ACK from BankServer-96521-d60b for message 14
+[2026-10-15 13:57:23.168] ACK from BankServer-96522-1cf3 for message 14
+[2026-10-15 13:57:28.189] Message added to queue: [deposit CHF 35 [BankServer-96538-20b1 6], deposit GBP 25 [BankServer-96538-20b1 7], deposit USD 95 [BankServer-96538-20b1 8], addInterest NOK 3 [BankServer-96538-20b1 9]]
+[2026-10-15 13:57:28.190] Processing message: 15
+[2026-10-15 13:57:28.195] ACK from BankServer-96522-1cf3 for message 15
+[2026-10-15 13:57:28.196] ACK from BankServer-96537-f600 for message 15
+[2026-10-15 13:57:28.196] ACK from BankServer-96521-d60b for message 15
+[2026-10-15 13:57:28.196] ACK from BankServer-96538-20b1 for message 15
+[2026-10-15 13:57:28.196] ACK from BankServer-96523-266c for message 15
+[2026-10-15 13:57:28.196] ACK from BankServer-96549-0d4d for message 15
+[2026-10-15 13:57:28.197] Processing message: 16
+[2026-10-15 13:57:28.197] Message added to queue: [deposit CHF 35 [BankServer-96537-f600 6], deposit GBP 25 [BankServer-96537-f600 7], deposit USD 95 [BankServer-96537-f600 8], addInterest NOK 3 [BankServer-96537-f600 9]]
+[2026-10-15 13:57:28.202] ACK from BankServer-96537-f600 for message 16
+[2026-10-15 13:57:28.204] ACK from BankServer-96521-d60b for message 16
+[2026-10-15 13:57:28.204] ACK from BankServer-96549-0d4d for message 16
+[2026-10-15 13:57:28.204] ACK from BankServer-96523-266c for message 16
+[2026-10-15 13:57:28.204] ACK from BankServer-96522-1cf3 for message 16
+[2026-10-15 13:57:28.204] ACK from BankServer-96538-20b1 for message 16
+[2026-10-15 13:57:31.172] Processing message: 17
+[2026-10-15 13:57:31.172] Message added to queue: [getSyncedBalance EUR [BankServer-96522-1cf3 sync-4], deposit EUR 110 [BankServer-96522-1cf3 10], deposit USD 90 [BankServer-96522-1cf3 11], addInterest EUR 15 [BankServer-96522-1cf3 12]]
+[2026-10-15 13:57:31.177] Message added to queue: [getSyncedBalance EUR [BankServer-96521-d60b sync-4], deposit EUR 110 [BankServer-96521-d60b 10], deposit USD 90 [BankServer-96521-d60b 11], addInterest EUR 15 [BankServer-96521-d60b 12]]
+[2026-10-15 13:57:31.178] ACK from BankServer-96537-f600 for message 17
+[2026-10-15 13:57:31.178] ACK from BankServer-96549-0d4d for message 17
+[2026-10-15 13:57:31.178] ACK from BankServer-96522-1cf3 for message 17
+[2026-10-15 13:57:31.178] ACK from BankServer-96538-20b1 for message 17
+[2026-10-15 13:57:31.178] ACK from BankServer-96521-d60b for message 17
+[2026-10-15 13:57:31.178] ACK from BankServer-96523-266c for message 17
+[2026-10-15 13:57:31.179] Processing message: 18
+[2026-10-15 13:57:31.182] ACK from BankServer-96521-d60b for message 18
+[2026-10-15 13:57:31.185] ACK from BankServer-96537-f600 for message 18
+[2026-10-15 13:57:31.185] ACK from BankServer-96522-1cf3 for message 18
+[2026-10-15 13:57:31.186] ACK from BankServer-96549-0d4d for message 18
+[2026-10-15 13:57:31.186] ACK from BankServer-96538-20b1 for message 18
+[2026-10-15 13:57:31.186] Message added to queue: [getSyncedBalance EUR [BankServer-96523-266c sync-4], deposit EUR 110 [BankServer-96523-266c 10], deposit USD 90 [BankServer-96523-266c 11], addInterest EUR 15 [BankServer-96523-266c 12]]
+[2026-10-15 13:57:31.187] ACK from BankServer-96523-266c for message 18
+[2026-10-15 13:57:31.187] Processing message: 19
+[2026-10-15 13:57:31.189] ACK from BankServer-96523-266c for message 19
+[2026-10-15 13:57:31.190] ACK from BankServer-96521-d60b for message 19
+[2026-10-15 13:57:31.190] ACK from BankServer-96549-0d4d for message 19
+[2026-10-15 13:57:31.190] ACK from BankServer-96522-1cf3 for message 19
+[2026-10-15 13:57:31.190] ACK from BankServer-96537-f600 for message 19
+[2026-10-15 13:57:31.190] ACK from BankServer-96538-20b1 for message 19
+[2026-10-15 13:57:33.170] Processing message: 20
+[2026-10-15 13:57:33.171] Message added to queue: [deposit USD -100 [BankServer-96549-0d4d 3], deposit DKK 10 [BankServer-96549-0d4d 4], deposit CHF 30 [BankServer-96549-0d4d 5], deposit NOK -100 [BankServer-96549-0d4d 6], deposit GBP 50 [BankServer-96549-0d4d 7], addInterest 20 [BankServer-96549-0d4d 8]]
+[2026-10-15 13:57:33.178] ACK from BankServer-96523-266c for message 20
+[2026-10-15 13:57:33.178] ACK from BankServer-96549-0d4d for message 20
+[2026-10-15 13:57:33.179] ACK from BankServer-96538-20b1 for message 20
+[2026-10-15 13:57:33.179] ACK from BankServer-96522-1cf3 for message 20
+[2026-10-15 13:57:33.179] ACK from BankServer-96537-f600 for message 20
+[2026-10-15 13:57:33.180] ACK from BankServer-96521-d60b for message 20
+[2026-10-15 13:57:38.197] Processing message: 21
+[2026-10-15 13:57:38.197] Message added to queue: [getSyncedBalance EUR [BankServer-96538-20b1 sync-4], deposit USD 120 [BankServer-96538-20b1 10], deposit EUR 130 [BankServer-96538-20b1 11], addInterest 10 [BankServer-96538-20b1 12]]
+[2026-10-15 13:57:38.201] ACK from BankServer-96537-f600 for message 21
+[2026-10-15 13:57:38.201] ACK from BankServer-96523-266c for message 21
+[2026-10-15 13:57:38.202] ACK from BankServer-96549-0d4d for message 21
+[2026-10-15 13:57:38.202] ACK from BankServer-96538-20b1 for message 21
+[2026-10-15 13:57:38.202] ACK from BankServer-96521-d60b for message 21
+[2026-10-15 13:57:38.202] ACK from BankServer-96522-1cf3 for message 21
+[2026-10-15 13:57:38.202] Message added to queue: [getSyncedBalance EUR [BankServer-96537-f600 sync-4], deposit USD 120 [BankServer-96537-f600 10], deposit EUR 130 [BankServer-96537-f600 11], addInterest 10 [BankServer-96537-f600 12]]
+[2026-10-15 13:57:38.202] Processing message: 22
+[2026-10-15 13:57:38.206] ACK from BankServer-96522-1cf3 for message 22
+[2026-10-15 13:57:38.206] ACK from BankServer-96523-266c for message 22
+[2026-10-15 13:57:38.206] ACK from BankServer-96521-d60b for message 22
+[2026-10-15 13:57:38.206] ACK from BankServer-96538-20b1 for message 22
+[2026-10-15 13:57:38.207] ACK from BankServer-96537-f600 for message 22
+[2026-10-15 13:57:38.207] ACK from BankServer-96549-0d4d for message 22
+[2026-10-15 13:57:41.175] Message added to queue: [deposit EUR 110 [BankServer-96522-1cf3 13]]
+[2026-10-15 13:57:41.175] Processing message: 23
+[2026-10-15 13:57:41.183] ACK from BankServer-96523-266c for message 23
+[2026-10-15 13:57:41.183] ACK from BankServer-96538-20b1 for message 23
+[2026-10-15 13:57:41.184] ACK from BankServer-96522-1cf3 for message 23
+[2026-10-15 13:57:41.184] ACK from BankServer-96549-0d4d for message 23
+[2026-10-15 13:57:41.184] ACK from BankServer-96537-f600 for message 23
+[2026-10-15 13:57:41.184] ACK from BankServer-96521-d60b for message 23
+[2026-10-15 13:57:41.185] Message added to queue: [deposit EUR 110 [BankServer-96521-d60b 13]]
+[2026-10-15 13:57:41.185] Processing message: 24
+[2026-10-15 13:57:41.187] ACK from BankServer-96521-d60b for message 24
+[2026-10-15 13:57:41.188] ACK from BankServer-96537-f600 for message 24
+[2026-10-15 13:57:41.188] ACK from BankServer-96549-0d4d for message 24
+[2026-10-15 13:57:41.188] ACK from BankServer-96523-266c for message 24
+[2026-10-15 13:57:41.189] ACK from BankServer-96522-1cf3 for message 24
+[2026-10-15 13:57:41.189] ACK from BankServer-96538-20b1 for message 24
+[2026-10-15 13:57:41.191] Processing message: 25
+[2026-10-15 13:57:41.191] Message added to queue: [deposit EUR 110 [BankServer-96523-266c 13]]
+[2026-10-15 13:57:41.194] ACK from BankServer-96522-1cf3 for message 25
+[2026-10-15 13:57:41.194] ACK from BankServer-96523-266c for message 25
+[2026-10-15 13:57:41.195] ACK from BankServer-96521-d60b for message 25
+[2026-10-15 13:57:41.195] ACK from BankServer-96537-f600 for message 25
+[2026-10-15 13:57:41.195] ACK from BankServer-96538-20b1 for message 25
+[2026-10-15 13:57:41.195] ACK from BankServer-96549-0d4d for message 25
+[2026-10-15 13:57:43.177] Message added to queue: [getSyncedBalance USD [BankServer-96549-0d4d sync-3]]
+[2026-10-15 13:57:43.177] Processing message: 26
+[2026-10-15 13:57:43.181] ACK from BankServer-96538-20b1 for message 26
+[2026-10-15 13:57:43.181] ACK from BankServer-96521-d60b for message 26
+[2026-10-15 13:57:43.181] ACK from BankServer-96549-0d4d for message 26
+[2026-10-15 13:57:43.182] ACK from BankServer-96537-f600 for message 26
+[2026-10-15 13:57:43.182] ACK from BankServer-96523-266c for message 26
+[2026-10-15 13:57:43.182] ACK from BankServer-96522-1cf3 for message 26
+[2026-10-15 13:57:48.202] Message added to queue: [deposit NOK 90 [BankServer-96538-20b1 13], getSyncedBalance USD [BankServer-96538-20b1 sync-5]]
+[2026-10-15 13:57:48.202] Processing message: 27
+[2026-10-15 13:57:48.205] ACK from BankServer-96537-f600 for message 27
+[2026-10-15 13:57:48.205] ACK from BankServer-96538-20b1 for message 27
+[2026-10-15 13:57:48.206] ACK from BankServer-96523-266c for message 27
+[2026-10-15 13:57:48.206] ACK from BankServer-96549-0d4d for message 27
+[2026-10-15 13:57:48.206] ACK from BankServer-96522-1cf3 for message 27
+[2026-10-15 13:57:48.206] ACK from BankServer-96521-d60b for message 27
+[2026-10-15 13:57:48.206] Message added to queue: [deposit NOK 90 [BankServer-96537-f600 13]]
+[2026-10-15 13:57:48.206] Processing message: 28
+[2026-10-15 13:57:48.208] ACK from BankServer-96522-1cf3 for message 28
+[2026-10-15 13:57:48.208] ACK from BankServer-96538-20b1 for message 28
+[2026-10-15 13:57:48.209] ACK from BankServer-96537-f600 for message 28
+[2026-10-15 13:57:48.209] ACK from BankServer-96523-266c for message 28
+[2026-10-15 13:57:48.209] ACK from BankServer-96549-0d4d for message 28
+[2026-10-15 13:57:48.210] ACK from BankServer-96521-d60b for message 28
+[2026-10-15 13:57:51.178] Message added to queue: [getSyncedBalance USD [BankServer-96522-1cf3 sync-5]]
+[2026-10-15 13:57:51.179] Processing message: 29
+[2026-10-15 13:57:51.181] ACK from BankServer-96521-d60b for message 29
+[2026-10-15 13:57:51.182] ACK from BankServer-96537-f600 for message 29
+[2026-10-15 13:57:51.182] ACK from BankServer-96522-1cf3 for message 29
+[2026-10-15 13:57:51.182] ACK from BankServer-96549-0d4d for message 29
+[2026-10-15 13:57:51.182] ACK from BankServer-96538-20b1 for message 29
+[2026-10-15 13:57:51.182] ACK from BankServer-96523-266c for message 29
+[2026-10-15 13:57:51.191] Message added to queue: [getSyncedBalance USD [BankServer-96521-d60b sync-5]]
+[2026-10-15 13:57:51.192] Processing message: 30
+[2026-10-15 13:57:51.194] ACK from BankServer-96523-266c for message 30
+[2026-10-15 13:57:51.194] ACK from BankServer-96537-f600 for message 30
+[2026-10-15 13:57:51.195] ACK from BankServer-96521-d60b for message 30
+[2026-10-15 13:57:51.195] ACK from BankServer-96522-1cf3 for message 30
+[2026-10-15 13:57:51.195] ACK from BankServer-96538-20b1 for message 30
+[2026-10-15 13:57:51.195] ACK from BankServer-96549-0d4d for message 30
+[2026-10-15 13:57:51.197] Message added to queue: [getSyncedBalance USD [BankServer-96523-266c sync-5]]
+[2026-10-15 13:57:51.197] Processing message: 31
+[2026-10-15 13:57:51.198] ACK from BankServer-96523-266c for message 31
+[2026-10-15 13:57:51.199] ACK from BankServer-96549-0d4d for message 31
+[2026-10-15 13:57:51.199] ACK from BankServer-96521-d60b for message 31
+[2026-10-15 13:57:51.199] ACK from BankServer-96522-1cf3 for message 31
+[2026-10-15 13:57:51.199] ACK from BankServer-96537-f600 for message 31
+[2026-10-15 13:57:51.199] ACK from BankServer-96538-20b1 for message 31
+[2026-10-15 13:57:58.213] Message added to queue: [getSyncedBalance USD [BankServer-96537-f600 sync-5]]
+[2026-10-15 13:57:58.213] Processing message: 32
+[2026-10-15 13:57:58.217] ACK from BankServer-96521-d60b for message 32
+[2026-10-15 13:57:58.217] ACK from BankServer-96522-1cf3 for message 32
+[2026-10-15 13:57:58.217] ACK from BankServer-96549-0d4d for message 32
+[2026-10-15 13:57:58.217] ACK from BankServer-96538-20b1 for message 32
+[2026-10-15 13:57:58.217] ACK from BankServer-96537-f600 for message 32
+[2026-10-15 13:57:58.217] ACK from BankServer-96523-266c for message 32
+[2026-10-15 13:58:17.745] Message added to queue: [getSyncedBalance USD [BankServer-96549-0d4d sync-4]]
+[2026-10-15 13:58:17.746] Processing message: 33
+[2026-10-15 13:58:17.747] ACK from BankServer-96537-f600 for message 33
+[2026-10-15 13:58:17.747] ACK from BankServer-96538-20b1 for message 33
+[2026-10-15 13:58:17.747] ACK from BankServer-96522-1cf3 for message 33
+[2026-10-15 13:58:17.747] ACK from BankServer-96521-d60b for message 33
+[2026-10-15 13:58:17.748] ACK from BankServer-96523-266c for message 33
+[2026-10-15 13:58:17.748] ACK from BankServer-96549-0d4d for message 33
+[2026-10-15 13:58:17.749] BankServer-96549-0d4d left group group01
+[2026-10-15 13:58:17.749] Number of replicas: 5
+[2026-10-15 13:58:19.202] Message added to queue: [getSyncedBalance USD [BankServer-96523-266c sync-6]]
+[2026-10-15 13:58:19.203] Processing message: 34
+[2026-10-15 13:58:19.205] ACK from BankServer-96538-20b1 for message 34
+[2026-10-15 13:58:19.205] ACK from BankServer-96537-f600 for message 34
+[2026-10-15 13:58:19.205] ACK from BankServer-96522-1cf3 for message 34
+[2026-10-15 13:58:19.206] ACK from BankServer-96521-d60b for message 34
+[2026-10-15 13:58:19.206] ACK from BankServer-96523-266c for message 34
+[2026-10-15 13:58:19.207] BankServer-96523-266c left group group01
+[2026-10-15 13:58:19.207] Number of replicas: 4
+[2026-10-15 13:58:19.532] Message added to queue: [getSyncedBalance USD [BankServer-96522-1cf3 sync-6]]
+[2026-10-15 13:58:19.532] Processing message: 35
+[2026-10-15 13:58:19.534] ACK from BankServer-96538-20b1 for message 35
+[2026-10-15 13:58:19.534] ACK from BankServer-96522-1cf3 for message 35
+[2026-10-15 13:58:19.535] ACK from BankServer-96521-d60b for message 35
+[2026-10-15 13:58:19.535] ACK from BankServer-96537-f600 for message 35
+[2026-10-15 13:58:19.536] BankServer-96522-1cf3 left group group01
+[2026-10-15 13:58:19.536] Number of replicas: 3
+[2026-10-15 13:58:21.209] Message added to queue: [getSyncedBalance USD [BankServer-96521-d60b sync-6]]
+[2026-10-15 13:58:21.209] Processing message: 36
+[2026-10-15 13:58:21.211] ACK from BankServer-96538-20b1 for message 36
+[2026-10-15 13:58:21.211] ACK from BankServer-96537-f600 for message 36
+[2026-10-15 13:58:21.211] ACK from BankServer-96521-d60b for message 36
+[2026-10-15 13:58:22.009] BankServer-96521-d60b left group group01
+[2026-10-15 13:58:22.009] Number of replicas: 2
+[2026-10-15 13:58:23.839] Processing message: 37
+[2026-10-15 13:58:23.840] Message added to queue: [getSyncedBalance USD [BankServer-96538-20b1 sync-6]]
+[2026-10-15 13:58:23.841] ACK from BankServer-96537-f600 for message 37
+[2026-10-15 13:58:23.842] BankServer-96538-20b1 left group group01
+[2026-10-15 13:58:23.842] Number of replicas: 1
+[2026-10-15 13:58:23.842] ACK from BankServer-96538-20b1 for message 37
+[2026-10-15 13:58:24.528] Processing message: 38
+[2026-10-15 13:58:24.528] Message added to queue: [getSyncedBalance USD [BankServer-96537-f600 sync-6]]
+[2026-10-15 13:58:24.530] ACK from BankServer-96537-f600 for message 38
+[2026-10-15 13:58:24.531] BankServer-96537-f600 left group group01
+[2026-10-15 13:58:24.531] Number of replicas: 0

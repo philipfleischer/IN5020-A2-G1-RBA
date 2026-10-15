@@ -1,17 +1,19 @@
-[2026-10-13 17:11:27.679] Starting BankServer-75931-fb76
-[2026-10-13 17:11:27.679] Account: group01
-[2026-10-13 17:11:27.680] Expected replicas: 3
-[2026-10-13 17:11:27.682] Currency file: input/TradingRate.txt
-[2026-10-13 17:11:27.682] getSyncedBalance mode: correct
-[2026-10-13 17:11:27.748] [BankServer-75931-fb76] Received state update
-[2026-10-13 17:11:27.750] [BankServer-75931-fb76] State copied: balances {}, 0 executed transactions
-[2026-10-13 17:11:27.754] [BankServer-75931-fb76] Membership changed: [BankServer-75921-54b8, BankServer-75927-011e, BankServer-75931-fb76] (3 members)
-[2026-10-13 17:11:27.754] [BankServer-75931-fb76] Connected to localhost:1823
-[2026-10-13 17:11:27.755] [BankServer-75931-fb76] All 3 initial replicas have joined, starting.
-[2026-10-13 17:11:27.756] Reading commands from: input/tests/FailureTest.txt
-[2026-10-13 17:11:27.757] [BankServer-75931-fb76] > deposit USD 10
-[2026-10-13 17:11:27.761] [BankServer-75931-fb76] Transaction created: deposit USD 10 [BankServer-75931-fb76 0]
-[2026-10-13 17:11:29.100] [BankServer-75931-fb76] > sleep 3
-[2026-10-13 17:11:32.945] [BankServer-75931-fb76] > deposit USD 10
-[2026-10-13 17:11:32.946] [BankServer-75931-fb76] Transaction created: deposit USD 10 [BankServer-75931-fb76 1]
-[2026-10-13 17:11:34.165] [BankServer-75931-fb76] > sleep 3
+[2026-10-15 14:00:35.840] Starting BankServer-97191-bc03
+[2026-10-15 14:00:35.840] Account: group01
+[2026-10-15 14:00:35.840] Expected replicas: 3
+[2026-10-15 14:00:35.840] Currency file: input/TradingRate.txt
+[2026-10-15 14:00:35.841] getSyncedBalance mode: correct
+[2026-10-15 14:00:35.889] [BankServer-97191-bc03] Received state update
+[2026-10-15 14:00:35.890] [BankServer-97191-bc03] State copied: balances {}, 0 executed transactions
+[2026-10-15 14:00:35.891] [BankServer-97191-bc03] Membership changed: [BankServer-97190-1fd3, BankServer-97191-bc03] (2 members)
+[2026-10-15 14:00:35.892] [BankServer-97191-bc03] Connected to localhost:1099
+[2026-10-15 14:00:35.893] [BankServer-97191-bc03] Waiting for replicas: 2/3
+[2026-10-15 14:00:35.897] [BankServer-97191-bc03] Membership changed: [BankServer-97190-1fd3, BankServer-97191-bc03, BankServer-97189-46ef] (3 members)
+[2026-10-15 14:00:35.898] [BankServer-97191-bc03] All 3 initial replicas have joined, starting.
+[2026-10-15 14:00:35.900] Reading commands from: input/tests/FailureTest.txt
+[2026-10-15 14:00:35.901] [BankServer-97191-bc03] > deposit USD 10
+[2026-10-15 14:00:35.902] [BankServer-97191-bc03] Transaction created: deposit USD 10 [BankServer-97191-bc03 0]
+[2026-10-15 14:00:36.968] [BankServer-97191-bc03] > sleep 3
+[2026-10-15 14:00:41.035] [BankServer-97191-bc03] > deposit USD 10
+[2026-10-15 14:00:41.036] [BankServer-97191-bc03] Transaction created: deposit USD 10 [BankServer-97191-bc03 1]
+[2026-10-15 14:00:41.591] [BankServer-97191-bc03] > sleep 3

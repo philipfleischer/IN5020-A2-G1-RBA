@@ -1,387 +1,246 @@
-[2026-10-13 17:11:26.566] MessageDeliveryServer ready on port 1822
-[2026-10-13 17:11:27.740] BankServer-75922-838d joined group group01
-[2026-10-13 17:11:27.740] Number of replicas: 1
-[2026-10-13 17:11:27.760] BankServer-75929-d1de joined group group01
-[2026-10-13 17:11:27.760] Number of replicas: 2
-[2026-10-13 17:11:27.778] BankServer-75932-affb joined group group01
-[2026-10-13 17:11:27.778] Number of replicas: 3
-[2026-10-13 17:11:34.651] BankServer-75944-ffbb joined group group01
-[2026-10-13 17:11:34.651] Number of replicas: 4
-[2026-10-13 17:11:34.661] BankServer-75947-18c8 joined group group01
-[2026-10-13 17:11:34.661] Number of replicas: 5
-[2026-10-13 17:11:37.788] Message added to queue: [deposit USD 90 [BankServer-75922-838d 0], deposit NOK 120 [BankServer-75922-838d 1]]
-[2026-10-13 17:11:37.789] Message added to queue: [deposit USD 90 [BankServer-75922-838d 0], deposit NOK 120 [BankServer-75922-838d 1]]
-[2026-10-13 17:11:37.790] Message added to queue: [deposit USD 90 [BankServer-75929-d1de 0], deposit NOK 120 [BankServer-75929-d1de 1]]
-[2026-10-13 17:11:37.792] Processing message: 0
-[2026-10-13 17:11:37.792] Message added to queue: [deposit USD 90 [BankServer-75929-d1de 0], deposit NOK 120 [BankServer-75929-d1de 1]]
-[2026-10-13 17:11:37.793] Message added to queue: [deposit USD 90 [BankServer-75932-affb 0], deposit NOK 120 [BankServer-75932-affb 1]]
-[2026-10-13 17:11:37.793] Message added to queue: [deposit USD 90 [BankServer-75932-affb 0], deposit NOK 120 [BankServer-75932-affb 1]]
-[2026-10-13 17:11:37.806] ACK from BankServer-75922-838d for message 0
-[2026-10-13 17:11:37.807] ACK from BankServer-75929-d1de for message 0
-[2026-10-13 17:11:37.808] ACK from BankServer-75932-affb for message 0
-[2026-10-13 17:11:37.809] ACK from BankServer-75944-ffbb for message 0
-[2026-10-13 17:11:37.812] ACK from BankServer-75947-18c8 for message 0
-[2026-10-13 17:11:37.813] Processing message: 1
-[2026-10-13 17:11:37.815] ACK from BankServer-75944-ffbb for message 1
-[2026-10-13 17:11:37.815] ACK from BankServer-75932-affb for message 1
-[2026-10-13 17:11:37.816] ACK from BankServer-75929-d1de for message 1
-[2026-10-13 17:11:37.817] ACK from BankServer-75947-18c8 for message 1
-[2026-10-13 17:11:37.817] ACK from BankServer-75922-838d for message 1
-[2026-10-13 17:11:37.817] Processing message: 2
-[2026-10-13 17:11:37.819] ACK from BankServer-75932-affb for message 2
-[2026-10-13 17:11:37.820] ACK from BankServer-75929-d1de for message 2
-[2026-10-13 17:11:37.820] ACK from BankServer-75944-ffbb for message 2
-[2026-10-13 17:11:37.821] ACK from BankServer-75947-18c8 for message 2
-[2026-10-13 17:11:37.821] ACK from BankServer-75922-838d for message 2
-[2026-10-13 17:11:37.821] Processing message: 3
-[2026-10-13 17:11:37.824] ACK from BankServer-75932-affb for message 3
-[2026-10-13 17:11:37.824] ACK from BankServer-75944-ffbb for message 3
-[2026-10-13 17:11:37.824] ACK from BankServer-75947-18c8 for message 3
-[2026-10-13 17:11:37.825] ACK from BankServer-75929-d1de for message 3
-[2026-10-13 17:11:37.825] ACK from BankServer-75922-838d for message 3
-[2026-10-13 17:11:37.825] Processing message: 4
-[2026-10-13 17:11:37.828] ACK from BankServer-75932-affb for message 4
-[2026-10-13 17:11:37.828] ACK from BankServer-75944-ffbb for message 4
-[2026-10-13 17:11:37.828] ACK from BankServer-75929-d1de for message 4
-[2026-10-13 17:11:37.828] ACK from BankServer-75947-18c8 for message 4
-[2026-10-13 17:11:37.828] ACK from BankServer-75922-838d for message 4
-[2026-10-13 17:11:37.828] Processing message: 5
-[2026-10-13 17:11:37.830] ACK from BankServer-75922-838d for message 5
-[2026-10-13 17:11:37.830] ACK from BankServer-75929-d1de for message 5
-[2026-10-13 17:11:37.830] ACK from BankServer-75947-18c8 for message 5
-[2026-10-13 17:11:37.830] ACK from BankServer-75944-ffbb for message 5
-[2026-10-13 17:11:37.831] ACK from BankServer-75932-affb for message 5
-[2026-10-13 17:11:39.643] BankServer-75954-7eaa joined group group01
-[2026-10-13 17:11:39.644] Number of replicas: 6
-[2026-10-13 17:11:44.666] Message added to queue: [deposit EUR 75 [BankServer-75944-ffbb 0], deposit USD 115 [BankServer-75944-ffbb 1]]
-[2026-10-13 17:11:44.667] Processing message: 6
-[2026-10-13 17:11:44.678] Message added to queue: [deposit EUR 75 [BankServer-75947-18c8 0], deposit USD 115 [BankServer-75947-18c8 1]]
-[2026-10-13 17:11:44.679] Message added to queue: [deposit EUR 75 [BankServer-75944-ffbb 0], deposit USD 115 [BankServer-75944-ffbb 1]]
-[2026-10-13 17:11:44.679] ACK from BankServer-75929-d1de for message 6
-[2026-10-13 17:11:44.680] ACK from BankServer-75944-ffbb for message 6
-[2026-10-13 17:11:44.680] ACK from BankServer-75922-838d for message 6
-[2026-10-13 17:11:44.680] Message added to queue: [deposit EUR 75 [BankServer-75947-18c8 0], deposit USD 115 [BankServer-75947-18c8 1]]
-[2026-10-13 17:11:44.680] ACK from BankServer-75932-affb for message 6
-[2026-10-13 17:11:44.681] ACK from BankServer-75947-18c8 for message 6
-[2026-10-13 17:11:44.685] ACK from BankServer-75954-7eaa for message 6
-[2026-10-13 17:11:44.685] Processing message: 7
-[2026-10-13 17:11:44.688] ACK from BankServer-75922-838d for message 7
-[2026-10-13 17:11:44.688] ACK from BankServer-75947-18c8 for message 7
-[2026-10-13 17:11:44.689] ACK from BankServer-75929-d1de for message 7
-[2026-10-13 17:11:44.689] ACK from BankServer-75932-affb for message 7
-[2026-10-13 17:11:44.689] ACK from BankServer-75944-ffbb for message 7
-[2026-10-13 17:11:44.691] ACK from BankServer-75954-7eaa for message 7
-[2026-10-13 17:11:44.691] Processing message: 8
-[2026-10-13 17:11:44.693] ACK from BankServer-75954-7eaa for message 8
-[2026-10-13 17:11:44.693] ACK from BankServer-75922-838d for message 8
-[2026-10-13 17:11:44.693] ACK from BankServer-75944-ffbb for message 8
-[2026-10-13 17:11:44.693] ACK from BankServer-75947-18c8 for message 8
-[2026-10-13 17:11:44.693] ACK from BankServer-75932-affb for message 8
-[2026-10-13 17:11:44.694] ACK from BankServer-75929-d1de for message 8
-[2026-10-13 17:11:44.694] Processing message: 9
-[2026-10-13 17:11:44.695] ACK from BankServer-75954-7eaa for message 9
-[2026-10-13 17:11:44.695] ACK from BankServer-75932-affb for message 9
-[2026-10-13 17:11:44.695] ACK from BankServer-75922-838d for message 9
-[2026-10-13 17:11:44.695] ACK from BankServer-75929-d1de for message 9
-[2026-10-13 17:11:44.695] ACK from BankServer-75947-18c8 for message 9
-[2026-10-13 17:11:44.695] ACK from BankServer-75944-ffbb for message 9
-[2026-10-13 17:11:47.793] Processing message: 10
-[2026-10-13 17:11:47.793] Message added to queue: [addInterest NOK 15 [BankServer-75922-838d 2], deposit DKK 120 [BankServer-75922-838d 3]]
-[2026-10-13 17:11:47.796] ACK from BankServer-75947-18c8 for message 10
-[2026-10-13 17:11:47.796] ACK from BankServer-75922-838d for message 10
-[2026-10-13 17:11:47.796] ACK from BankServer-75929-d1de for message 10
-[2026-10-13 17:11:47.797] ACK from BankServer-75944-ffbb for message 10
-[2026-10-13 17:11:47.797] ACK from BankServer-75954-7eaa for message 10
-[2026-10-13 17:11:47.797] ACK from BankServer-75932-affb for message 10
-[2026-10-13 17:11:47.797] Message added to queue: [addInterest NOK 15 [BankServer-75929-d1de 2], deposit DKK 120 [BankServer-75929-d1de 3]]
-[2026-10-13 17:11:47.797] Processing message: 11
-[2026-10-13 17:11:47.798] Message added to queue: [addInterest NOK 15 [BankServer-75932-affb 2], deposit DKK 120 [BankServer-75932-affb 3]]
-[2026-10-13 17:11:47.798] Message added to queue: [addInterest NOK 15 [BankServer-75932-affb 2], deposit DKK 120 [BankServer-75932-affb 3]]
-[2026-10-13 17:11:47.800] ACK from BankServer-75922-838d for message 11
-[2026-10-13 17:11:47.800] ACK from BankServer-75929-d1de for message 11
-[2026-10-13 17:11:47.800] ACK from BankServer-75954-7eaa for message 11
-[2026-10-13 17:11:47.800] ACK from BankServer-75947-18c8 for message 11
-[2026-10-13 17:11:47.800] ACK from BankServer-75944-ffbb for message 11
-[2026-10-13 17:11:47.800] ACK from BankServer-75932-affb for message 11
-[2026-10-13 17:11:47.800] Processing message: 12
-[2026-10-13 17:11:47.803] ACK from BankServer-75929-d1de for message 12
-[2026-10-13 17:11:47.806] ACK from BankServer-75922-838d for message 12
-[2026-10-13 17:11:47.806] ACK from BankServer-75954-7eaa for message 12
-[2026-10-13 17:11:47.807] ACK from BankServer-75947-18c8 for message 12
-[2026-10-13 17:11:47.807] ACK from BankServer-75944-ffbb for message 12
-[2026-10-13 17:11:47.808] ACK from BankServer-75932-affb for message 12
-[2026-10-13 17:11:47.808] Processing message: 13
-[2026-10-13 17:11:47.809] ACK from BankServer-75944-ffbb for message 13
-[2026-10-13 17:11:47.809] ACK from BankServer-75954-7eaa for message 13
-[2026-10-13 17:11:47.809] ACK from BankServer-75947-18c8 for message 13
-[2026-10-13 17:11:47.810] ACK from BankServer-75922-838d for message 13
-[2026-10-13 17:11:47.811] ACK from BankServer-75932-affb for message 13
-[2026-10-13 17:11:47.811] ACK from BankServer-75929-d1de for message 13
-[2026-10-13 17:11:49.652] Message added to queue: [deposit NOK 50 [BankServer-75954-7eaa 0]]
-[2026-10-13 17:11:49.653] Processing message: 14
-[2026-10-13 17:11:49.661] Message added to queue: [deposit NOK 50 [BankServer-75954-7eaa 0]]
-[2026-10-13 17:11:49.662] ACK from BankServer-75922-838d for message 14
-[2026-10-13 17:11:49.662] ACK from BankServer-75932-affb for message 14
-[2026-10-13 17:11:49.662] ACK from BankServer-75944-ffbb for message 14
-[2026-10-13 17:11:49.663] ACK from BankServer-75929-d1de for message 14
-[2026-10-13 17:11:49.663] ACK from BankServer-75947-18c8 for message 14
-[2026-10-13 17:11:49.665] ACK from BankServer-75954-7eaa for message 14
-[2026-10-13 17:11:49.665] Processing message: 15
-[2026-10-13 17:11:49.668] ACK from BankServer-75944-ffbb for message 15
-[2026-10-13 17:11:49.669] ACK from BankServer-75922-838d for message 15
-[2026-10-13 17:11:49.670] ACK from BankServer-75947-18c8 for message 15
-[2026-10-13 17:11:49.671] ACK from BankServer-75929-d1de for message 15
-[2026-10-13 17:11:49.671] ACK from BankServer-75932-affb for message 15
-[2026-10-13 17:11:49.672] ACK from BankServer-75954-7eaa for message 15
-[2026-10-13 17:11:54.674] Processing message: 16
-[2026-10-13 17:11:54.674] Message added to queue: [addInterest USD 7 [BankServer-75944-ffbb 2], deposit NOK 10 [BankServer-75944-ffbb 3], deposit DKK 80 [BankServer-75944-ffbb 4], deposit EUR 40 [BankServer-75944-ffbb 5], deposit CHF 35 [BankServer-75944-ffbb 6]]
-[2026-10-13 17:11:54.683] ACK from BankServer-75944-ffbb for message 16
-[2026-10-13 17:11:54.684] ACK from BankServer-75922-838d for message 16
-[2026-10-13 17:11:54.684] ACK from BankServer-75932-affb for message 16
-[2026-10-13 17:11:54.684] ACK from BankServer-75947-18c8 for message 16
-[2026-10-13 17:11:54.684] ACK from BankServer-75954-7eaa for message 16
-[2026-10-13 17:11:54.685] ACK from BankServer-75929-d1de for message 16
-[2026-10-13 17:11:54.686] Message added to queue: [addInterest USD 7 [BankServer-75947-18c8 2], deposit NOK 10 [BankServer-75947-18c8 3]]
-[2026-10-13 17:11:54.687] Processing message: 17
-[2026-10-13 17:11:54.690] Message added to queue: [addInterest USD 7 [BankServer-75947-18c8 2], deposit NOK 10 [BankServer-75947-18c8 3]]
-[2026-10-13 17:11:54.692] ACK from BankServer-75929-d1de for message 17
-[2026-10-13 17:11:54.693] ACK from BankServer-75954-7eaa for message 17
-[2026-10-13 17:11:54.693] ACK from BankServer-75922-838d for message 17
-[2026-10-13 17:11:54.693] ACK from BankServer-75947-18c8 for message 17
-[2026-10-13 17:11:54.694] ACK from BankServer-75932-affb for message 17
-[2026-10-13 17:11:54.695] ACK from BankServer-75944-ffbb for message 17
-[2026-10-13 17:11:54.695] Processing message: 18
-[2026-10-13 17:11:54.698] ACK from BankServer-75932-affb for message 18
-[2026-10-13 17:11:54.698] ACK from BankServer-75944-ffbb for message 18
-[2026-10-13 17:11:54.698] ACK from BankServer-75929-d1de for message 18
-[2026-10-13 17:11:54.698] ACK from BankServer-75954-7eaa for message 18
-[2026-10-13 17:11:54.698] ACK from BankServer-75922-838d for message 18
-[2026-10-13 17:11:54.698] ACK from BankServer-75947-18c8 for message 18
-[2026-10-13 17:11:57.800] Message added to queue: [deposit NOK 70 [BankServer-75922-838d 4], deposit GBP 50 [BankServer-75922-838d 5], deposit USD 25 [BankServer-75922-838d 6], deposit CHF 30 [BankServer-75922-838d 7], deposit EUR 25 [BankServer-75922-838d 8], addInterest 10 [BankServer-75922-838d 9]]
-[2026-10-13 17:11:57.800] Processing message: 19
-[2026-10-13 17:11:57.800] Message added to queue: [deposit NOK 70 [BankServer-75932-affb 4], deposit GBP 50 [BankServer-75932-affb 5], deposit USD 25 [BankServer-75932-affb 6], deposit CHF 30 [BankServer-75932-affb 7], deposit EUR 25 [BankServer-75932-affb 8], addInterest 10 [BankServer-75932-affb 9]]
-[2026-10-13 17:11:57.802] Message added to queue: [deposit NOK 70 [BankServer-75932-affb 4], deposit GBP 50 [BankServer-75932-affb 5], deposit USD 25 [BankServer-75932-affb 6], deposit CHF 30 [BankServer-75932-affb 7], deposit EUR 25 [BankServer-75932-affb 8], addInterest 10 [BankServer-75932-affb 9]]
-[2026-10-13 17:11:57.802] Message added to queue: [deposit NOK 70 [BankServer-75929-d1de 4], deposit GBP 50 [BankServer-75929-d1de 5], deposit USD 25 [BankServer-75929-d1de 6], deposit CHF 30 [BankServer-75929-d1de 7], deposit EUR 25 [BankServer-75929-d1de 8], addInterest 10 [BankServer-75929-d1de 9]]
-[2026-10-13 17:11:57.803] ACK from BankServer-75932-affb for message 19
-[2026-10-13 17:11:57.803] ACK from BankServer-75922-838d for message 19
-[2026-10-13 17:11:57.803] ACK from BankServer-75954-7eaa for message 19
-[2026-10-13 17:11:57.804] ACK from BankServer-75944-ffbb for message 19
-[2026-10-13 17:11:57.804] ACK from BankServer-75947-18c8 for message 19
-[2026-10-13 17:11:57.804] ACK from BankServer-75929-d1de for message 19
-[2026-10-13 17:11:57.804] Processing message: 20
-[2026-10-13 17:11:57.807] ACK from BankServer-75922-838d for message 20
-[2026-10-13 17:11:57.807] ACK from BankServer-75944-ffbb for message 20
-[2026-10-13 17:11:57.809] ACK from BankServer-75932-affb for message 20
-[2026-10-13 17:11:57.809] ACK from BankServer-75954-7eaa for message 20
-[2026-10-13 17:11:57.809] ACK from BankServer-75947-18c8 for message 20
-[2026-10-13 17:11:57.810] Message added to queue: [deposit NOK 70 [BankServer-75929-d1de 4], deposit GBP 50 [BankServer-75929-d1de 5], deposit USD 25 [BankServer-75929-d1de 6], deposit CHF 30 [BankServer-75929-d1de 7], deposit EUR 25 [BankServer-75929-d1de 8], addInterest 10 [BankServer-75929-d1de 9]]
-[2026-10-13 17:11:57.812] ACK from BankServer-75929-d1de for message 20
-[2026-10-13 17:11:57.813] Processing message: 21
-[2026-10-13 17:11:57.814] ACK from BankServer-75929-d1de for message 21
-[2026-10-13 17:11:57.816] ACK from BankServer-75947-18c8 for message 21
-[2026-10-13 17:11:57.816] ACK from BankServer-75944-ffbb for message 21
-[2026-10-13 17:11:57.816] ACK from BankServer-75954-7eaa for message 21
-[2026-10-13 17:11:57.816] ACK from BankServer-75932-affb for message 21
-[2026-10-13 17:11:57.816] ACK from BankServer-75922-838d for message 21
-[2026-10-13 17:11:57.817] Processing message: 22
-[2026-10-13 17:11:57.819] ACK from BankServer-75932-affb for message 22
-[2026-10-13 17:11:57.819] ACK from BankServer-75929-d1de for message 22
-[2026-10-13 17:11:57.820] ACK from BankServer-75944-ffbb for message 22
-[2026-10-13 17:11:57.821] ACK from BankServer-75947-18c8 for message 22
-[2026-10-13 17:11:57.821] ACK from BankServer-75954-7eaa for message 22
-[2026-10-13 17:11:57.822] ACK from BankServer-75922-838d for message 22
-[2026-10-13 17:11:57.822] Processing message: 23
-[2026-10-13 17:11:57.824] ACK from BankServer-75929-d1de for message 23
-[2026-10-13 17:11:57.824] ACK from BankServer-75954-7eaa for message 23
-[2026-10-13 17:11:57.826] ACK from BankServer-75944-ffbb for message 23
-[2026-10-13 17:11:57.826] ACK from BankServer-75947-18c8 for message 23
-[2026-10-13 17:11:57.826] ACK from BankServer-75922-838d for message 23
-[2026-10-13 17:11:57.827] ACK from BankServer-75932-affb for message 23
-[2026-10-13 17:11:59.660] Message added to queue: [addInterest 7 [BankServer-75954-7eaa 1], deposit EUR -150 [BankServer-75954-7eaa 2], deposit USD -100 [BankServer-75954-7eaa 3]]
-[2026-10-13 17:11:59.660] Processing message: 24
-[2026-10-13 17:11:59.670] ACK from BankServer-75932-affb for message 24
-[2026-10-13 17:11:59.670] ACK from BankServer-75922-838d for message 24
-[2026-10-13 17:11:59.671] ACK from BankServer-75929-d1de for message 24
-[2026-10-13 17:11:59.671] ACK from BankServer-75954-7eaa for message 24
-[2026-10-13 17:11:59.671] ACK from BankServer-75947-18c8 for message 24
-[2026-10-13 17:11:59.671] ACK from BankServer-75944-ffbb for message 24
-[2026-10-13 17:12:04.680] Message added to queue: [deposit GBP 25 [BankServer-75944-ffbb 7], deposit USD 95 [BankServer-75944-ffbb 8], addInterest NOK 3 [BankServer-75944-ffbb 9]]
-[2026-10-13 17:12:04.680] Processing message: 25
-[2026-10-13 17:12:04.687] ACK from BankServer-75932-affb for message 25
-[2026-10-13 17:12:04.687] ACK from BankServer-75954-7eaa for message 25
-[2026-10-13 17:12:04.687] ACK from BankServer-75947-18c8 for message 25
-[2026-10-13 17:12:04.687] ACK from BankServer-75944-ffbb for message 25
-[2026-10-13 17:12:04.688] ACK from BankServer-75922-838d for message 25
-[2026-10-13 17:12:04.688] ACK from BankServer-75929-d1de for message 25
-[2026-10-13 17:12:04.689] Message added to queue: [deposit DKK 80 [BankServer-75947-18c8 4], deposit EUR 40 [BankServer-75947-18c8 5], deposit CHF 35 [BankServer-75947-18c8 6], deposit GBP 25 [BankServer-75947-18c8 7], deposit USD 95 [BankServer-75947-18c8 8], addInterest NOK 3 [BankServer-75947-18c8 9]]
-[2026-10-13 17:12:04.689] Processing message: 26
-[2026-10-13 17:12:04.692] ACK from BankServer-75922-838d for message 26
-[2026-10-13 17:12:04.693] ACK from BankServer-75947-18c8 for message 26
-[2026-10-13 17:12:04.693] ACK from BankServer-75929-d1de for message 26
-[2026-10-13 17:12:04.693] ACK from BankServer-75954-7eaa for message 26
-[2026-10-13 17:12:04.693] ACK from BankServer-75932-affb for message 26
-[2026-10-13 17:12:04.696] ACK from BankServer-75944-ffbb for message 26
-[2026-10-13 17:12:07.804] Processing message: 27
-[2026-10-13 17:12:07.804] Message added to queue: [deposit EUR 110 [BankServer-75932-affb 10], deposit USD 90 [BankServer-75932-affb 11], addInterest EUR 15 [BankServer-75932-affb 12]]
-[2026-10-13 17:12:07.810] ACK from BankServer-75932-affb for message 27
-[2026-10-13 17:12:07.810] ACK from BankServer-75929-d1de for message 27
-[2026-10-13 17:12:07.810] ACK from BankServer-75954-7eaa for message 27
-[2026-10-13 17:12:07.810] ACK from BankServer-75922-838d for message 27
-[2026-10-13 17:12:07.810] Message added to queue: [deposit EUR 110 [BankServer-75922-838d 10], deposit USD 90 [BankServer-75922-838d 11], addInterest EUR 15 [BankServer-75922-838d 12]]
-[2026-10-13 17:12:07.811] ACK from BankServer-75944-ffbb for message 27
-[2026-10-13 17:12:07.811] ACK from BankServer-75947-18c8 for message 27
-[2026-10-13 17:12:07.812] Processing message: 28
-[2026-10-13 17:12:07.812] Message added to queue: [deposit EUR 110 [BankServer-75929-d1de 10], deposit USD 90 [BankServer-75929-d1de 11], addInterest EUR 15 [BankServer-75929-d1de 12]]
-[2026-10-13 17:12:07.812] Message added to queue: [deposit EUR 110 [BankServer-75922-838d 10], deposit USD 90 [BankServer-75922-838d 11], addInterest EUR 15 [BankServer-75922-838d 12]]
-[2026-10-13 17:12:07.818] ACK from BankServer-75922-838d for message 28
-[2026-10-13 17:12:07.820] ACK from BankServer-75929-d1de for message 28
-[2026-10-13 17:12:07.821] ACK from BankServer-75932-affb for message 28
-[2026-10-13 17:12:07.821] ACK from BankServer-75954-7eaa for message 28
-[2026-10-13 17:12:07.822] ACK from BankServer-75944-ffbb for message 28
-[2026-10-13 17:12:07.823] Message added to queue: [deposit EUR 110 [BankServer-75929-d1de 10], deposit USD 90 [BankServer-75929-d1de 11], addInterest EUR 15 [BankServer-75929-d1de 12]]
-[2026-10-13 17:12:07.823] ACK from BankServer-75947-18c8 for message 28
-[2026-10-13 17:12:07.824] Processing message: 29
-[2026-10-13 17:12:07.827] ACK from BankServer-75932-affb for message 29
-[2026-10-13 17:12:07.827] ACK from BankServer-75944-ffbb for message 29
-[2026-10-13 17:12:07.827] ACK from BankServer-75929-d1de for message 29
-[2026-10-13 17:12:07.828] ACK from BankServer-75922-838d for message 29
-[2026-10-13 17:12:07.828] ACK from BankServer-75954-7eaa for message 29
-[2026-10-13 17:12:07.829] ACK from BankServer-75947-18c8 for message 29
-[2026-10-13 17:12:07.829] Processing message: 30
-[2026-10-13 17:12:07.832] ACK from BankServer-75922-838d for message 30
-[2026-10-13 17:12:07.832] ACK from BankServer-75932-affb for message 30
-[2026-10-13 17:12:07.832] ACK from BankServer-75947-18c8 for message 30
-[2026-10-13 17:12:07.832] ACK from BankServer-75954-7eaa for message 30
-[2026-10-13 17:12:07.833] ACK from BankServer-75929-d1de for message 30
-[2026-10-13 17:12:07.833] ACK from BankServer-75944-ffbb for message 30
-[2026-10-13 17:12:07.833] Processing message: 31
-[2026-10-13 17:12:07.835] ACK from BankServer-75922-838d for message 31
-[2026-10-13 17:12:07.836] ACK from BankServer-75929-d1de for message 31
-[2026-10-13 17:12:07.836] ACK from BankServer-75954-7eaa for message 31
-[2026-10-13 17:12:07.836] ACK from BankServer-75932-affb for message 31
-[2026-10-13 17:12:07.836] ACK from BankServer-75947-18c8 for message 31
-[2026-10-13 17:12:07.838] ACK from BankServer-75944-ffbb for message 31
-[2026-10-13 17:12:09.669] Message added to queue: [deposit DKK 10 [BankServer-75954-7eaa 4], deposit CHF 30 [BankServer-75954-7eaa 5], deposit NOK -100 [BankServer-75954-7eaa 6], deposit GBP 50 [BankServer-75954-7eaa 7], addInterest 20 [BankServer-75954-7eaa 8]]
-[2026-10-13 17:12:09.669] Processing message: 32
-[2026-10-13 17:12:09.673] ACK from BankServer-75954-7eaa for message 32
-[2026-10-13 17:12:09.673] ACK from BankServer-75932-affb for message 32
-[2026-10-13 17:12:09.673] ACK from BankServer-75947-18c8 for message 32
-[2026-10-13 17:12:09.673] ACK from BankServer-75944-ffbb for message 32
-[2026-10-13 17:12:09.673] ACK from BankServer-75929-d1de for message 32
-[2026-10-13 17:12:09.674] ACK from BankServer-75922-838d for message 32
-[2026-10-13 17:12:14.700] Message added to queue: [deposit USD 120 [BankServer-75944-ffbb 10], deposit EUR 130 [BankServer-75944-ffbb 11], addInterest 10 [BankServer-75944-ffbb 12]]
-[2026-10-13 17:12:14.701] Processing message: 33
-[2026-10-13 17:12:14.703] Message added to queue: [deposit USD 120 [BankServer-75947-18c8 10], deposit EUR 130 [BankServer-75947-18c8 11], addInterest 10 [BankServer-75947-18c8 12]]
-[2026-10-13 17:12:14.703] Message added to queue: [deposit USD 120 [BankServer-75947-18c8 10], deposit EUR 130 [BankServer-75947-18c8 11], addInterest 10 [BankServer-75947-18c8 12]]
-[2026-10-13 17:12:14.704] Message added to queue: [deposit USD 120 [BankServer-75944-ffbb 10], deposit EUR 130 [BankServer-75944-ffbb 11], addInterest 10 [BankServer-75944-ffbb 12]]
-[2026-10-13 17:12:14.706] ACK from BankServer-75944-ffbb for message 33
-[2026-10-13 17:12:14.706] ACK from BankServer-75947-18c8 for message 33
-[2026-10-13 17:12:14.707] ACK from BankServer-75929-d1de for message 33
-[2026-10-13 17:12:14.707] ACK from BankServer-75922-838d for message 33
-[2026-10-13 17:12:14.708] ACK from BankServer-75954-7eaa for message 33
-[2026-10-13 17:12:14.708] ACK from BankServer-75932-affb for message 33
-[2026-10-13 17:12:14.708] Processing message: 34
-[2026-10-13 17:12:14.710] ACK from BankServer-75922-838d for message 34
-[2026-10-13 17:12:14.710] ACK from BankServer-75929-d1de for message 34
-[2026-10-13 17:12:14.711] ACK from BankServer-75954-7eaa for message 34
-[2026-10-13 17:12:14.712] ACK from BankServer-75944-ffbb for message 34
-[2026-10-13 17:12:14.713] ACK from BankServer-75947-18c8 for message 34
-[2026-10-13 17:12:14.714] ACK from BankServer-75932-affb for message 34
-[2026-10-13 17:12:14.715] Processing message: 35
-[2026-10-13 17:12:14.718] ACK from BankServer-75944-ffbb for message 35
-[2026-10-13 17:12:14.718] ACK from BankServer-75922-838d for message 35
-[2026-10-13 17:12:14.718] ACK from BankServer-75954-7eaa for message 35
-[2026-10-13 17:12:14.719] ACK from BankServer-75947-18c8 for message 35
-[2026-10-13 17:12:14.719] ACK from BankServer-75932-affb for message 35
-[2026-10-13 17:12:14.719] ACK from BankServer-75929-d1de for message 35
-[2026-10-13 17:12:14.719] Processing message: 36
-[2026-10-13 17:12:14.719] ACK from BankServer-75922-838d for message 36
-[2026-10-13 17:12:14.720] ACK from BankServer-75932-affb for message 36
-[2026-10-13 17:12:14.720] ACK from BankServer-75947-18c8 for message 36
-[2026-10-13 17:12:14.721] ACK from BankServer-75944-ffbb for message 36
-[2026-10-13 17:12:14.721] ACK from BankServer-75954-7eaa for message 36
-[2026-10-13 17:12:14.721] ACK from BankServer-75929-d1de for message 36
-[2026-10-13 17:12:17.811] Processing message: 37
-[2026-10-13 17:12:17.811] Message added to queue: [deposit EUR 110 [BankServer-75932-affb 13]]
-[2026-10-13 17:12:17.816] ACK from BankServer-75929-d1de for message 37
-[2026-10-13 17:12:17.816] ACK from BankServer-75922-838d for message 37
-[2026-10-13 17:12:17.817] Message added to queue: [deposit EUR 110 [BankServer-75932-affb 13]]
-[2026-10-13 17:12:17.817] ACK from BankServer-75947-18c8 for message 37
-[2026-10-13 17:12:17.817] ACK from BankServer-75944-ffbb for message 37
-[2026-10-13 17:12:17.818] ACK from BankServer-75954-7eaa for message 37
-[2026-10-13 17:12:17.818] ACK from BankServer-75932-affb for message 37
-[2026-10-13 17:12:17.818] Message added to queue: [deposit EUR 110 [BankServer-75922-838d 13]]
-[2026-10-13 17:12:17.819] Processing message: 38
-[2026-10-13 17:12:17.819] Message added to queue: [deposit EUR 110 [BankServer-75929-d1de 13]]
-[2026-10-13 17:12:17.820] Message added to queue: [deposit EUR 110 [BankServer-75922-838d 13]]
-[2026-10-13 17:12:17.824] ACK from BankServer-75932-affb for message 38
-[2026-10-13 17:12:17.825] ACK from BankServer-75954-7eaa for message 38
-[2026-10-13 17:12:17.826] ACK from BankServer-75929-d1de for message 38
-[2026-10-13 17:12:17.826] ACK from BankServer-75944-ffbb for message 38
-[2026-10-13 17:12:17.827] ACK from BankServer-75922-838d for message 38
-[2026-10-13 17:12:17.828] ACK from BankServer-75947-18c8 for message 38
-[2026-10-13 17:12:17.828] Processing message: 39
-[2026-10-13 17:12:17.832] Message added to queue: [deposit EUR 110 [BankServer-75929-d1de 13]]
-[2026-10-13 17:12:17.832] ACK from BankServer-75922-838d for message 39
-[2026-10-13 17:12:17.832] ACK from BankServer-75944-ffbb for message 39
-[2026-10-13 17:12:17.833] ACK from BankServer-75947-18c8 for message 39
-[2026-10-13 17:12:17.833] ACK from BankServer-75954-7eaa for message 39
-[2026-10-13 17:12:17.833] ACK from BankServer-75932-affb for message 39
-[2026-10-13 17:12:17.833] ACK from BankServer-75929-d1de for message 39
-[2026-10-13 17:12:17.833] Processing message: 40
-[2026-10-13 17:12:17.835] ACK from BankServer-75922-838d for message 40
-[2026-10-13 17:12:17.836] ACK from BankServer-75954-7eaa for message 40
-[2026-10-13 17:12:17.836] ACK from BankServer-75947-18c8 for message 40
-[2026-10-13 17:12:17.836] ACK from BankServer-75932-affb for message 40
-[2026-10-13 17:12:17.836] ACK from BankServer-75944-ffbb for message 40
-[2026-10-13 17:12:17.836] ACK from BankServer-75929-d1de for message 40
-[2026-10-13 17:12:17.837] Processing message: 41
-[2026-10-13 17:12:17.839] ACK from BankServer-75944-ffbb for message 41
-[2026-10-13 17:12:17.839] ACK from BankServer-75947-18c8 for message 41
-[2026-10-13 17:12:17.839] ACK from BankServer-75954-7eaa for message 41
-[2026-10-13 17:12:17.839] ACK from BankServer-75929-d1de for message 41
-[2026-10-13 17:12:17.840] ACK from BankServer-75932-affb for message 41
-[2026-10-13 17:12:17.840] ACK from BankServer-75922-838d for message 41
-[2026-10-13 17:12:17.840] Processing message: 42
-[2026-10-13 17:12:17.841] ACK from BankServer-75929-d1de for message 42
-[2026-10-13 17:12:17.842] ACK from BankServer-75944-ffbb for message 42
-[2026-10-13 17:12:17.842] ACK from BankServer-75922-838d for message 42
-[2026-10-13 17:12:17.842] ACK from BankServer-75932-affb for message 42
-[2026-10-13 17:12:17.842] ACK from BankServer-75947-18c8 for message 42
-[2026-10-13 17:12:17.842] ACK from BankServer-75954-7eaa for message 42
-[2026-10-13 17:12:24.707] Message added to queue: [deposit NOK 90 [BankServer-75944-ffbb 13]]
-[2026-10-13 17:12:24.708] Processing message: 43
-[2026-10-13 17:12:24.711] ACK from BankServer-75944-ffbb for message 43
-[2026-10-13 17:12:24.711] ACK from BankServer-75922-838d for message 43
-[2026-10-13 17:12:24.711] ACK from BankServer-75929-d1de for message 43
-[2026-10-13 17:12:24.711] ACK from BankServer-75947-18c8 for message 43
-[2026-10-13 17:12:24.712] ACK from BankServer-75954-7eaa for message 43
-[2026-10-13 17:12:24.712] ACK from BankServer-75932-affb for message 43
-[2026-10-13 17:12:24.714] Message added to queue: [deposit NOK 90 [BankServer-75947-18c8 13]]
-[2026-10-13 17:12:24.714] Processing message: 44
-[2026-10-13 17:12:24.716] Message added to queue: [deposit NOK 90 [BankServer-75947-18c8 13]]
-[2026-10-13 17:12:24.721] ACK from BankServer-75947-18c8 for message 44
-[2026-10-13 17:12:24.721] ACK from BankServer-75929-d1de for message 44
-[2026-10-13 17:12:24.721] ACK from BankServer-75944-ffbb for message 44
-[2026-10-13 17:12:24.722] ACK from BankServer-75932-affb for message 44
-[2026-10-13 17:12:24.723] ACK from BankServer-75954-7eaa for message 44
-[2026-10-13 17:12:24.723] ACK from BankServer-75922-838d for message 44
-[2026-10-13 17:12:24.724] Processing message: 45
-[2026-10-13 17:12:24.726] ACK from BankServer-75929-d1de for message 45
-[2026-10-13 17:12:24.726] ACK from BankServer-75947-18c8 for message 45
-[2026-10-13 17:12:24.726] ACK from BankServer-75932-affb for message 45
-[2026-10-13 17:12:24.726] ACK from BankServer-75954-7eaa for message 45
-[2026-10-13 17:12:24.726] ACK from BankServer-75922-838d for message 45
-[2026-10-13 17:12:24.726] ACK from BankServer-75944-ffbb for message 45
-[2026-10-13 17:12:50.740] BankServer-75954-7eaa left group group01
-[2026-10-13 17:12:50.740] Number of replicas: 5
-[2026-10-13 17:12:56.673] BankServer-75929-d1de left group group01
-[2026-10-13 17:12:56.673] Number of replicas: 4
-[2026-10-13 17:12:57.593] BankServer-75932-affb left group group01
-[2026-10-13 17:12:57.593] Number of replicas: 3
-[2026-10-13 17:12:59.050] BankServer-75922-838d left group group01
-[2026-10-13 17:12:59.050] Number of replicas: 2
-[2026-10-13 17:13:01.513] BankServer-75944-ffbb left group group01
-[2026-10-13 17:13:01.514] Number of replicas: 1
-[2026-10-13 17:13:02.891] BankServer-75947-18c8 left group group01
-[2026-10-13 17:13:02.891] Number of replicas: 0
+[2026-10-15 13:58:56.803] MessageDeliveryServer ready on port 1099
+[2026-10-15 13:58:57.866] BankServer-96854-bb87 joined group group01
+[2026-10-15 13:58:57.866] Number of replicas: 1
+[2026-10-15 13:58:57.876] BankServer-96852-e6d1 joined group group01
+[2026-10-15 13:58:57.876] Number of replicas: 2
+[2026-10-15 13:58:57.881] BankServer-96853-e2da joined group group01
+[2026-10-15 13:58:57.881] Number of replicas: 3
+[2026-10-15 13:59:04.876] BankServer-96866-cb9c joined group group01
+[2026-10-15 13:59:04.877] Number of replicas: 4
+[2026-10-15 13:59:04.883] BankServer-96865-dc58 joined group group01
+[2026-10-15 13:59:04.883] Number of replicas: 5
+[2026-10-15 13:59:07.891] Message added to queue: [deposit USD 90 [BankServer-96854-bb87 0], deposit NOK 120 [BankServer-96854-bb87 1]]
+[2026-10-15 13:59:07.892] Message added to queue: [deposit USD 90 [BankServer-96852-e6d1 0], deposit NOK 120 [BankServer-96852-e6d1 1]]
+[2026-10-15 13:59:07.892] Message added to queue: [deposit USD 90 [BankServer-96853-e2da 0], deposit NOK 120 [BankServer-96853-e2da 1]]
+[2026-10-15 13:59:07.894] Processing message: 0
+[2026-10-15 13:59:07.912] ACK from BankServer-96866-cb9c for message 0
+[2026-10-15 13:59:07.912] ACK from BankServer-96865-dc58 for message 0
+[2026-10-15 13:59:07.912] ACK from BankServer-96854-bb87 for message 0
+[2026-10-15 13:59:07.912] ACK from BankServer-96853-e2da for message 0
+[2026-10-15 13:59:07.912] ACK from BankServer-96852-e6d1 for message 0
+[2026-10-15 13:59:07.912] Processing message: 1
+[2026-10-15 13:59:07.914] ACK from BankServer-96854-bb87 for message 1
+[2026-10-15 13:59:07.914] ACK from BankServer-96853-e2da for message 1
+[2026-10-15 13:59:07.914] ACK from BankServer-96866-cb9c for message 1
+[2026-10-15 13:59:07.915] ACK from BankServer-96865-dc58 for message 1
+[2026-10-15 13:59:07.915] ACK from BankServer-96852-e6d1 for message 1
+[2026-10-15 13:59:07.916] Processing message: 2
+[2026-10-15 13:59:07.917] ACK from BankServer-96866-cb9c for message 2
+[2026-10-15 13:59:07.917] ACK from BankServer-96853-e2da for message 2
+[2026-10-15 13:59:07.917] ACK from BankServer-96865-dc58 for message 2
+[2026-10-15 13:59:07.917] ACK from BankServer-96852-e6d1 for message 2
+[2026-10-15 13:59:07.917] ACK from BankServer-96854-bb87 for message 2
+[2026-10-15 13:59:09.879] BankServer-96871-0cec joined group group01
+[2026-10-15 13:59:09.879] Number of replicas: 6
+[2026-10-15 13:59:14.887] Message added to queue: [deposit EUR 75 [BankServer-96866-cb9c 0], deposit USD 115 [BankServer-96866-cb9c 1]]
+[2026-10-15 13:59:14.887] Processing message: 3
+[2026-10-15 13:59:14.891] ACK from BankServer-96866-cb9c for message 3
+[2026-10-15 13:59:14.891] ACK from BankServer-96853-e2da for message 3
+[2026-10-15 13:59:14.892] ACK from BankServer-96852-e6d1 for message 3
+[2026-10-15 13:59:14.892] ACK from BankServer-96854-bb87 for message 3
+[2026-10-15 13:59:14.892] ACK from BankServer-96865-dc58 for message 3
+[2026-10-15 13:59:14.894] Message added to queue: [deposit EUR 75 [BankServer-96865-dc58 0], deposit USD 115 [BankServer-96865-dc58 1]]
+[2026-10-15 13:59:14.897] ACK from BankServer-96871-0cec for message 3
+[2026-10-15 13:59:14.897] Processing message: 4
+[2026-10-15 13:59:14.901] ACK from BankServer-96865-dc58 for message 4
+[2026-10-15 13:59:14.901] ACK from BankServer-96854-bb87 for message 4
+[2026-10-15 13:59:14.901] ACK from BankServer-96866-cb9c for message 4
+[2026-10-15 13:59:14.901] ACK from BankServer-96852-e6d1 for message 4
+[2026-10-15 13:59:14.901] ACK from BankServer-96871-0cec for message 4
+[2026-10-15 13:59:14.902] ACK from BankServer-96853-e2da for message 4
+[2026-10-15 13:59:17.899] Processing message: 5
+[2026-10-15 13:59:17.899] Message added to queue: [addInterest NOK 15 [BankServer-96854-bb87 2], deposit DKK 120 [BankServer-96854-bb87 3]]
+[2026-10-15 13:59:17.900] Message added to queue: [addInterest NOK 15 [BankServer-96853-e2da 2], deposit DKK 120 [BankServer-96853-e2da 3], deposit NOK 70 [BankServer-96853-e2da 4]]
+[2026-10-15 13:59:17.900] Message added to queue: [addInterest NOK 15 [BankServer-96852-e6d1 2], deposit DKK 120 [BankServer-96852-e6d1 3]]
+[2026-10-15 13:59:17.903] ACK from BankServer-96854-bb87 for message 5
+[2026-10-15 13:59:17.903] ACK from BankServer-96865-dc58 for message 5
+[2026-10-15 13:59:17.904] ACK from BankServer-96852-e6d1 for message 5
+[2026-10-15 13:59:17.904] ACK from BankServer-96866-cb9c for message 5
+[2026-10-15 13:59:17.904] ACK from BankServer-96853-e2da for message 5
+[2026-10-15 13:59:17.904] ACK from BankServer-96871-0cec for message 5
+[2026-10-15 13:59:17.904] Processing message: 6
+[2026-10-15 13:59:17.909] ACK from BankServer-96854-bb87 for message 6
+[2026-10-15 13:59:17.909] ACK from BankServer-96865-dc58 for message 6
+[2026-10-15 13:59:17.910] ACK from BankServer-96853-e2da for message 6
+[2026-10-15 13:59:17.910] ACK from BankServer-96866-cb9c for message 6
+[2026-10-15 13:59:17.910] ACK from BankServer-96852-e6d1 for message 6
+[2026-10-15 13:59:17.910] ACK from BankServer-96871-0cec for message 6
+[2026-10-15 13:59:17.910] Processing message: 7
+[2026-10-15 13:59:17.912] ACK from BankServer-96852-e6d1 for message 7
+[2026-10-15 13:59:17.913] ACK from BankServer-96853-e2da for message 7
+[2026-10-15 13:59:17.913] ACK from BankServer-96865-dc58 for message 7
+[2026-10-15 13:59:17.913] ACK from BankServer-96866-cb9c for message 7
+[2026-10-15 13:59:17.913] ACK from BankServer-96854-bb87 for message 7
+[2026-10-15 13:59:17.914] ACK from BankServer-96871-0cec for message 7
+[2026-10-15 13:59:19.891] Processing message: 8
+[2026-10-15 13:59:19.891] Message added to queue: [deposit NOK 50 [BankServer-96871-0cec 0]]
+[2026-10-15 13:59:19.895] ACK from BankServer-96853-e2da for message 8
+[2026-10-15 13:59:19.895] ACK from BankServer-96852-e6d1 for message 8
+[2026-10-15 13:59:19.895] ACK from BankServer-96854-bb87 for message 8
+[2026-10-15 13:59:19.895] ACK from BankServer-96865-dc58 for message 8
+[2026-10-15 13:59:19.896] ACK from BankServer-96871-0cec for message 8
+[2026-10-15 13:59:19.896] ACK from BankServer-96866-cb9c for message 8
+[2026-10-15 13:59:24.894] Processing message: 9
+[2026-10-15 13:59:24.895] Message added to queue: [addInterest USD 7 [BankServer-96866-cb9c 2], deposit NOK 10 [BankServer-96866-cb9c 3]]
+[2026-10-15 13:59:24.898] ACK from BankServer-96866-cb9c for message 9
+[2026-10-15 13:59:24.899] ACK from BankServer-96853-e2da for message 9
+[2026-10-15 13:59:24.899] ACK from BankServer-96865-dc58 for message 9
+[2026-10-15 13:59:24.899] ACK from BankServer-96852-e6d1 for message 9
+[2026-10-15 13:59:24.899] ACK from BankServer-96854-bb87 for message 9
+[2026-10-15 13:59:24.899] ACK from BankServer-96871-0cec for message 9
+[2026-10-15 13:59:24.900] Processing message: 10
+[2026-10-15 13:59:24.900] Message added to queue: [addInterest USD 7 [BankServer-96865-dc58 2], deposit NOK 10 [BankServer-96865-dc58 3], deposit DKK 80 [BankServer-96865-dc58 4], deposit EUR 40 [BankServer-96865-dc58 5], deposit CHF 35 [BankServer-96865-dc58 6]]
+[2026-10-15 13:59:24.905] ACK from BankServer-96852-e6d1 for message 10
+[2026-10-15 13:59:24.905] ACK from BankServer-96865-dc58 for message 10
+[2026-10-15 13:59:24.905] ACK from BankServer-96854-bb87 for message 10
+[2026-10-15 13:59:24.905] ACK from BankServer-96871-0cec for message 10
+[2026-10-15 13:59:24.905] ACK from BankServer-96853-e2da for message 10
+[2026-10-15 13:59:24.905] ACK from BankServer-96866-cb9c for message 10
+[2026-10-15 13:59:27.902] Processing message: 11
+[2026-10-15 13:59:27.902] Message added to queue: [deposit GBP 50 [BankServer-96853-e2da 5], deposit USD 25 [BankServer-96853-e2da 6], deposit CHF 30 [BankServer-96853-e2da 7], deposit EUR 25 [BankServer-96853-e2da 8], addInterest 10 [BankServer-96853-e2da 9]]
+[2026-10-15 13:59:27.907] ACK from BankServer-96854-bb87 for message 11
+[2026-10-15 13:59:27.907] ACK from BankServer-96866-cb9c for message 11
+[2026-10-15 13:59:27.907] ACK from BankServer-96853-e2da for message 11
+[2026-10-15 13:59:27.907] ACK from BankServer-96871-0cec for message 11
+[2026-10-15 13:59:27.907] ACK from BankServer-96852-e6d1 for message 11
+[2026-10-15 13:59:27.908] Message added to queue: [deposit NOK 70 [BankServer-96854-bb87 4], deposit GBP 50 [BankServer-96854-bb87 5], deposit USD 25 [BankServer-96854-bb87 6], deposit CHF 30 [BankServer-96854-bb87 7], deposit EUR 25 [BankServer-96854-bb87 8], addInterest 10 [BankServer-96854-bb87 9]]
+[2026-10-15 13:59:27.908] ACK from BankServer-96865-dc58 for message 11
+[2026-10-15 13:59:27.908] Processing message: 12
+[2026-10-15 13:59:27.909] Message added to queue: [deposit NOK 70 [BankServer-96852-e6d1 4], deposit GBP 50 [BankServer-96852-e6d1 5], deposit USD 25 [BankServer-96852-e6d1 6], deposit CHF 30 [BankServer-96852-e6d1 7], deposit EUR 25 [BankServer-96852-e6d1 8], addInterest 10 [BankServer-96852-e6d1 9]]
+[2026-10-15 13:59:27.912] ACK from BankServer-96852-e6d1 for message 12
+[2026-10-15 13:59:27.912] ACK from BankServer-96866-cb9c for message 12
+[2026-10-15 13:59:27.912] ACK from BankServer-96854-bb87 for message 12
+[2026-10-15 13:59:27.912] ACK from BankServer-96853-e2da for message 12
+[2026-10-15 13:59:27.912] ACK from BankServer-96871-0cec for message 12
+[2026-10-15 13:59:27.914] ACK from BankServer-96865-dc58 for message 12
+[2026-10-15 13:59:27.914] Processing message: 13
+[2026-10-15 13:59:27.917] ACK from BankServer-96865-dc58 for message 13
+[2026-10-15 13:59:27.917] ACK from BankServer-96853-e2da for message 13
+[2026-10-15 13:59:27.917] ACK from BankServer-96852-e6d1 for message 13
+[2026-10-15 13:59:27.917] ACK from BankServer-96854-bb87 for message 13
+[2026-10-15 13:59:27.917] ACK from BankServer-96866-cb9c for message 13
+[2026-10-15 13:59:27.918] ACK from BankServer-96871-0cec for message 13
+[2026-10-15 13:59:29.898] Processing message: 14
+[2026-10-15 13:59:29.898] Message added to queue: [addInterest 7 [BankServer-96871-0cec 1], deposit EUR -150 [BankServer-96871-0cec 2], deposit USD -100 [BankServer-96871-0cec 3]]
+[2026-10-15 13:59:29.902] ACK from BankServer-96853-e2da for message 14
+[2026-10-15 13:59:29.903] ACK from BankServer-96852-e6d1 for message 14
+[2026-10-15 13:59:29.903] ACK from BankServer-96854-bb87 for message 14
+[2026-10-15 13:59:29.903] ACK from BankServer-96871-0cec for message 14
+[2026-10-15 13:59:29.903] ACK from BankServer-96866-cb9c for message 14
+[2026-10-15 13:59:29.903] ACK from BankServer-96865-dc58 for message 14
+[2026-10-15 13:59:34.901] Message added to queue: [deposit DKK 80 [BankServer-96866-cb9c 4], deposit EUR 40 [BankServer-96866-cb9c 5], deposit CHF 35 [BankServer-96866-cb9c 6], deposit GBP 25 [BankServer-96866-cb9c 7], deposit USD 95 [BankServer-96866-cb9c 8], addInterest NOK 3 [BankServer-96866-cb9c 9]]
+[2026-10-15 13:59:34.901] Processing message: 15
+[2026-10-15 13:59:34.906] Message added to queue: [deposit GBP 25 [BankServer-96865-dc58 7], deposit USD 95 [BankServer-96865-dc58 8], addInterest NOK 3 [BankServer-96865-dc58 9]]
+[2026-10-15 13:59:34.907] ACK from BankServer-96854-bb87 for message 15
+[2026-10-15 13:59:34.908] ACK from BankServer-96853-e2da for message 15
+[2026-10-15 13:59:34.908] ACK from BankServer-96866-cb9c for message 15
+[2026-10-15 13:59:34.908] ACK from BankServer-96852-e6d1 for message 15
+[2026-10-15 13:59:34.909] ACK from BankServer-96865-dc58 for message 15
+[2026-10-15 13:59:34.909] ACK from BankServer-96871-0cec for message 15
+[2026-10-15 13:59:34.909] Processing message: 16
+[2026-10-15 13:59:34.912] ACK from BankServer-96853-e2da for message 16
+[2026-10-15 13:59:34.912] ACK from BankServer-96852-e6d1 for message 16
+[2026-10-15 13:59:34.913] ACK from BankServer-96866-cb9c for message 16
+[2026-10-15 13:59:34.914] ACK from BankServer-96865-dc58 for message 16
+[2026-10-15 13:59:34.914] ACK from BankServer-96854-bb87 for message 16
+[2026-10-15 13:59:34.914] ACK from BankServer-96871-0cec for message 16
+[2026-10-15 13:59:37.904] Processing message: 17
+[2026-10-15 13:59:37.904] Message added to queue: [deposit EUR 110 [BankServer-96853-e2da 10], deposit USD 90 [BankServer-96853-e2da 11], addInterest EUR 15 [BankServer-96853-e2da 12]]
+[2026-10-15 13:59:37.906] ACK from BankServer-96853-e2da for message 17
+[2026-10-15 13:59:37.906] ACK from BankServer-96852-e6d1 for message 17
+[2026-10-15 13:59:37.906] ACK from BankServer-96865-dc58 for message 17
+[2026-10-15 13:59:37.906] ACK from BankServer-96854-bb87 for message 17
+[2026-10-15 13:59:37.906] ACK from BankServer-96871-0cec for message 17
+[2026-10-15 13:59:37.906] ACK from BankServer-96866-cb9c for message 17
+[2026-10-15 13:59:37.911] Processing message: 18
+[2026-10-15 13:59:37.911] Message added to queue: [deposit EUR 110 [BankServer-96852-e6d1 10], deposit USD 90 [BankServer-96852-e6d1 11], addInterest EUR 15 [BankServer-96852-e6d1 12]]
+[2026-10-15 13:59:37.912] ACK from BankServer-96866-cb9c for message 18
+[2026-10-15 13:59:37.912] ACK from BankServer-96853-e2da for message 18
+[2026-10-15 13:59:37.913] ACK from BankServer-96871-0cec for message 18
+[2026-10-15 13:59:37.913] ACK from BankServer-96852-e6d1 for message 18
+[2026-10-15 13:59:37.913] ACK from BankServer-96865-dc58 for message 18
+[2026-10-15 13:59:37.913] ACK from BankServer-96854-bb87 for message 18
+[2026-10-15 13:59:37.913] Message added to queue: [deposit EUR 110 [BankServer-96854-bb87 10], deposit USD 90 [BankServer-96854-bb87 11], addInterest EUR 15 [BankServer-96854-bb87 12]]
+[2026-10-15 13:59:37.913] Processing message: 19
+[2026-10-15 13:59:37.914] ACK from BankServer-96852-e6d1 for message 19
+[2026-10-15 13:59:37.914] ACK from BankServer-96865-dc58 for message 19
+[2026-10-15 13:59:37.915] ACK from BankServer-96853-e2da for message 19
+[2026-10-15 13:59:37.915] ACK from BankServer-96871-0cec for message 19
+[2026-10-15 13:59:37.915] ACK from BankServer-96854-bb87 for message 19
+[2026-10-15 13:59:37.915] ACK from BankServer-96866-cb9c for message 19
+[2026-10-15 13:59:39.905] Processing message: 20
+[2026-10-15 13:59:39.905] Message added to queue: [deposit DKK 10 [BankServer-96871-0cec 4], deposit CHF 30 [BankServer-96871-0cec 5], deposit NOK -100 [BankServer-96871-0cec 6], deposit GBP 50 [BankServer-96871-0cec 7], addInterest 20 [BankServer-96871-0cec 8]]
+[2026-10-15 13:59:39.913] ACK from BankServer-96852-e6d1 for message 20
+[2026-10-15 13:59:39.913] ACK from BankServer-96871-0cec for message 20
+[2026-10-15 13:59:39.913] ACK from BankServer-96865-dc58 for message 20
+[2026-10-15 13:59:39.913] ACK from BankServer-96854-bb87 for message 20
+[2026-10-15 13:59:39.914] ACK from BankServer-96866-cb9c for message 20
+[2026-10-15 13:59:39.914] ACK from BankServer-96853-e2da for message 20
+[2026-10-15 13:59:44.908] Processing message: 21
+[2026-10-15 13:59:44.909] Message added to queue: [deposit USD 120 [BankServer-96866-cb9c 10], deposit EUR 130 [BankServer-96866-cb9c 11], addInterest 10 [BankServer-96866-cb9c 12]]
+[2026-10-15 13:59:44.913] ACK from BankServer-96854-bb87 for message 21
+[2026-10-15 13:59:44.913] ACK from BankServer-96871-0cec for message 21
+[2026-10-15 13:59:44.913] ACK from BankServer-96866-cb9c for message 21
+[2026-10-15 13:59:44.913] ACK from BankServer-96852-e6d1 for message 21
+[2026-10-15 13:59:44.913] ACK from BankServer-96853-e2da for message 21
+[2026-10-15 13:59:44.913] ACK from BankServer-96865-dc58 for message 21
+[2026-10-15 13:59:44.914] Message added to queue: [deposit USD 120 [BankServer-96865-dc58 10], deposit EUR 130 [BankServer-96865-dc58 11], addInterest 10 [BankServer-96865-dc58 12]]
+[2026-10-15 13:59:44.914] Processing message: 22
+[2026-10-15 13:59:44.918] ACK from BankServer-96865-dc58 for message 22
+[2026-10-15 13:59:44.918] ACK from BankServer-96871-0cec for message 22
+[2026-10-15 13:59:44.918] ACK from BankServer-96853-e2da for message 22
+[2026-10-15 13:59:44.918] ACK from BankServer-96854-bb87 for message 22
+[2026-10-15 13:59:44.918] ACK from BankServer-96852-e6d1 for message 22
+[2026-10-15 13:59:44.918] ACK from BankServer-96866-cb9c for message 22
+[2026-10-15 13:59:47.910] Message added to queue: [deposit EUR 110 [BankServer-96853-e2da 13]]
+[2026-10-15 13:59:47.911] Processing message: 23
+[2026-10-15 13:59:47.913] ACK from BankServer-96853-e2da for message 23
+[2026-10-15 13:59:47.913] ACK from BankServer-96854-bb87 for message 23
+[2026-10-15 13:59:47.913] ACK from BankServer-96852-e6d1 for message 23
+[2026-10-15 13:59:47.913] ACK from BankServer-96866-cb9c for message 23
+[2026-10-15 13:59:47.913] ACK from BankServer-96865-dc58 for message 23
+[2026-10-15 13:59:47.913] ACK from BankServer-96871-0cec for message 23
+[2026-10-15 13:59:47.914] Message added to queue: [deposit EUR 110 [BankServer-96852-e6d1 13]]
+[2026-10-15 13:59:47.914] Processing message: 24
+[2026-10-15 13:59:47.915] ACK from BankServer-96866-cb9c for message 24
+[2026-10-15 13:59:47.915] ACK from BankServer-96865-dc58 for message 24
+[2026-10-15 13:59:47.915] ACK from BankServer-96871-0cec for message 24
+[2026-10-15 13:59:47.915] ACK from BankServer-96853-e2da for message 24
+[2026-10-15 13:59:47.915] ACK from BankServer-96854-bb87 for message 24
+[2026-10-15 13:59:47.915] ACK from BankServer-96852-e6d1 for message 24
+[2026-10-15 13:59:47.919] Message added to queue: [deposit EUR 110 [BankServer-96854-bb87 13]]
+[2026-10-15 13:59:47.919] Processing message: 25
+[2026-10-15 13:59:47.920] ACK from BankServer-96854-bb87 for message 25
+[2026-10-15 13:59:47.921] ACK from BankServer-96871-0cec for message 25
+[2026-10-15 13:59:47.921] ACK from BankServer-96866-cb9c for message 25
+[2026-10-15 13:59:47.921] ACK from BankServer-96852-e6d1 for message 25
+[2026-10-15 13:59:47.921] ACK from BankServer-96853-e2da for message 25
+[2026-10-15 13:59:47.921] ACK from BankServer-96865-dc58 for message 25
+[2026-10-15 13:59:54.916] Message added to queue: [deposit NOK 90 [BankServer-96866-cb9c 13]]
+[2026-10-15 13:59:54.916] Processing message: 26
+[2026-10-15 13:59:54.919] ACK from BankServer-96866-cb9c for message 26
+[2026-10-15 13:59:54.919] ACK from BankServer-96853-e2da for message 26
+[2026-10-15 13:59:54.920] ACK from BankServer-96852-e6d1 for message 26
+[2026-10-15 13:59:54.920] ACK from BankServer-96871-0cec for message 26
+[2026-10-15 13:59:54.920] ACK from BankServer-96865-dc58 for message 26
+[2026-10-15 13:59:54.920] ACK from BankServer-96854-bb87 for message 26
+[2026-10-15 13:59:54.920] Message added to queue: [deposit NOK 90 [BankServer-96865-dc58 13]]
+[2026-10-15 13:59:54.921] Processing message: 27
+[2026-10-15 13:59:54.922] ACK from BankServer-96853-e2da for message 27
+[2026-10-15 13:59:54.923] ACK from BankServer-96865-dc58 for message 27
+[2026-10-15 13:59:54.923] ACK from BankServer-96871-0cec for message 27
+[2026-10-15 13:59:54.924] ACK from BankServer-96854-bb87 for message 27
+[2026-10-15 13:59:54.924] ACK from BankServer-96852-e6d1 for message 27
+[2026-10-15 13:59:54.924] ACK from BankServer-96866-cb9c for message 27
+[2026-10-15 14:00:23.878] BankServer-96871-0cec left group group01
+[2026-10-15 14:00:23.878] Number of replicas: 5
+[2026-10-15 14:00:25.046] BankServer-96853-e2da left group group01
+[2026-10-15 14:00:25.046] Number of replicas: 4
+[2026-10-15 14:00:26.930] BankServer-96854-bb87 left group group01
+[2026-10-15 14:00:26.930] Number of replicas: 3
+[2026-10-15 14:00:27.802] BankServer-96852-e6d1 left group group01
+[2026-10-15 14:00:27.802] Number of replicas: 2
+[2026-10-15 14:00:30.190] BankServer-96866-cb9c left group group01
+[2026-10-15 14:00:30.190] Number of replicas: 1
+[2026-10-15 14:00:30.958] BankServer-96865-dc58 left group group01
+[2026-10-15 14:00:30.958] Number of replicas: 0

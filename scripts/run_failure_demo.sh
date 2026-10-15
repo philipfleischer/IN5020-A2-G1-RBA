@@ -17,7 +17,7 @@ PORT=${1:-1099}
 OUT=output/failure
 CMDS=input/tests/FailureTest.txt
 
-[ -f jars/BankServer.jar ] || ./scripts/build.sh
+./scripts/build.sh
 
 mkdir -p "$OUT"
 rm -f "$OUT"/*.txt

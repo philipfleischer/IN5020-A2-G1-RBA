@@ -25,7 +25,7 @@ if [ "$MODE" != "correct" ] && [ "$MODE" != "naive" ]; then
     exit 1
 fi
 
-[ -f jars/BankServer.jar ] || ./scripts/build.sh
+./scripts/build.sh
 
 mkdir -p "$OUT"
 rm -f "$OUT"/*.txt

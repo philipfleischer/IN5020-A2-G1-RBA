@@ -851,9 +851,7 @@ public class BankServer
         // outstanding_collection drains as well.
         waitForSyncRequests();
 
-        // 2. Leave the group on purpose. The MessageDeliveryServer
-        // removes us at once and sends a new member list to the
-        // others, instead of waiting 5 s and marking us FAIL.
+        // 2. Leave the group, so the server removes us right away instead of marking us FAIL
         try {
             messageServer.leave(accountName, this);
         } catch (RemoteException e) {
@@ -865,9 +863,7 @@ public class BankServer
         System.out.println(
                 "[" + serverName + "] exiting.");
 
-        // 3. The exported RMI object keeps non-daemon threads running,
-        // so the JVM would never stop by itself. System.exit stops
-        // it no matter which threads are still alive.
+        // 3. RMI keeps the program running, have to exit ourselves
         System.exit(0);
     }
 
@@ -876,7 +872,6 @@ public class BankServer
      * COMMAND LINE INPUT
      * =====================================================
      */
-
     private void runCommandLine() {
 
         Scanner scanner = new Scanner(System.in);
@@ -884,15 +879,13 @@ public class BankServer
         System.out.println(
                 "Reading commands from command line.");
 
-        // hasNextLine() is false at end of input (Ctrl+D or a closed
-        // pipe). nextLine() would throw NoSuchElementException there.
+        // Stop when the input ends (Ctrl+D)
         while (true) {
 
             System.out.print(
                     "[" + serverName + "] > ");
 
-            // Show the prompt now (print() without '\n' is not
-            // flushed automatically)
+            // No newline after the prompt, flushing to show
             System.out.flush();
 
             if (!scanner.hasNextLine()) {
@@ -901,8 +894,7 @@ public class BankServer
 
             String input = scanner.nextLine();
 
-            // The user pressed Enter, so the next output line needs
-            // its own timestamp (see Log.promptAnswered)
+            // User pressed Enter, so the next output line needs a new timestamp
             Log.promptAnswered();
 
             boolean keepRunning = helper.handleCommand(input);
@@ -920,17 +912,12 @@ public class BankServer
      * INPUT FILE
      * =====================================================
      */
-
-    private void runCommandFile(
-            String filename) throws Exception {
+    private void runCommandFile(String filename) throws Exception {
 
         Path path = Paths.get(filename);
-
         List<String> lines = Files.readAllLines(path);
 
-        System.out.println(
-                "Reading commands from: "
-                        + filename);
+        System.out.println("Reading commands from: " + filename);
 
         for (String line : lines) {
 
@@ -938,9 +925,7 @@ public class BankServer
                 continue;
             }
 
-            System.out.println(
-                    "[" + serverName + "] > "
-                            + line);
+            System.out.println("[" + serverName + "] > " + line);
 
             boolean keepRunning = helper.handleCommand(line);
 
@@ -948,49 +933,29 @@ public class BankServer
                 break;
             }
 
-            /*
-             * Random delay between 0.5 and 1.5 seconds.
-             */
-
-            long delay = 500
-                    + (long) (Math.random() * 1000);
-
+            // Random delay between 0.5 and 1.5 seconds.
+            long delay = 500 + (long) (Math.random() * 1000);
             Thread.sleep(delay);
         }
     }
 
-    /*
-     * =====================================================
-     * BROADCAST THREAD
-     * =====================================================
-     */
-
+    // BROADCAST THREAD
     private void startBroadcastThread() {
 
         Thread broadcastThread = new Thread(() -> {
 
             while (true) {
-
                 try {
-
                     Thread.sleep(10_000);
-
                     broadcastOutstanding();
-
                 } catch (InterruptedException e) {
-
-                    Thread.currentThread()
-                            .interrupt();
-
+                    Thread.currentThread().interrupt();
                     break;
                 }
             }
         });
 
-        /*
-         * Daemon means this thread won't prevent
-         * the JVM from shutting down.
-         */
+        // The Daemon means the thread will not prevent the JVM from shutting down.
         broadcastThread.setDaemon(true);
 
         broadcastThread.start();
@@ -1005,23 +970,11 @@ public class BankServer
     public static void main(
             String[] args) throws Exception {
 
-        // Timestamp on every output line (must be first, so that
-        // everything below is already timestamped)
+        // Timestamp on every output line (this is first, so everything below is timestamped)
         Log.install();
 
-        /*
-         * Expected:
-         *
-         * java BankServer
-         * <server address>
-         * <account name>
-         * <number replicas>
-         * <currency file>
-         * [command file]
-         */
-
+        //Expected: java BankServer <server address> <account name> <number replicas> <currency file> [command file]
         if (args.length < 4) {
-
             System.out.println(
                     "Usage: java [-Dsync=correct|naive] -jar BankServer.jar "
                             + "<host:port> "
@@ -1033,31 +986,17 @@ public class BankServer
             System.exit(1);
         }
 
-        /*
-         * ---------------------------------------------
-         * MessageDeliveryServer address
-         * ---------------------------------------------
-         */
-
+        // MessageDeliveryServer address
         String[] address = args[0].split(":");
 
         if (address.length != 2) {
-
-            System.out.println(
-                    "Server address must be host:port");
-
+            System.out.println("Server address must be host:port");
             System.exit(1);
         }
 
         String host = address[0];
 
         int port = Integer.parseInt(address[1]);
-
-        /*
-         * ---------------------------------------------
-         * Other arguments
-         * ---------------------------------------------
-         */
 
         String accountName = args[1];
 
@@ -1073,94 +1012,38 @@ public class BankServer
         String syncMode = System.getProperty("sync", "correct");
 
         if (!syncMode.equals("correct") && !syncMode.equals("naive")) {
-
-            System.out.println(
-                    "-Dsync must be 'correct' or 'naive', not '"
-                            + syncMode + "'");
-
+            System.out.println("-Dsync must be 'correct' or 'naive', not '" + syncMode + "'");
             System.exit(1);
         }
 
-        /*
-         * Give each process a unique name. The name is part of every
-         * transaction id ("<name> <counter>"), so two replicas must
-         * never get the same name.
-         *
-         * The PID alone is unique on one machine only: replicas on
-         * different machines could get the same PID. A random suffix
-         * makes a collision practically impossible, e.g.
-         * "BankServer-49478-a3f2".
-         */
+        // PID + a random part, this ensure that two replicas do not get the same name,
+        // this is true even on different machines like: "BankServer-42398-a3r3"
         String serverName = "BankServer-"
                 + ProcessHandle.current().pid()
                 + "-"
                 + java.util.UUID.randomUUID().toString().substring(0, 4);
 
-        /*
-         * ---------------------------------------------
-         * Create BankServer
-         * ---------------------------------------------
-         */
 
-        BankServer server = new BankServer(
-                serverName,
-                accountName,
-                numberOfReplicas);
+        BankServer server = new BankServer(serverName, accountName, numberOfReplicas);
         server.loadCurrencyRates(currencyFile);
 
-        System.out.println(
-                "Starting " + serverName);
+        System.out.println("Starting " + serverName);
 
-        System.out.println(
-                "Account: " + accountName);
+        System.out.println("Account: " + accountName);
 
-        System.out.println(
-                "Expected replicas: "
-                        + numberOfReplicas);
+        System.out.println("Expected replicas: " + numberOfReplicas);
 
-        System.out.println(
-                "Currency file: "
-                        + currencyFile);
+        System.out.println("Currency file: " + currencyFile);
 
-        System.out.println(
-                "getSyncedBalance mode: "
-                        + syncMode);
+        System.out.println("getSyncedBalance mode: " + syncMode);
 
-        /*
-         * ---------------------------------------------
-         * Connect to MessageDeliveryServer
-         * ---------------------------------------------
-         */
+        server.connectToMessageServer(host, port);
 
-        server.connectToMessageServer(
-                host,
-                port);
-
-        /*
-         * ---------------------------------------------
-         * Wait until all <number of replicas> have joined.
-         * Must happen BEFORE the broadcast thread and the
-         * commands start, otherwise we could send
-         * transactions that a not-yet-joined replica
-         * never receives.
-         * ---------------------------------------------
-         */
-
+        // wait for all replicas before starting sending, so noone misses a message
         server.waitForInitialReplicas();
 
-        /*
-         * ---------------------------------------------
-         * Start 10 second broadcasting
-         * ---------------------------------------------
-         */
-
+        // Start 10 second broadcasting
         server.startBroadcastThread();
-
-        /*
-         * ---------------------------------------------
-         * Input
-         * ---------------------------------------------
-         */
 
         if (args.length >= 5) {
 
@@ -1172,10 +1055,7 @@ public class BankServer
             server.runCommandLine();
         }
 
-        /*
-         * Reached on "exit", at the end of the batch file,
-         * or at end of input. Spec: batch mode must "exit".
-         */
+        // We get here on exit, at the end of the file or when input ends
         server.shutdown();
     }
 }
