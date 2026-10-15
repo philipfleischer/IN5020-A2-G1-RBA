@@ -76,7 +76,7 @@ public final class Log {
             }
         }
 
-        //Only "\n" or promptAnswered() starts a new line.
+        // Only "\n" or promptAnswered() starts a new line.
         // We cannot use flush for this, Java 11 flushes in the middle of lines
         synchronized void startNewLine() {
             atLineStart = true;

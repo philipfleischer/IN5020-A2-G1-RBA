@@ -58,7 +58,6 @@ Both versions run without blocking the command loop.
 
 - Official scenario, correct: same order on all 6 replicas, all end with 5566.82 USD.
 - Official scenario, naive: same order on all 6 replicas, all end with 5608.24 USD.
-- Failure demo: resend after 2 s, FAIL after 5 s, A and B both end with 100.00 USD.
 
 The balance differs between runs because it depends on timing.
 
