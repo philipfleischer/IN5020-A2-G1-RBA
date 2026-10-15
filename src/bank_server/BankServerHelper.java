@@ -315,24 +315,18 @@ public class BankServerHelper {
             throws InterruptedException {
 
         if (parts.length != 2) {
-            System.out.println(
-                    "Usage: sleep <duration>");
+            System.out.println("Usage: sleep <duration>");
             return;
         }
 
         long duration = Long.parseLong(parts[1]);
 
         if (duration < 0) {
-            System.out.println(
-                    "Sleep duration cannot be negative.");
+            System.out.println("Sleep duration cannot be negative.");
             return;
         }
 
-        /*
-         * Assuming duration is given in seconds.
-         * Change this if your assignment specifies
-         * another unit.
-         */
+        // milliseconds -> seconds
         Thread.sleep(duration * 1000);
     }
 }
