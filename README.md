@@ -1,193 +1,74 @@
 # IN5020 Assignment 2: Replicated Bank Account (Group 1)
 
-A replicated bank account built as a **replicated state machine** on top of a
-**totally ordered broadcast**, implemented with **Java RMI**.
+Replicated bank account using a totally ordered broadcast, implemented with Java RMI.
+The Message Delivery server orders the transactions and sends them to all bank servers, and waits for an ACK from every replica before sending the next message.
+All replicas execute the same transactions in the same order.
 
-- **Message Delivery server** (`MessageDeliveryServer.jar`): receives lists of
-  transactions from the bank servers, puts them in one global order, and sends
-  them to every bank server. It waits for an ACK from every bank server before it
-  sends the next message.
-- **Bank server** (`BankServer.jar`): one replica of the account. All replicas
-  execute the same transactions in the same order, so they all end with the same
-  balances.
+Requires Java 11 or newer.
 
-Requires **Java 11 or newer**. No external libraries.
+## Build
+(macOS/Linux): ./scripts/build.sh
 
----
+(Windows): scripts\build.bat
 
-## 1. Build
+This creates jars/MessageDeliveryServer.jar and jars/BankServer.jar.
 
-The jar files are built from `src/` with:
+## Run
 
-```bash
-./scripts/build.sh          # macOS / Linux
-scripts\build.bat           # Windows
-```
-
-This creates `jars/MessageDeliveryServer.jar` and `jars/BankServer.jar`.
-
----
-
-## 2. Run
-
-Run all commands from the project folder.
-
-### 2.1 Message Delivery server
-
-```bash
 java -jar jars/MessageDeliveryServer.jar [port]
-```
 
-`port` is optional (default `1099`). The server creates the RMI registry on this
-port.
-
-### 2.2 Bank server
-
-```bash
 java [-Dsync=correct|naive] -jar jars/BankServer.jar <server address> <account name> <number of replicas> <currency file> [command file]
-```
 
-| Argument | Meaning |
-|---|---|
-| `<server address>` | `host:port` of the Message Delivery server, e.g. `localhost:1099` |
-| `<account name>` | Name of the group/account, e.g. `group01`. The same for all replicas |
-| `<number of replicas>` | Number of replicas started at the beginning. Each replica waits until this many have joined |
-| `<currency file>` | Trading rates, one `<Currency> <rate to USD>` per line (USD is always 1) |
-| `[command file]` | Optional. Without it, commands are read from the terminal. With it, one command is read every 0.5–1.5 s, and the server exits at the end |
-| `-Dsync=correct\|naive` | Optional. Which `getSyncedBalance` implementation to use (default `correct`, see section 4) |
+- server address is host:port, e.g. localhost:1099 (default port 1099).
+- Each replica waits until <number of replicas> have joined before it starts.
+- With a command file, one command is read every 0.5-1.5 s and the server exits at the end.
+- -Dsync chooses the getSyncedBalance version (default correct).
+- On several machines, add -Djava.rmi.server.hostname=<own IP> to every process.
 
-### 2.3 Example: three replicas on one machine
+Official scenario (3 replicas with Rep1 at 0 s, 2 with Rep2 at 7 s, 1 with Rep3 at 12 s):
 
-```bash
-# Terminal 1
-java -jar jars/MessageDeliveryServer.jar 1099
+(logs in output/correct/): ./scripts/run_final.sh correct
 
-# Terminals 2, 3 and 4
-java -jar jars/BankServer.jar localhost:1099 group01 3 input/example/TradingRate.txt input/example/ExampleInputFile.txt
-```
+(logs in output/naive/): ./scripts/run_final.sh naive
 
-The first two replicas print `Waiting for replicas: x/3` until the third one has
-joined. Then all three run the command file and exit.
+The script also runs check_output.sh, which checks that all replicas executed the same order and ended with the same balance.
 
-### 2.4 Several machines
+Failure demo (one replica is frozen with kill -STOP after 8 s):
 
-RMI calls go in both directions (the Message Delivery server calls the bank
-servers back), so every process must tell RMI which address the others can reach
-it on:
+(logs in output/failure/): ./scripts/run_failure_demo.sh
 
-```bash
-java -Djava.rmi.server.hostname=<this machine's IP> -jar jars/MessageDeliveryServer.jar 1099
-java -Djava.rmi.server.hostname=<this machine's IP> -jar jars/BankServer.jar <server IP>:1099 group01 3 ...
-```
+## Assumptions
 
----
+- No currency in getQuickBalance/getSyncedBalance means USD.
+- checkTxStatus 0 means transaction 0 created by this replica. The full id also works.
+- Only deposit and addInterest use outstanding_counter. getSyncedBalance requests get their own ids.
+- Every output line starts with a timestamp.
 
-## 3. Commands
+## getSyncedBalance
 
-| Command | What it does |
-|---|---|
-| `deposit <Currency> <amount>` | Creates a transaction, adds it to `outstanding_collection`. Applied on all replicas when it is ordered |
-| `addInterest [<Currency>] <percent>` | Like `deposit`. Multiplies the balance of `<Currency>` (or of every currency, if none is given) by `1 + percent/100` |
-| `getQuickBalance [<Currency>]` | Prints the local balance right away, converted to `<Currency>` |
-| `getSyncedBalance [<Currency>]` | Prints the balance after all transactions this replica issued before the command have been applied (section 4) |
-| `getHistory` | Prints `executed_list` (order number, execution time, command) and `outstanding_collection` |
-| `checkTxStatus <id>` | Prints `EXECUTED`, `OUTSTANDING` or `UNKNOWN` for a transaction |
-| `cleanHistory` | Empties `executed_list`. `order_counter` and `outstanding_counter` are not reset |
-| `memberInfo` | Prints the names of the current members of the group |
-| `sleep <seconds>` | Does nothing for the given time |
-| `exit` | Sends the remaining outstanding transactions, leaves the group and exits |
+Naive: waits until outstanding_collection is empty and then prints the balance. If new transactions keep coming it can wait a long time (or forever), and the answer can include transactions issued after the request. In output/naive/rep3_a.txt the answer came 13 s later and included seven later transactions.
 
-**Our assumptions:**
+Correct: puts a marker in outstanding_collection that is ordered like a normal transaction. When it comes back, the replica that issued it prints the balance. The marker is not added to executed_list. The answer is the state at the request's place in the total order, and it comes after at most one broadcast round plus delivery.
 
-- A missing `<Currency>` in `getQuickBalance` / `getSyncedBalance` means **USD**,
-  the base currency of the trading-rate file.
-- `checkTxStatus 0` (just a number) means transaction number 0 created by **this**
-  replica. The full id also works: `checkTxStatus BankServer-49478-a3f2 0`.
-- Only `deposit` and `addInterest` are numbered with `outstanding_counter`, as in the
-  assignment text. `getSyncedBalance` requests get their own ids (`... sync-0`).
-- Every output line starts with the time it was printed. `getHistory` also shows when
-  each transaction was **executed** on this replica.
+Both versions run without blocking the command loop.
 
----
+## Design
 
-## 4. The two `getSyncedBalance` implementations
+- Exactly once: executed ids are kept in a set that cleanHistory does not clear, so duplicates (re-broadcasts and resends) are skipped.
+- exit: sends remaining transactions, calls leave() and exits.
+- Crash: the server sends to all replicas in parallel, resends after 2 s and marks a replica as FAIL after 5 s. Calls the server makes while holding a lock have a timeout, so a frozen replica cannot block it.
+- Late join: join() waits until the current message is ACKed, gets the state from an existing replica (getState) and gives it to the new one (updateState).
 
-Both versions run **without blocking the command loop**: the command is registered,
-the next commands go on, and the answer is printed when it is ready. Only the way of
-waiting is different. This is what makes the difference visible.
+## Results
 
-| | **Naive** (`-Dsync=naive`) | **Correct** (default) |
-|---|---|---|
-| Idea | Wait for a moment when `outstanding_collection` is empty, then print the balance | Put a `getSyncedBalance` marker into `outstanding_collection`. It is broadcast and ordered like a deposit |
-| Who answers | The replica that issued the command | Only the replica that issued the command. Other replicas ignore the marker. It is removed from `outstanding_collection` and **not** added to `executed_list` |
-| When | Only when the collection is empty. If new transactions keep coming, this can be **never** (starvation, the "deadlock" in the assignment) | When the marker comes back ordered: after at most one 10 s broadcast round plus delivery time |
-| What the answer includes | Everything ordered before the collection happened to become empty, **including transactions issued after the request** | Exactly the state at the request's position in the total order: all earlier transactions, nothing later |
+- Official scenario, correct: same order on all 6 replicas, all end with 5464.36 USD.
+- Official scenario, naive: same order on all 6 replicas, all end with 5489.30 USD.
+- Failure demo: resend after 2 s, FAIL after 5 s, A and B both end with 100.00 USD.
 
-### What we observed
+The balance differs between runs because it depends on timing.
 
-Same input (`input/example/ExampleInputFile.txt`, one replica), only the mode is
-different. Logs in `output/example/correct/` and `output/example/naive/`:
+## Workload
 
-| `getSyncedBalance` | Correct | Naive | Why the naive answer is different |
-|---|---|---|---|
-| 1 (before any deposit) | 0.00 USD | 0.00 USD | Nothing outstanding |
-| 2 (after `deposit USD 100`) | **100.00 USD** | **110.00 USD** | Includes `deposit NOK 100`, issued *after* the request |
-| 3 (after `sleep 10`) | 110.00 USD | 110.00 USD | Everything applied |
-| 4 (after `addInterest USD 10`) | **120.00 USD** | **306.00 USD** | Includes six deposits issued after the request |
-| 5 | **3177.00 NOK** | **6516.40 NOK** | Includes everything up to the end of the file |
-| 6 (last) | 651.64 USD | 651.64 USD | No new commands, so both agree |
-
-The naive answers depend on timing and change from run to run. The correct answers
-are always the same.
-
-
----
-
-## 5. Design in short
-
-- **Total order.** Bank servers send `outstanding_collection` to the Message Delivery
-  server every 10 s. The server puts every message in one queue and delivers them one
-  at a time to all replicas, waiting for all ACKs before the next one. So every
-  replica sees the same messages in the same order.
-- **Exactly once.** The same transaction can arrive twice (it is re-broadcast every
-  10 s until it is ordered, and the server resends after a missing ACK). Every replica
-  keeps the ids of all executed transactions in a set that `cleanHistory` never
-  clears, and skips duplicates. Because all replicas see the same order, they all skip
-  the same duplicates.
-- **Start-up.** A replica waits until `<number of replicas>` members have joined
-  before it starts broadcasting or reading commands, so no initial replica misses a
-  message.
-- **Leave vs. crash.** `exit` first sends the remaining outstanding transactions, then
-  calls `leave()` on the server, which removes the replica at once and sends the new
-  member list to the others. A crashed replica is detected by the ACK timeout:
-  resend after 2 s, marked as FAIL and removed after 5 s.
-  `TODO: check when the timeout code is merged.`
-- **Late join.** `TODO: describe the state transfer (balances, executed_list,
-  order_counter, executed ids) when it is merged.`
-- **Threads.** Each bank server has a command thread, a broadcast thread and the RMI
-  threads that deliver messages. Shared state is protected by `synchronized`.
-
----
-
-## 6. Folder structure
-
-| Path | Content |
-|---|---|
-| `src/common/` | `Transaction`, `Message`, `Timestamp`, `Log` (timestamp on every output line) |
-| `src/message_delivery_server/` | `MessageDeliveryServer` and its RMI interface |
-| `src/bank_server/` | `BankServer` (the replica), `BankServerHelper` (command parsing), `CurrencyConverter`, `BankState` (state transfer), `GetSyncedBalanceDemo` |
-| `scripts/` | Build scripts |
-| `input/example/` | The example input file (transaction ids filled in) and trading rates |
-| `input/final/` | `TODO: the official input files` |
-| `output/example/` | Logs from our test runs: one replica correct / naive, three replicas |
-| `output/final/` | `TODO: logs from all replicas for the official input files` |
-
----
-
-## 7. Workload distribution
-
-| Member | Work |
-|---|---|
-| Håkon Gulliksrud: haakgull@uio.no | RMI set-up, Message Delivery server (join, ordering queue, ACK handling), first version of the bank server. `TODO: timeout / late join, if Håkon did it` |
-| Anwar Ahmed Hersi: anwarahe@uio.no | `getSyncedBalance` (naive and correct), currency conversion, `GetSyncedBalanceDemo` |
-| Philip Elias Fleischer: philipef@uio.no | Commands (`checkTxStatus`, `getHistory`, `memberInfo`, `exit`/leave, waiting for all replicas), exactly-once execution, naive/correct switch, logging with timestamps, build scripts, testing, README |
+- Håkon Gulliksrud (haakgull@uio.no): RMI setup, Message Delivery server (join, queue, ACK), first version of the bank server.
+- Anwar Ahmed Hersi (anwarahe@uio.no): getSyncedBalance, currency conversion, GetSyncedBalanceDemo, resend/FAIL timeout, late join.
+- Philip Elias Fleischer (philipef@uio.no): commands, exactly-once, naive/correct switch, logging, frozen-replica fix.

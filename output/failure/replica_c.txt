@@ -1,0 +1,17 @@
+[2026-10-13 17:11:27.679] Starting BankServer-75931-fb76
+[2026-10-13 17:11:27.679] Account: group01
+[2026-10-13 17:11:27.680] Expected replicas: 3
+[2026-10-13 17:11:27.682] Currency file: input/TradingRate.txt
+[2026-10-13 17:11:27.682] getSyncedBalance mode: correct
+[2026-10-13 17:11:27.748] [BankServer-75931-fb76] Received state update
+[2026-10-13 17:11:27.750] [BankServer-75931-fb76] State copied: balances {}, 0 executed transactions
+[2026-10-13 17:11:27.754] [BankServer-75931-fb76] Membership changed: [BankServer-75921-54b8, BankServer-75927-011e, BankServer-75931-fb76] (3 members)
+[2026-10-13 17:11:27.754] [BankServer-75931-fb76] Connected to localhost:1823
+[2026-10-13 17:11:27.755] [BankServer-75931-fb76] All 3 initial replicas have joined, starting.
+[2026-10-13 17:11:27.756] Reading commands from: input/tests/FailureTest.txt
+[2026-10-13 17:11:27.757] [BankServer-75931-fb76] > deposit USD 10
+[2026-10-13 17:11:27.761] [BankServer-75931-fb76] Transaction created: deposit USD 10 [BankServer-75931-fb76 0]
+[2026-10-13 17:11:29.100] [BankServer-75931-fb76] > sleep 3
+[2026-10-13 17:11:32.945] [BankServer-75931-fb76] > deposit USD 10
+[2026-10-13 17:11:32.946] [BankServer-75931-fb76] Transaction created: deposit USD 10 [BankServer-75931-fb76 1]
+[2026-10-13 17:11:34.165] [BankServer-75931-fb76] > sleep 3

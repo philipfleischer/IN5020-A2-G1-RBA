@@ -1,0 +1,52 @@
+[2026-10-13 17:11:26.566] MessageDeliveryServer ready on port 1823
+[2026-10-13 17:11:27.720] BankServer-75921-54b8 joined group group01
+[2026-10-13 17:11:27.720] Number of replicas: 1
+[2026-10-13 17:11:27.742] BankServer-75927-011e joined group group01
+[2026-10-13 17:11:27.743] Number of replicas: 2
+[2026-10-13 17:11:27.751] BankServer-75931-fb76 joined group group01
+[2026-10-13 17:11:27.751] Number of replicas: 3
+[2026-10-13 17:11:37.768] Message added to queue: [deposit USD 10 [BankServer-75927-011e 0], deposit USD 10 [BankServer-75927-011e 1], deposit USD 10 [BankServer-75927-011e 2]]
+[2026-10-13 17:11:37.769] Message added to queue: [deposit USD 10 [BankServer-75927-011e 0], deposit USD 10 [BankServer-75927-011e 1], deposit USD 10 [BankServer-75927-011e 2]]
+[2026-10-13 17:11:37.769] Message added to queue: [deposit USD 10 [BankServer-75921-54b8 0], deposit USD 10 [BankServer-75921-54b8 1]]
+[2026-10-13 17:11:37.770] Processing message: 0
+[2026-10-13 17:11:37.770] Message added to queue: [deposit USD 10 [BankServer-75921-54b8 0], deposit USD 10 [BankServer-75921-54b8 1]]
+[2026-10-13 17:11:37.795] ACK from BankServer-75927-011e for message 0
+[2026-10-13 17:11:37.795] ACK from BankServer-75921-54b8 for message 0
+[2026-10-13 17:11:39.777] No ACK from BankServer-75931-fb76 for message 0, resending
+[2026-10-13 17:11:42.776] FAIL: BankServer-75931-fb76 did not ACK in time, removing it from the group
+[2026-10-13 17:11:42.781] Processing message: 1
+[2026-10-13 17:11:42.783] ACK from BankServer-75921-54b8 for message 1
+[2026-10-13 17:11:42.783] ACK from BankServer-75927-011e for message 1
+[2026-10-13 17:11:42.783] Processing message: 2
+[2026-10-13 17:11:42.786] ACK from BankServer-75921-54b8 for message 2
+[2026-10-13 17:11:42.786] ACK from BankServer-75927-011e for message 2
+[2026-10-13 17:11:42.786] Processing message: 3
+[2026-10-13 17:11:42.787] ACK from BankServer-75927-011e for message 3
+[2026-10-13 17:11:42.787] ACK from BankServer-75921-54b8 for message 3
+[2026-10-13 17:11:47.775] Message added to queue: [deposit USD 10 [BankServer-75927-011e 3], deposit USD 10 [BankServer-75927-011e 4]]
+[2026-10-13 17:11:47.775] Processing message: 4
+[2026-10-13 17:11:47.775] Message added to queue: [deposit USD 10 [BankServer-75921-54b8 2], deposit USD 10 [BankServer-75921-54b8 3], deposit USD 10 [BankServer-75921-54b8 4]]
+[2026-10-13 17:11:47.776] Message added to queue: [deposit USD 10 [BankServer-75921-54b8 2], deposit USD 10 [BankServer-75921-54b8 3], deposit USD 10 [BankServer-75921-54b8 4]]
+[2026-10-13 17:11:47.776] Message added to queue: [deposit USD 10 [BankServer-75927-011e 3], deposit USD 10 [BankServer-75927-011e 4]]
+[2026-10-13 17:11:47.778] ACK from BankServer-75927-011e for message 4
+[2026-10-13 17:11:47.779] ACK from BankServer-75921-54b8 for message 4
+[2026-10-13 17:11:47.779] Processing message: 5
+[2026-10-13 17:11:47.782] ACK from BankServer-75927-011e for message 5
+[2026-10-13 17:11:47.782] ACK from BankServer-75921-54b8 for message 5
+[2026-10-13 17:11:47.783] Processing message: 6
+[2026-10-13 17:11:47.784] ACK from BankServer-75921-54b8 for message 6
+[2026-10-13 17:11:47.784] ACK from BankServer-75927-011e for message 6
+[2026-10-13 17:11:47.784] Processing message: 7
+[2026-10-13 17:11:47.785] ACK from BankServer-75927-011e for message 7
+[2026-10-13 17:11:47.785] ACK from BankServer-75921-54b8 for message 7
+[2026-10-13 17:12:04.547] Processing message: 8
+[2026-10-13 17:12:04.547] Message added to queue: [getSyncedBalance USD [BankServer-75921-54b8 sync-0]]
+[2026-10-13 17:12:04.550] ACK from BankServer-75927-011e for message 8
+[2026-10-13 17:12:04.550] ACK from BankServer-75921-54b8 for message 8
+[2026-10-13 17:12:04.551] BankServer-75921-54b8 left group group01
+[2026-10-13 17:12:04.551] Number of replicas: 1
+[2026-10-13 17:12:04.815] Message added to queue: [getSyncedBalance USD [BankServer-75927-011e sync-0]]
+[2026-10-13 17:12:04.816] Processing message: 9
+[2026-10-13 17:12:04.818] ACK from BankServer-75927-011e for message 9
+[2026-10-13 17:12:04.818] BankServer-75927-011e left group group01
+[2026-10-13 17:12:04.819] Number of replicas: 0
