@@ -30,22 +30,12 @@ import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
 
 /**
- * One replica of the replicated bank account.
+ * One copy (replica) of the bank account.
  *
- * Every BankServer holds a full copy of the account (balances per
- * currency). Commands that change the account (deposit, addInterest) are
- * NOT applied locally right away: they are put in outstandingCollection and
- * sent every 10 s to the MessageDeliveryServer, which delivers them to all
- * replicas in the same total order. Every replica executes them in that
- * order, so all replicas go through the same states (replicated state
- * machine) and end with the same balances.
- *
- * Threads:
- *  - command thread: reads commands from the terminal or the batch file
- *  - broadcast thread: sends outstandingCollection every 10 s
- *  - RMI threads: the MessageDeliveryServer calls receiveTransaction(),
- *    membershipChanged() and updateState()
- * Shared state is protected by "synchronized" on this object.
+ * deposit and addInterest are not done right away. We put them in
+ * outstandingCollection and send them to the MessageDeliveryServer
+ * every 10 seconds. The server sends them back to all replicas in
+ * the same orderm so everyone ends up with the same balance.
  */
 public class BankServer
         extends UnicastRemoteObject
@@ -66,29 +56,21 @@ public class BankServer
     // Transactions that have been ordered and executed
     private final List<Transaction> executedList = new ArrayList<>();
 
-    // uniqueIds of ALL transactions this replica has ever executed.
-    // Unlike executedList this is never cleared by cleanHistory, so it is
-    // what we use to guarantee "each transaction is executed only once"
-    // and to answer checkTxStatus after the history has been cleaned.
+    // IDs of every transaction we have run. cleanHistory does not clear this,
+    // se we can still skip duplicates and answer checkTxStatus.
     private final Set<String> executedIds = new HashSet<>();
 
     private int orderCounter = 0;
     private int outstandingCounter = 0;
 
-    // Separate counter for getSyncedBalance requests. They also go through
-    // outstandingCollection, but the assignment numbers only deposit and
-    // addInterest with outstanding_counter, so "checkTxStatus 0" in the
-    // input files must refer to the first deposit/addInterest.
+    // Own counter for getSyncedBalance, so the normal
+    // counter is only used for deposit and addInterest
     private int syncRequestCounter = 0;
 
-    // Which getSyncedBalance implementation the command uses. Chosen at
-    // start-up with -Dsync=naive (default: correct), so the same input
-    // files can be run with both versions and the outputs compared.
+    // Set with -Dsync=naive, default is correct
     static final boolean NAIVE_SYNC = "naive".equals(System.getProperty("sync", "correct"));
 
-    // getSyncedBalance requests that have not printed their answer yet.
-    // shutdown() waits for them, so "getSyncedBalance" right before
-    // "exit" still prints its answer.
+    // getSyncedBalance requests still waiting for answer (exit waits for them)
     private final List<CompletableFuture<?>> syncRequestsInProgress = new CopyOnWriteArrayList<>();
 
     // How long shutdown() waits for unanswered getSyncedBalance requests
@@ -101,23 +83,17 @@ public class BankServer
     // Remote reference to MessageDeliveryServer
     private MessageDeliveryServerInterface messageServer;
 
-    // Latest membership view from the MessageDeliveryServer. The list is
-    // REPLACED (never modified) on every change, so a reader always sees
-    // a complete list. volatile makes the new reference visible to all
-    // threads at once.
+    // Member list from the server. We replace the whole list on
+    // every change, so other threads never see half a list
     private volatile List<String> members = new ArrayList<>();
 
-    // Used to wait for / signal membership changes. A separate lock,
-    // so a membership update is never blocked by a
-    // running receiveTransaction() or command.
+    // Own lock for member changes, so they do not have to wait for other work
     private final Object membershipLock = new Object();
 
     // Handles command parsing
     private final BankServerHelper helper;
 
-    // Pending getSyncedBalance requests this server originated, keyed by
-    // the transaction's uniqueId. receiveTransaction() completes these
-    // once the matching transaction comes back orderd.
+    //getSyncedBalance requests, waiting for their marker to come back
     private final Map<String, CompletableFuture<Double>> pendingSyncResults = new ConcurrentHashMap<>();
 
     // Trading rates from the currency file (USD only until loaded)
@@ -142,14 +118,11 @@ public class BankServer
      * CONNECT TO MESSAGE DELIVERY SERVER
      * =====================================================
      */
-
     public void loadCurrencyRates(String path) throws java.io.IOException {
         converter = CurrencyConverter.fromFile(path);
     }
 
-    public void connectToMessageServer(
-            String host,
-            int port) throws Exception {
+    public void connectToMessageServer(String host, int port) throws Exception {
 
         Registry registry = LocateRegistry.getRegistry(host, port);
 
@@ -158,9 +131,7 @@ public class BankServer
         // Give MessageDeliveryServer a remote reference to this BankServer
         messageServer.join(accountName, this);
 
-        System.out.println(
-                "[" + serverName + "] Connected to "
-                        + host + ":" + port);
+        System.out.println("[" + serverName + "] Connected to " + host + ":" + port);
     }
 
     /*
@@ -173,7 +144,6 @@ public class BankServer
      * deposit NOK 500
      * addInterest NOK 10
      */
-
     public synchronized void createTransaction(String command) {
 
         String uniqueId = serverName + " " + outstandingCounter;
@@ -184,10 +154,8 @@ public class BankServer
 
         outstandingCounter++;
 
-        System.out.println(
-                "[" + serverName + "] Transaction created: "
-                        + command
-                        + " [" + uniqueId + "]");
+        System.out.println("[" + serverName + "] Transaction created: "
+                        + command + " [" + uniqueId + "]");
     }
 
     /*
@@ -195,7 +163,6 @@ public class BankServer
      * SEND OUTSTANDING TRANSACTIONS
      * =====================================================
      */
-
     public void broadcastOutstanding() {
 
         List<Transaction> transactions;
@@ -211,15 +178,9 @@ public class BankServer
         }
 
         try {
-
             messageServer.broadcastTransactions(transactions);
-
         } catch (RemoteException e) {
-
-            System.err.println(
-                    "[" + serverName
-                            + "] Could not broadcast transaction: "
-                            + e.getMessage());
+            System.err.println("[" + serverName + "] Could not broadcast transaction: " + e.getMessage());
         }
     }
 
@@ -230,7 +191,6 @@ public class BankServer
      *
      * MessageDeliveryServer calls this through RMI.
      */
-
     @Override
     public synchronized void receiveTransaction(
             long messageId,
@@ -239,36 +199,25 @@ public class BankServer
         // Don't execute the same transaction twice
         for (Transaction transaction : transactions) {
 
-            // A getSyncedBalance marker is not a deposit/addInterest.
-            // Only the replica that created it answers it; every other
-            // replica ignores it. It is never added to executedList and
-            // never increments orderCounter, so the order numbers in
-            // getHistory only count real transactions.
+            // A getSyncedBalance marker: only the replica that sent it answers.
+            // Not a real transactionm so it is not put in the history.
 
             if (isSyncedBalanceRequest(transaction)) {
                 resolveSyncedBalanceIfMine(transaction);
-                outstandingCollection
-                        .removeIf(tx -> tx.getUniqueId().equals(transaction.getUniqueId()));
+                outstandingCollection.removeIf(
+                    tx -> tx.getUniqueId().equals(transaction.getUniqueId())
+                );
                 continue;
             }
 
             if (hasBeenExecuted(transaction.getUniqueId())) {
-                System.out.println(
-                        "[" + serverName
-                                + "] Duplicate ignored: "
-                                + transaction.getUniqueId());
+                System.out.println("[" + serverName + "] Duplicate ignored: " + transaction.getUniqueId());
 
-                // Skip only THIS transaction. The rest of the message may
-                // contain new transactions, and we must still reach the
-                // ack() below, otherwise the MessageDeliveryServer waits
-                // for us forever (or marks us as FAIL).
+                // Skip this one but keep going, we still have to send the ack
                 continue;
             }
 
-            System.out.println(
-                    "[" + serverName
-                            + "] Received transaction: "
-                            + transaction.getCommand());
+            System.out.println("[" + serverName + "] Received transaction: " + transaction.getCommand());
 
             // Actually modify the local account
             executeTransaction(transaction);
@@ -280,11 +229,10 @@ public class BankServer
             executedList.add(transaction);
             executedIds.add(transaction.getUniqueId());
 
-            // If we originally created this transaction,
-            // remove it from our outstanding collection
+            // If we originally created this transaction, then remove it from outstanding collection
             outstandingCollection.removeIf(
-                    tx -> tx.getUniqueId()
-                            .equals(transaction.getUniqueId()));
+                    tx -> tx.getUniqueId().equals(transaction.getUniqueId())
+                );
         }
 
         // Acknowledge to MessageDeliveryServer that we received the transaction
@@ -296,15 +244,14 @@ public class BankServer
      * STATE TRANSFER (late join)
      * =====================================================
      *
-     * MessageDeliveryServer calls this through RMI to give a newly
-     * joined replica the current state of the group.
+     * MessageDeliveryServer calls this through RMI to give
+     * a newly joined replica the current state of the group.
      */
     @Override
     public synchronized void updateState(BankState state)
             throws RemoteException {
 
-        System.out.println(
-                "[" + serverName + "] Received state update");
+        System.out.println("[" + serverName + "] Received state update");
 
         balances.clear();
         balances.putAll(state.getBalances());
@@ -313,6 +260,7 @@ public class BankServer
         executedList.addAll(state.getExecutedList());
 
         executedIds.clear();
+
         if (state.getExecutedIds() != null) {
             executedIds.addAll(state.getExecutedIds());
         }
@@ -322,8 +270,7 @@ public class BankServer
 
         orderCounter = state.getOrderCounter();
 
-        System.out.println(
-                "[" + serverName + "] State copied: balances "
+        System.out.println("[" + serverName + "] State copied: balances "
                         + balances + ", " + executedList.size()
                         + " executed transactions");
     }
@@ -348,13 +295,11 @@ public class BankServer
      * SERVER NAME
      * =====================================================
      *
-     * MessageDeliveryServer calls this through RMI to know who we are
-     * (member lists, ACK bookkeeping).
+     * MessageDeliveryServer calls this through RMI to
+     * know who we are (member lists, ACK bookkeeping).
      */
     @Override
-    public String getServerName()
-            throws RemoteException {
-
+    public String getServerName() throws RemoteException {
         return serverName;
     }
 
@@ -377,10 +322,8 @@ public class BankServer
             membershipLock.notifyAll();
         }
 
-        System.out.println(
-                "[" + serverName + "] Membership changed: "
-                        + newMembers
-                        + " (" + newMembers.size() + " members)");
+        System.out.println("[" + serverName + "] Membership changed: "
+                        + newMembers + " (" + newMembers.size() + " members)");
     }
 
     /*
@@ -388,32 +331,25 @@ public class BankServer
      * WAIT FOR INITIAL REPLICAS
      * =====================================================
      *
-     * Spec: "The bank server should wait until it detects that all
-     * <number of replicas> bank servers have joined the group."
-     *
-     * A replica that joins later already sees >= numberOfReplicas
-     * members and continues immediately.
+     * Wait until all the first replicas have joined. A replica that
+     * joins later already sees enough memebers and goes on at once
      */
     public void waitForInitialReplicas() throws InterruptedException {
 
         synchronized (membershipLock) {
 
-            // "while", not "if": every join wakes us up (2/3 is still
-            // not enough), and Java allows spurious wake-ups.
+            // We use "while" and not "if", since one join is not enough in all cases
             while (members.size() < numberOfReplicas) {
 
-                System.out.println(
-                        "[" + serverName + "] Waiting for replicas: "
+                System.out.println("[" + serverName + "] Waiting for replicas: "
                                 + members.size() + "/" + numberOfReplicas);
 
-                // wait() releases membershipLock while sleeping, so
-                // membershipChanged() can get in and call notifyAll().
+                // wait() lets go of the lock while we wait
                 membershipLock.wait();
             }
         }
 
-        System.out.println(
-                "[" + serverName + "] All " + numberOfReplicas
+        System.out.println("[" + serverName + "] All " + numberOfReplicas
                         + " initial replicas have joined, starting.");
     }
 
@@ -422,56 +358,37 @@ public class BankServer
      * EXECUTE TRANSACTION
      * =====================================================
      */
-
     private void executeTransaction(Transaction transaction) {
 
         String command = transaction.getCommand();
-
         String[] parts = command.trim().split("\\s+");
 
         switch (parts[0]) {
-
             case "deposit": {
-
                 String currency = parts[1];
                 double amount = Double.parseDouble(parts[2]);
-
                 applyDeposit(currency, amount);
-
                 break;
             }
 
             case "addInterest": {
-
                 // addInterest NOK 10
                 if (parts.length == 3) {
-
                     String currency = parts[1];
-
                     double percent = Double.parseDouble(parts[2]);
-
-                    applyInterest(
-                            currency,
-                            percent);
+                    applyInterest(currency, percent);
                 }
 
                 // addInterest 10
                 else if (parts.length == 2) {
-
                     double percent = Double.parseDouble(parts[1]);
-
                     applyInterestToAll(percent);
                 }
-
                 break;
             }
 
             default:
-
-                System.out.println(
-                        "[" + serverName
-                                + "] Unknown transaction: "
-                                + command);
+                System.out.println("[" + serverName + "] Unknown transaction: " + command);
         }
     }
 
@@ -480,49 +397,31 @@ public class BankServer
      * ACCOUNT OPERATIONS
      * =====================================================
      */
-
-    private void applyDeposit(
-            String currency,
-            double amount) {
+    private void applyDeposit(String currency, double amount) {
 
         double currentBalance = balances.getOrDefault(currency, 0.0);
 
-        balances.put(
-                currency,
-                currentBalance + amount);
+        balances.put(currency, currentBalance + amount);
 
-        System.out.println(
-                "[" + serverName + "] "
-                        + currency
-                        + " balance: "
-                        + formatAmount(balances.get(currency)));
+        System.out.println("[" + serverName + "] " + currency
+                        + " balance: " + formatAmount(balances.get(currency)));
     }
 
-    private void applyInterest(
-            String currency,
-            double percent) {
+    private void applyInterest(String currency, double percent) {
 
         double currentBalance = balances.getOrDefault(currency, 0.0);
-
-        double newBalance = currentBalance
-                * (1 + percent / 100.0);
-
-        balances.put(
-                currency,
-                newBalance);
+        double newBalance = currentBalance * (1 + percent / 100.0);
+        balances.put(currency, newBalance);
     }
 
     private void applyInterestToAll(double percent) {
 
         for (String currency : new ArrayList<>(balances.keySet())) {
-
             applyInterest(currency, percent);
         }
     }
 
-    // Balances are doubles, so 110 * 1.1 prints as 121.00000000000001.
-    // We round only when PRINTING. The stored value keeps full precision,
-    // so all replicas still compute exactly the same thing.
+    // Rounding only when we print. Stored value is not rounded
     private static String formatAmount(double amount) {
         return String.format(Locale.US, "%.2f", amount);
     }
@@ -532,17 +431,13 @@ public class BankServer
      * QUICK BALANCE
      * =====================================================
      */
-
     public synchronized void getQuickBalance(
             String currency) {
         try {
             double balance = converter.convertTotal(balances, currency);
 
-            System.out.println(
-                    "[" + serverName + "] "
-                            + "Quick balance "
-                            + currency + ": "
-                            + formatAmount(balance));
+            System.out.println("[" + serverName + "] " + "Quick balance "
+                            + currency + ": " + formatAmount(balance));
 
         } catch (IllegalArgumentException e) {
             System.out.println("[" + serverName + "] " + e.getMessage());
@@ -554,46 +449,33 @@ public class BankServer
      * SYNCED BALANCE
      * =====================================================
      */
-
     public CompletableFuture<Double> getSyncedBalance(String currency) {
 
         String uniqueId;
         CompletableFuture<Double> future = new CompletableFuture<>();
 
         synchronized (this) {
-            // "sync-" prefix: unique, and never mistaken for a
-            // deposit/addInterest id such as "BankServer-1234 0"
+            // "sync-" so it is never mixed up with a deposit or addInterest id
             uniqueId = serverName + " sync-" + syncRequestCounter;
 
-            Transaction syncRequest = new Transaction(
-                    "getSyncedBalance " + currency,
-                    uniqueId);
+            Transaction syncRequest = new Transaction("getSyncedBalance " + currency, uniqueId);
             outstandingCollection.add(syncRequest);
             syncRequestCounter++;
             pendingSyncResults.put(uniqueId, future);
         }
 
-        System.out.println(
-                "[" + serverName
-                        + "] getSyncedBalance " + currency
+        System.out.println("[" + serverName + "] getSyncedBalance " + currency
                         + " queued [" + uniqueId + "], waiting for order...");
 
-        // We do NOT block here: the command loop goes on with the next
-        // command, and the answer is printed when our marker comes back
-        // ordered (resolveSyncedBalanceIfMine completes the future).
-        // The marker is already in outstandingCollection, so commands
-        // issued after this one are ordered AFTER it and cannot change
-        // the answer.
+        // We do not wait here. The answer is printed when out marker comes back.
+        // Commands after this one are ordered after the marker, so the do not count.
         CompletableFuture<Double> printed = future.whenComplete((balance, error) -> {
             if (error == null) {
-                System.out.println(
-                        "[" + serverName + "] Synced balance "
-                                + currency + ": "
-                                + formatAmount(balance));
+                System.out.println("[" + serverName + "] Synced balance "
+                                + currency + ": " + formatAmount(balance));
             } else {
                 // e.g. a currency without a trading rate
-                System.out.println(
-                        "[" + serverName + "] " + error.getMessage());
+                System.out.println("[" + serverName + "] " + error.getMessage());
             }
         });
 
@@ -601,15 +483,10 @@ public class BankServer
         return printed;
     }
 
-    /*
-     * Runs the (blocking) naive version in its own thread, so the command
-     * loop goes on exactly as in the correct version. Only the WAITING
-     * strategy differs between the two, which makes them comparable.
-     */
+    // The naive version waits, so we run it in its own thread to keep the command loop going, same as the correct version
     public void startSyncedBalanceNaive(String currency) {
 
-        System.out.println(
-                "[" + serverName + "] getSyncedBalance " + currency
+        System.out.println("[" + serverName + "] getSyncedBalance " + currency
                         + " (naive): waiting for an empty outstanding_collection...");
 
         CompletableFuture<Void> done = new CompletableFuture<>();
@@ -638,13 +515,10 @@ public class BankServer
                     try {
                         double balance = converter.convertTotal(balances, currency);
 
-                        System.out.println(
-                                "[" + serverName + "] Synced balance (naive) "
-                                        + currency + ": "
-                                        + formatAmount(balance));
+                        System.out.println("[" + serverName + "] Synced balance (naive) "
+                                        + currency + ": " + formatAmount(balance));
                     } catch (IllegalArgumentException e) {
-                        System.out.println(
-                                "[" + serverName + "] " + e.getMessage());
+                        System.out.println("[" + serverName + "] " + e.getMessage());
                     }
                     return;
                 }
@@ -664,12 +538,11 @@ public class BankServer
     }
 
     private void resolveSyncedBalanceIfMine(Transaction transaction) {
-        // Only the replica that created this request has a pending
-        // future for it - every other replica's map lookup is a no-op
+        // Only the replica that sent the request finds it here
         CompletableFuture<Double> future = pendingSyncResults.remove(transaction.getUniqueId());
 
         if (future == null) {
-            return; // Not mine ignore
+            return;
         }
 
         String[] parts = transaction.getCommand().trim().split("\\s+");
@@ -687,19 +560,15 @@ public class BankServer
      * HISTORY
      * =====================================================
      */
-
     public synchronized void getHistory() {
 
-        // Spec: numbering starts at order_counter - executed_list.size.
-        // cleanHistory empties the list but never resets order_counter,
-        // so every entry keeps its global order number.
+        // cleanHistory never resets orderCounter, so the numbers keep going
         int order = orderCounter - executedList.size();
 
         System.out.println("[" + serverName + "] executed_list");
 
         for (Transaction transaction : executedList) {
-            System.out.println(
-                    order + ". "
+            System.out.println(order + ". "
                             + transaction.getExecutedAt() + " "
                             + transaction.getCommand()
                             + "  [" + transaction.getUniqueId() + "]");
@@ -712,16 +581,12 @@ public class BankServer
 
         for (Transaction transaction : outstandingCollection) {
 
-            // getSyncedBalance markers are not deposit/addInterest
-            // transactions, so they are not part of the history
+            // Skip getSyncedBalance markers
             if (isSyncedBalanceRequest(transaction)) {
                 continue;
             }
 
-            System.out.println(
-                    "[" + serverName + "] "
-                            + transaction.getCommand()
-                            + "  [" + transaction.getUniqueId() + "]");
+            System.out.println("[" + serverName + "] " + transaction.getCommand() + "  [" + transaction.getUniqueId() + "]");
         }
     }
 
@@ -730,39 +595,27 @@ public class BankServer
      * CHECK TRANSACTION STATUS
      * =====================================================
      */
+    public synchronized void checkTxStatus(String id) {
 
-    public synchronized void checkTxStatus(
-            String id) {
-
-        // The input files only give the counter ("checkTxStatus 0").
-        // A bare number means "transaction number N created by THIS
-        // server", so we add our own name to get the full unique id.
-        String uniqueId = id.matches("\\d+")
-                ? serverName + " " + id
-                : id;
+        // Just a number means one of our own transactions, so we add name to make the ID unique.
+        String uniqueId = id.matches("\\d+") ? serverName + " " + id : id;
 
         if (hasBeenExecuted(uniqueId)) {
 
-            System.out.println(
-                    uniqueId + ": EXECUTED");
+            System.out.println(uniqueId + ": EXECUTED");
 
             return;
         }
 
         for (Transaction transaction : outstandingCollection) {
 
-            if (transaction.getUniqueId()
-                    .equals(uniqueId)) {
-
-                System.out.println(
-                        uniqueId + ": OUTSTANDING");
-
+            if (transaction.getUniqueId().equals(uniqueId)) {
+                System.out.println(uniqueId + ": OUTSTANDING");
                 return;
             }
         }
 
-        System.out.println(
-                uniqueId + ": UNKNOWN");
+        System.out.println(uniqueId + ": UNKNOWN");
     }
 
     /*
@@ -770,10 +623,9 @@ public class BankServer
      * CHECK IF TRANSACTION WAS ALREADY EXECUTED
      * =====================================================
      *
-     * Uses executedIds (never cleared) instead of executedList
-     * (cleared by cleanHistory).
+     * Uses executedIds (never cleared) instead of
+     * executedList (cleared by cleanHistory).
      */
-
     private boolean hasBeenExecuted(String uniqueId) {
         return executedIds.contains(uniqueId);
     }
@@ -783,16 +635,9 @@ public class BankServer
      * CLEAN HISTORY
      * =====================================================
      */
-
     public synchronized void cleanHistory() {
-
         executedList.clear();
-
-        // Important:
-        // Do NOT reset orderCounter or outstandingCounter.
-
-        System.out.println(
-                "[" + serverName + "] History cleaned.");
+        System.out.println("[" + serverName + "] History cleaned.");
     }
 
     /*
@@ -800,17 +645,12 @@ public class BankServer
      * MEMBER INFO
      * =====================================================
      */
-
     public void memberInfo() {
 
-        // Read the reference once: an RMI thread may replace "members"
-        // while we print, but the list object we hold never changes.
+        // The list can be replaced while we print, so we keep our own reference
         List<String> current = members;
 
-        System.out.println(
-                "[" + serverName + "] memberInfo: "
-                        + current
-                        + " (" + current.size() + " members)");
+        System.out.println("[" + serverName + "] memberInfo: " + current + " (" + current.size() + " members)");
     }
 
     /*
@@ -818,16 +658,13 @@ public class BankServer
      * SHUTDOWN (the "exit" command)
      * =====================================================
      */
-
     private void waitForSyncRequests() {
 
         for (CompletableFuture<?> request : syncRequestsInProgress) {
             try {
                 request.get(SYNC_WAIT_ON_EXIT_SECONDS, TimeUnit.SECONDS);
             } catch (TimeoutException e) {
-                System.out.println(
-                        "[" + serverName + "] getSyncedBalance still unanswered after "
-                                + SYNC_WAIT_ON_EXIT_SECONDS + " s, exiting anyway");
+                System.out.println("[" + serverName + "] getSyncedBalance still unanswered after " + SYNC_WAIT_ON_EXIT_SECONDS + " s, exiting anyway");
                 return;
             } catch (ExecutionException e) {
                 // the request already printed its own error message
@@ -840,28 +677,20 @@ public class BankServer
 
     public void shutdown() {
 
-        // 1. Hand over transactions that were never broadcast, so the
-        // other replicas still apply them after we are gone. The
-        // message is queued BEFORE we leave, so it is not lost.
+        // 1. Send what we still have before we leave
         broadcastOutstanding();
 
-        // Wait for getSyncedBalance answers that are still on their
-        // way. Our markers were just broadcast, so they come back
-        // ordered; with no new input, the naive version's
-        // outstanding_collection drains as well.
+        // Wait for getSyncedBalance answers that are not printed yet
         waitForSyncRequests();
 
         // 2. Leave the group, so the server removes us right away instead of marking us FAIL
         try {
             messageServer.leave(accountName, this);
         } catch (RemoteException e) {
-            System.err.println(
-                    "[" + serverName + "] Could not leave group: "
-                            + e.getMessage());
+            System.err.println("[" + serverName + "] Could not leave group: " + e.getMessage());
         }
 
-        System.out.println(
-                "[" + serverName + "] exiting.");
+        System.out.println("[" + serverName + "] exiting.");
 
         // 3. RMI keeps the program running, have to exit ourselves
         System.exit(0);
@@ -876,14 +705,12 @@ public class BankServer
 
         Scanner scanner = new Scanner(System.in);
 
-        System.out.println(
-                "Reading commands from command line.");
+        System.out.println("Reading commands from command line.");
 
         // Stop when the input ends (Ctrl+D)
         while (true) {
 
-            System.out.print(
-                    "[" + serverName + "] > ");
+            System.out.print("[" + serverName + "] > ");
 
             // No newline after the prompt, flushing to show
             System.out.flush();
