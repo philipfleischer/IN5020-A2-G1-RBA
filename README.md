@@ -72,3 +72,14 @@ The balance differs between runs because it depends on timing.
 - Håkon Gulliksrud (haakgull@uio.no): RMI setup, Message Delivery server (join, queue, ACK), first version of the bank server.
 - Anwar Ahmed Hersi (anwarahe@uio.no): getSyncedBalance, currency conversion, GetSyncedBalanceDemo, resend/FAIL timeout, late join.
 - Philip Elias Fleischer (philipef@uio.no): commands, exactly-once, naive/correct switch, logging, frozen-replica fix.
+
+## Use of AI
+
+We used an AI tool (Claude) during this assignment, in these ways:
+
+- **Debugging:** to help find and understand bugs in our code.
+- **General help:** questions about Java, RMI, threads and how to approach parts of the assignment.
+- **README:** the first draft of this README was made with AI, based on our code and test output.
+- **Scripts:** the first versions of the build and test scripts in `scripts/` were made with AI.
+
+We have read, tested and changed everything ourselves, fixed what did not work, and made our own choices about the design. Everyone in the group understands the solution, and we take full responsibility for everything we hand in.
