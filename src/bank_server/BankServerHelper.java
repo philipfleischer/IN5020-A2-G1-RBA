@@ -1,16 +1,12 @@
 package src.bank_server;
 
 /**
- * Parses one command line ("deposit NOK 100", "getHistory", ...), checks
- * the arguments, and calls the matching method in BankServer.
- *
- * Used both for the interactive command line and for batch files, so the
- * two modes accept exactly the same commands.
+ * Reads one command and calls the right method ni BankServer.
+ * Used for both terminal input and command files.
  */
 public class BankServerHelper {
 
-    // Used when getQuickBalance/getSyncedBalance is given without a
-    // currency (as in Rep3.txt). USD is the base of the trading-rate file.
+    // Used when no currency is given
     private static final String DEFAULT_CURRENCY = "USD";
 
     private final BankServer server;
@@ -78,13 +74,11 @@ public class BankServerHelper {
                     return false;
 
                 default:
-                    System.out.println(
-                            "Unknown command: " + command);
+                    System.out.println("Unknown command: " + command);
             }
 
         } catch (NumberFormatException e) {
-            System.out.println(
-                    "Invalid number in command: " + input);
+            System.out.println("Invalid number in command: " + input);
         } catch (InterruptedException e) {
             Thread.currentThread().interrupt();
             System.out.println("Sleep interrupted.");
@@ -98,35 +92,21 @@ public class BankServerHelper {
      * deposit <Currency> <amount>
      * -------------------------------------------------
      */
-
     private void handleDeposit(String[] parts) {
 
         if (parts.length != 3) {
-            System.out.println(
-                    "Usage: deposit <Currency> <amount>");
+            System.out.println("Usage: deposit <Currency> <amount>");
             return;
         }
 
         String currency = parts[1];
 
-        // Parse only to VALIDATE the amount: "abc" throws
-        // NumberFormatException, which handleCommand catches and reports.
+        // Parsing to check that the amount is a number
         Double.parseDouble(parts[2]);
 
-        /*
-         * IMPORTANT:
-         *
-         * We do NOT change the balance here.
-         *
-         * BankServer creates an outstanding transaction.
-         * The balance should only change when the ordered
-         * transaction comes back from MessageDeliveryServer.
-         *
-         * The command is stored exactly as the user typed it
-         * ("deposit NOK 500"), as in the assignment text.
-         */
-        server.createTransaction(
-                "deposit " + currency + " " + parts[2]);
+        // Do not change the balance here, it changes
+        // when the transaction comes back ordered
+        server.createTransaction("deposit " + currency + " " + parts[2]);
     }
 
     /*
@@ -138,28 +118,21 @@ public class BankServerHelper {
      * addInterest <percent>
      * -------------------------------------------------
      */
-
     private void handleAddInterest(String[] parts) {
 
         if (parts.length == 3) {
-
             String currency = parts[1];
             Double.parseDouble(parts[2]); // validate only
 
-            server.createTransaction(
-                    "addInterest " + currency + " " + parts[2]);
+            server.createTransaction("addInterest " + currency + " " + parts[2]);
 
         } else if (parts.length == 2) {
-
             Double.parseDouble(parts[1]); // validate only
 
-            server.createTransaction(
-                    "addInterest " + parts[1]);
+            server.createTransaction("addInterest " + parts[1]);
 
         } else {
-
-            System.out.println(
-                    "Usage: addInterest [Currency] <percent>");
+            System.out.println("Usage: addInterest [Currency] <percent>");
         }
     }
 
@@ -168,12 +141,10 @@ public class BankServerHelper {
      * getQuickBalance [Currency] (default: USD)
      * -------------------------------------------------
      */
-
     private void handleGetQuickBalance(String[] parts) {
 
         if (parts.length > 2) {
-            System.out.println(
-                    "Usage: getQuickBalance [Currency]");
+            System.out.println("Usage: getQuickBalance [Currency]");
             return;
         }
 
@@ -187,12 +158,10 @@ public class BankServerHelper {
      * getSyncedBalance [Currency] (default: USD)
      * -------------------------------------------------
      */
-
     private void handleGetSyncedBalance(String[] parts) {
 
         if (parts.length > 2) {
-            System.out.println(
-                    "Usage: getSyncedBalance [Currency]");
+            System.out.println("Usage: getSyncedBalance [Currency]");
             return;
         }
 
@@ -215,8 +184,7 @@ public class BankServerHelper {
     private void handleGetHistory(String[] parts) {
 
         if (parts.length != 1) {
-            System.out.println(
-                    "Usage: getHistory");
+            System.out.println("Usage: getHistory");
             return;
         }
 
@@ -228,33 +196,15 @@ public class BankServerHelper {
      * checkTxStatus <unique_id>
      * -------------------------------------------------
      */
-
     private void handleCheckTxStatus(String[] parts) {
 
-        /*
-         * NOTE:
-         *
-         * The assignment describes unique_id as something
-         * containing the BankServer instance name and the
-         * outstanding counter.
-         *
-         * Depending on how you format your IDs, you may
-         * need to change this parsing.
-         */
-
+        // The id is "<server name> <counter>", or just the counter
         if (parts.length < 2) {
-            System.out.println(
-                    "Usage: checkTxStatus <unique_id>");
+            System.out.println("Usage: checkTxStatus <unique_id>");
             return;
         }
 
-        /*
-         * Join everything after checkTxStatus back together.
-         *
-         * This allows IDs such as:
-         *
-         * BankServerA 3
-         */
+        // The id has a space in it, so put the parts back together (e.g.: "bankServerA 3")
         StringBuilder idBuilder = new StringBuilder();
 
         for (int i = 1; i < parts.length; i++) {
@@ -276,12 +226,10 @@ public class BankServerHelper {
      * cleanHistory
      * -------------------------------------------------
      */
-
     private void handleCleanHistory(String[] parts) {
 
         if (parts.length != 1) {
-            System.out.println(
-                    "Usage: cleanHistory");
+            System.out.println("Usage: cleanHistory");
             return;
         }
 
@@ -293,12 +241,10 @@ public class BankServerHelper {
      * memberInfo
      * -------------------------------------------------
      */
-
     private void handleMemberInfo(String[] parts) {
 
         if (parts.length != 1) {
-            System.out.println(
-                    "Usage: memberInfo");
+            System.out.println("Usage: memberInfo");
             return;
         }
 
@@ -310,9 +256,7 @@ public class BankServerHelper {
      * sleep <duration>
      * -------------------------------------------------
      */
-
-    private void handleSleep(String[] parts)
-            throws InterruptedException {
+    private void handleSleep(String[] parts) throws InterruptedException {
 
         if (parts.length != 2) {
             System.out.println("Usage: sleep <duration>");
