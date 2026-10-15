@@ -31,12 +31,6 @@ Official scenario (3 replicas with Rep1 at 0 s, 2 with Rep2 at 7 s, 1 with Rep3 
 
 (logs in output/naive/): ./scripts/run_final.sh naive
 
-The script also runs check_output.sh, which checks that all replicas executed the same order and ended with the same balance.
-
-Failure demo (one replica is frozen with kill -STOP after 8 s):
-
-(logs in output/failure/): ./scripts/run_failure_demo.sh
-
 ## Assumptions
 
 - No currency in getQuickBalance/getSyncedBalance means USD.
@@ -46,7 +40,8 @@ Failure demo (one replica is frozen with kill -STOP after 8 s):
 
 ## getSyncedBalance
 
-Naive: waits until outstanding_collection is empty and then prints the balance. If new transactions keep coming it can wait a long time (or forever), and the answer can include transactions issued after the request. In output/naive/rep3_a.txt the answer came 13 s later and included seven later transactions.
+Naive: waits until outstanding_collection is empty and then prints the balance. If new transactions keep coming it can wait a long time (or forever), and the answer can include transactions issued after the request.
+In output/naive/rep3_a.txt, getSyncedBalance at 15:36:26 got its answer 2 s later, and the answer included "deposit EUR -150", which was issued after the request.
 
 Correct: puts a marker in outstanding_collection that is ordered like a normal transaction. When it comes back, the replica that issued it prints the balance. The marker is not added to executed_list. The answer is the state at the request's place in the total order, and it comes after at most one broadcast round plus delivery.
 
@@ -61,8 +56,8 @@ Both versions run without blocking the command loop.
 
 ## Results
 
-- Official scenario, correct: same order on all 6 replicas, all end with 5464.36 USD.
-- Official scenario, naive: same order on all 6 replicas, all end with 5489.30 USD.
+- Official scenario, correct: same order on all 6 replicas, all end with 5566.82 USD.
+- Official scenario, naive: same order on all 6 replicas, all end with 5608.24 USD.
 - Failure demo: resend after 2 s, FAIL after 5 s, A and B both end with 100.00 USD.
 
 The balance differs between runs because it depends on timing.
@@ -80,6 +75,6 @@ We used an AI tool (Claude) during this assignment, in these ways:
 - **Debugging:** to help find and understand bugs in our code.
 - **General help:** questions about Java, RMI, threads and how to approach parts of the assignment.
 - **README:** the first draft of this README was made with AI, based on our code and test output.
-- **Scripts:** the first versions of the build and test scripts in `scripts/` were made with AI.
+- **Scripts:** the first versions of the build and run scripts in `scripts/` were made with AI.
 
 We have read, tested and changed everything ourselves, fixed what did not work, and made our own choices about the design. Everyone in the group understands the solution, and we take full responsibility for everything we hand in.

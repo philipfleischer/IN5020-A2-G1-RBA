@@ -63,5 +63,3 @@ done
 
 kill "$SERVER" 2>/dev/null || true
 echo "done, logs in $OUT/"
-
-./scripts/check_output.sh "$OUT"

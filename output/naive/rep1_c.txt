@@ -1,321 +1,324 @@
-[2026-10-15 13:58:57.826] Starting BankServer-96854-bb87
-[2026-10-15 13:58:57.827] Account: group01
-[2026-10-15 13:58:57.827] Expected replicas: 3
-[2026-10-15 13:58:57.827] Currency file: input/TradingRate.txt
-[2026-10-15 13:58:57.827] getSyncedBalance mode: naive
-[2026-10-15 13:58:57.869] [BankServer-96854-bb87] Membership changed: [BankServer-96854-bb87] (1 members)
-[2026-10-15 13:58:57.869] [BankServer-96854-bb87] Connected to localhost:1099
-[2026-10-15 13:58:57.871] [BankServer-96854-bb87] Waiting for replicas: 1/3
-[2026-10-15 13:58:57.876] [BankServer-96854-bb87] Membership changed: [BankServer-96854-bb87, BankServer-96852-e6d1] (2 members)
-[2026-10-15 13:58:57.876] [BankServer-96854-bb87] Waiting for replicas: 2/3
-[2026-10-15 13:58:57.882] [BankServer-96854-bb87] Membership changed: [BankServer-96854-bb87, BankServer-96852-e6d1, BankServer-96853-e2da] (3 members)
-[2026-10-15 13:58:57.882] [BankServer-96854-bb87] All 3 initial replicas have joined, starting.
-[2026-10-15 13:58:57.885] Reading commands from: input/Rep1.txt
-[2026-10-15 13:58:57.886] [BankServer-96854-bb87] > memberInfo
-[2026-10-15 13:58:57.886] [BankServer-96854-bb87] memberInfo: [BankServer-96854-bb87, BankServer-96852-e6d1, BankServer-96853-e2da] (3 members)
-[2026-10-15 13:58:59.023] [BankServer-96854-bb87] > getSyncedBalance USD
-[2026-10-15 13:58:59.023] [BankServer-96854-bb87] getSyncedBalance USD (naive): waiting for an empty outstanding_collection...
-[2026-10-15 13:58:59.029] [BankServer-96854-bb87] Synced balance (naive) USD: 0.00
-[2026-10-15 13:59:00.183] [BankServer-96854-bb87] > getQuickBalance USD
-[2026-10-15 13:59:00.184] [BankServer-96854-bb87] Quick balance USD: 0.00
-[2026-10-15 13:59:01.598] [BankServer-96854-bb87] > deposit USD 90
-[2026-10-15 13:59:01.599] [BankServer-96854-bb87] Transaction created: deposit USD 90 [BankServer-96854-bb87 0]
-[2026-10-15 13:59:02.349] [BankServer-96854-bb87] > checkTxStatus 0
-[2026-10-15 13:59:02.350] BankServer-96854-bb87 0: OUTSTANDING
-[2026-10-15 13:59:03.427] [BankServer-96854-bb87] > getSyncedBalance EUR
-[2026-10-15 13:59:03.428] [BankServer-96854-bb87] getSyncedBalance EUR (naive): waiting for an empty outstanding_collection...
-[2026-10-15 13:59:04.315] [BankServer-96854-bb87] > getQuickBalance EUR
-[2026-10-15 13:59:04.316] [BankServer-96854-bb87] Quick balance EUR: 0.00
-[2026-10-15 13:59:04.877] [BankServer-96854-bb87] Membership changed: [BankServer-96854-bb87, BankServer-96852-e6d1, BankServer-96853-e2da, BankServer-96866-cb9c] (4 members)
-[2026-10-15 13:59:04.884] [BankServer-96854-bb87] Membership changed: [BankServer-96854-bb87, BankServer-96852-e6d1, BankServer-96853-e2da, BankServer-96866-cb9c, BankServer-96865-dc58] (5 members)
-[2026-10-15 13:59:05.068] [BankServer-96854-bb87] > deposit NOK 120
-[2026-10-15 13:59:05.069] [BankServer-96854-bb87] Transaction created: deposit NOK 120 [BankServer-96854-bb87 1]
-[2026-10-15 13:59:06.374] [BankServer-96854-bb87] > getQuickBalance NOK
-[2026-10-15 13:59:06.374] [BankServer-96854-bb87] Quick balance NOK: 0.00
-[2026-10-15 13:59:07.293] [BankServer-96854-bb87] > sleep 6
-[2026-10-15 13:59:07.899] [BankServer-96854-bb87] Received transaction: deposit USD 90
-[2026-10-15 13:59:07.900] [BankServer-96854-bb87] USD balance: 90.00
-[2026-10-15 13:59:07.900] [BankServer-96854-bb87] Received transaction: deposit NOK 120
-[2026-10-15 13:59:07.901] [BankServer-96854-bb87] NOK balance: 120.00
-[2026-10-15 13:59:07.913] [BankServer-96854-bb87] Synced balance (naive) EUR: 91.07
-[2026-10-15 13:59:07.913] [BankServer-96854-bb87] Received transaction: deposit USD 90
-[2026-10-15 13:59:07.913] [BankServer-96854-bb87] USD balance: 180.00
-[2026-10-15 13:59:07.913] [BankServer-96854-bb87] Received transaction: deposit NOK 120
-[2026-10-15 13:59:07.914] [BankServer-96854-bb87] NOK balance: 240.00
-[2026-10-15 13:59:07.916] [BankServer-96854-bb87] Received transaction: deposit USD 90
-[2026-10-15 13:59:07.916] [BankServer-96854-bb87] USD balance: 270.00
-[2026-10-15 13:59:07.917] [BankServer-96854-bb87] Received transaction: deposit NOK 120
-[2026-10-15 13:59:07.917] [BankServer-96854-bb87] NOK balance: 360.00
-[2026-10-15 13:59:09.880] [BankServer-96854-bb87] Membership changed: [BankServer-96854-bb87, BankServer-96852-e6d1, BankServer-96853-e2da, BankServer-96866-cb9c, BankServer-96865-dc58, BankServer-96871-0cec] (6 members)
-[2026-10-15 13:59:14.629] [BankServer-96854-bb87] > getSyncedBalance USD
-[2026-10-15 13:59:14.630] [BankServer-96854-bb87] getSyncedBalance USD (naive): waiting for an empty outstanding_collection...
-[2026-10-15 13:59:14.630] [BankServer-96854-bb87] Synced balance (naive) USD: 306.00
-[2026-10-15 13:59:14.889] [BankServer-96854-bb87] Received transaction: deposit EUR 75
-[2026-10-15 13:59:14.889] [BankServer-96854-bb87] EUR balance: 75.00
-[2026-10-15 13:59:14.889] [BankServer-96854-bb87] Received transaction: deposit USD 115
-[2026-10-15 13:59:14.889] [BankServer-96854-bb87] USD balance: 385.00
-[2026-10-15 13:59:14.899] [BankServer-96854-bb87] Received transaction: deposit EUR 75
-[2026-10-15 13:59:14.899] [BankServer-96854-bb87] EUR balance: 150.00
-[2026-10-15 13:59:14.899] [BankServer-96854-bb87] Received transaction: deposit USD 115
-[2026-10-15 13:59:14.900] [BankServer-96854-bb87] USD balance: 500.00
-[2026-10-15 13:59:16.055] [BankServer-96854-bb87] > addInterest NOK 15
-[2026-10-15 13:59:16.055] [BankServer-96854-bb87] Transaction created: addInterest NOK 15 [BankServer-96854-bb87 2]
-[2026-10-15 13:59:16.781] [BankServer-96854-bb87] > getSyncedBalance USD
-[2026-10-15 13:59:16.781] [BankServer-96854-bb87] getSyncedBalance USD (naive): waiting for an empty outstanding_collection...
-[2026-10-15 13:59:17.543] [BankServer-96854-bb87] > deposit DKK 120
-[2026-10-15 13:59:17.543] [BankServer-96854-bb87] Transaction created: deposit DKK 120 [BankServer-96854-bb87 3]
-[2026-10-15 13:59:17.901] [BankServer-96854-bb87] Received transaction: addInterest NOK 15
-[2026-10-15 13:59:17.901] [BankServer-96854-bb87] Received transaction: deposit DKK 120
-[2026-10-15 13:59:17.902] [BankServer-96854-bb87] DKK balance: 120.00
-[2026-10-15 13:59:17.906] [BankServer-96854-bb87] Received transaction: addInterest NOK 15
-[2026-10-15 13:59:17.906] [BankServer-96854-bb87] Received transaction: deposit DKK 120
-[2026-10-15 13:59:17.906] [BankServer-96854-bb87] DKK balance: 240.00
-[2026-10-15 13:59:17.906] [BankServer-96854-bb87] Received transaction: deposit NOK 70
-[2026-10-15 13:59:17.906] [BankServer-96854-bb87] NOK balance: 546.10
-[2026-10-15 13:59:17.911] [BankServer-96854-bb87] Received transaction: addInterest NOK 15
-[2026-10-15 13:59:17.912] [BankServer-96854-bb87] Received transaction: deposit DKK 120
-[2026-10-15 13:59:17.912] [BankServer-96854-bb87] DKK balance: 360.00
-[2026-10-15 13:59:18.011] [BankServer-96854-bb87] Synced balance (naive) USD: 784.80
-[2026-10-15 13:59:18.628] [BankServer-96854-bb87] > deposit NOK 70
-[2026-10-15 13:59:18.628] [BankServer-96854-bb87] Transaction created: deposit NOK 70 [BankServer-96854-bb87 4]
-[2026-10-15 13:59:19.550] [BankServer-96854-bb87] > deposit GBP 50
-[2026-10-15 13:59:19.550] [BankServer-96854-bb87] Transaction created: deposit GBP 50 [BankServer-96854-bb87 5]
-[2026-10-15 13:59:19.893] [BankServer-96854-bb87] Received transaction: deposit NOK 50
-[2026-10-15 13:59:19.894] [BankServer-96854-bb87] NOK balance: 678.01
-[2026-10-15 13:59:20.079] [BankServer-96854-bb87] > deposit USD 25
-[2026-10-15 13:59:20.080] [BankServer-96854-bb87] Transaction created: deposit USD 25 [BankServer-96854-bb87 6]
-[2026-10-15 13:59:21.057] [BankServer-96854-bb87] > deposit CHF 30
-[2026-10-15 13:59:21.058] [BankServer-96854-bb87] Transaction created: deposit CHF 30 [BankServer-96854-bb87 7]
-[2026-10-15 13:59:22.390] [BankServer-96854-bb87] > deposit EUR 25
-[2026-10-15 13:59:22.391] [BankServer-96854-bb87] Transaction created: deposit EUR 25 [BankServer-96854-bb87 8]
-[2026-10-15 13:59:23.829] [BankServer-96854-bb87] > addInterest 10
-[2026-10-15 13:59:23.830] [BankServer-96854-bb87] Transaction created: addInterest 10 [BankServer-96854-bb87 9]
-[2026-10-15 13:59:24.812] [BankServer-96854-bb87] > sleep 7
-[2026-10-15 13:59:24.896] [BankServer-96854-bb87] Received transaction: addInterest USD 7
-[2026-10-15 13:59:24.897] [BankServer-96854-bb87] Received transaction: deposit NOK 10
-[2026-10-15 13:59:24.897] [BankServer-96854-bb87] NOK balance: 688.01
-[2026-10-15 13:59:24.901] [BankServer-96854-bb87] Received transaction: addInterest USD 7
-[2026-10-15 13:59:24.901] [BankServer-96854-bb87] Received transaction: deposit NOK 10
-[2026-10-15 13:59:24.901] [BankServer-96854-bb87] NOK balance: 698.01
-[2026-10-15 13:59:24.901] [BankServer-96854-bb87] Received transaction: deposit DKK 80
-[2026-10-15 13:59:24.901] [BankServer-96854-bb87] DKK balance: 440.00
-[2026-10-15 13:59:24.901] [BankServer-96854-bb87] Received transaction: deposit EUR 40
-[2026-10-15 13:59:24.902] [BankServer-96854-bb87] EUR balance: 190.00
-[2026-10-15 13:59:24.902] [BankServer-96854-bb87] Received transaction: deposit CHF 35
-[2026-10-15 13:59:24.902] [BankServer-96854-bb87] CHF balance: 35.00
-[2026-10-15 13:59:27.904] [BankServer-96854-bb87] Received transaction: deposit GBP 50
-[2026-10-15 13:59:27.904] [BankServer-96854-bb87] GBP balance: 50.00
-[2026-10-15 13:59:27.904] [BankServer-96854-bb87] Received transaction: deposit USD 25
-[2026-10-15 13:59:27.904] [BankServer-96854-bb87] USD balance: 597.45
-[2026-10-15 13:59:27.904] [BankServer-96854-bb87] Received transaction: deposit CHF 30
-[2026-10-15 13:59:27.904] [BankServer-96854-bb87] CHF balance: 65.00
-[2026-10-15 13:59:27.904] [BankServer-96854-bb87] Received transaction: deposit EUR 25
-[2026-10-15 13:59:27.905] [BankServer-96854-bb87] EUR balance: 215.00
-[2026-10-15 13:59:27.905] [BankServer-96854-bb87] Received transaction: addInterest 10
-[2026-10-15 13:59:27.909] [BankServer-96854-bb87] Received transaction: deposit NOK 70
-[2026-10-15 13:59:27.909] [BankServer-96854-bb87] NOK balance: 837.82
-[2026-10-15 13:59:27.910] [BankServer-96854-bb87] Received transaction: deposit GBP 50
-[2026-10-15 13:59:27.910] [BankServer-96854-bb87] GBP balance: 105.00
-[2026-10-15 13:59:27.910] [BankServer-96854-bb87] Received transaction: deposit USD 25
-[2026-10-15 13:59:27.910] [BankServer-96854-bb87] USD balance: 682.20
-[2026-10-15 13:59:27.910] [BankServer-96854-bb87] Received transaction: deposit CHF 30
-[2026-10-15 13:59:27.911] [BankServer-96854-bb87] CHF balance: 101.50
-[2026-10-15 13:59:27.911] [BankServer-96854-bb87] Received transaction: deposit EUR 25
-[2026-10-15 13:59:27.911] [BankServer-96854-bb87] EUR balance: 261.50
-[2026-10-15 13:59:27.911] [BankServer-96854-bb87] Received transaction: addInterest 10
-[2026-10-15 13:59:27.915] [BankServer-96854-bb87] Received transaction: deposit NOK 70
-[2026-10-15 13:59:27.915] [BankServer-96854-bb87] NOK balance: 991.60
-[2026-10-15 13:59:27.916] [BankServer-96854-bb87] Received transaction: deposit GBP 50
-[2026-10-15 13:59:27.916] [BankServer-96854-bb87] GBP balance: 165.50
-[2026-10-15 13:59:27.916] [BankServer-96854-bb87] Received transaction: deposit USD 25
-[2026-10-15 13:59:27.916] [BankServer-96854-bb87] USD balance: 775.41
-[2026-10-15 13:59:27.916] [BankServer-96854-bb87] Received transaction: deposit CHF 30
-[2026-10-15 13:59:27.916] [BankServer-96854-bb87] CHF balance: 141.65
-[2026-10-15 13:59:27.916] [BankServer-96854-bb87] Received transaction: deposit EUR 25
-[2026-10-15 13:59:27.916] [BankServer-96854-bb87] EUR balance: 312.65
-[2026-10-15 13:59:27.916] [BankServer-96854-bb87] Received transaction: addInterest 10
-[2026-10-15 13:59:29.900] [BankServer-96854-bb87] Received transaction: addInterest 7
-[2026-10-15 13:59:29.900] [BankServer-96854-bb87] Received transaction: deposit EUR -150
-[2026-10-15 13:59:29.900] [BankServer-96854-bb87] EUR balance: 217.99
-[2026-10-15 13:59:29.900] [BankServer-96854-bb87] Received transaction: deposit USD -100
-[2026-10-15 13:59:29.900] [BankServer-96854-bb87] USD balance: 812.66
-[2026-10-15 13:59:33.064] [BankServer-96854-bb87] > getSyncedBalance EUR
-[2026-10-15 13:59:33.064] [BankServer-96854-bb87] getSyncedBalance EUR (naive): waiting for an empty outstanding_collection...
-[2026-10-15 13:59:33.065] [BankServer-96854-bb87] Synced balance (naive) EUR: 1539.92
-[2026-10-15 13:59:33.700] [BankServer-96854-bb87] > getQuickBalance EUR
-[2026-10-15 13:59:33.700] [BankServer-96854-bb87] Quick balance EUR: 1539.92
-[2026-10-15 13:59:34.857] [BankServer-96854-bb87] > deposit EUR 110
-[2026-10-15 13:59:34.858] [BankServer-96854-bb87] Transaction created: deposit EUR 110 [BankServer-96854-bb87 10]
-[2026-10-15 13:59:34.904] [BankServer-96854-bb87] Received transaction: deposit DKK 80
-[2026-10-15 13:59:34.904] [BankServer-96854-bb87] DKK balance: 706.63
-[2026-10-15 13:59:34.904] [BankServer-96854-bb87] Received transaction: deposit EUR 40
-[2026-10-15 13:59:34.904] [BankServer-96854-bb87] EUR balance: 257.99
-[2026-10-15 13:59:34.904] [BankServer-96854-bb87] Received transaction: deposit CHF 35
-[2026-10-15 13:59:34.905] [BankServer-96854-bb87] CHF balance: 201.72
-[2026-10-15 13:59:34.905] [BankServer-96854-bb87] Received transaction: deposit GBP 25
-[2026-10-15 13:59:34.905] [BankServer-96854-bb87] GBP balance: 219.79
-[2026-10-15 13:59:34.905] [BankServer-96854-bb87] Received transaction: deposit USD 95
-[2026-10-15 13:59:34.905] [BankServer-96854-bb87] USD balance: 907.66
-[2026-10-15 13:59:34.905] [BankServer-96854-bb87] Received transaction: addInterest NOK 3
-[2026-10-15 13:59:34.913] [BankServer-96854-bb87] Received transaction: deposit GBP 25
-[2026-10-15 13:59:34.913] [BankServer-96854-bb87] GBP balance: 244.79
-[2026-10-15 13:59:34.913] [BankServer-96854-bb87] Received transaction: deposit USD 95
-[2026-10-15 13:59:34.913] [BankServer-96854-bb87] USD balance: 1002.66
-[2026-10-15 13:59:34.913] [BankServer-96854-bb87] Received transaction: addInterest NOK 3
-[2026-10-15 13:59:35.706] [BankServer-96854-bb87] > deposit USD 90
-[2026-10-15 13:59:35.706] [BankServer-96854-bb87] Transaction created: deposit USD 90 [BankServer-96854-bb87 11]
-[2026-10-15 13:59:36.671] [BankServer-96854-bb87] > addInterest EUR 15
-[2026-10-15 13:59:36.671] [BankServer-96854-bb87] Transaction created: addInterest EUR 15 [BankServer-96854-bb87 12]
-[2026-10-15 13:59:37.905] [BankServer-96854-bb87] Received transaction: deposit EUR 110
-[2026-10-15 13:59:37.905] [BankServer-96854-bb87] EUR balance: 367.99
-[2026-10-15 13:59:37.905] [BankServer-96854-bb87] Received transaction: deposit USD 90
-[2026-10-15 13:59:37.905] [BankServer-96854-bb87] USD balance: 1092.66
-[2026-10-15 13:59:37.905] [BankServer-96854-bb87] Received transaction: addInterest EUR 15
-[2026-10-15 13:59:37.912] [BankServer-96854-bb87] Received transaction: deposit EUR 110
-[2026-10-15 13:59:37.912] [BankServer-96854-bb87] EUR balance: 533.19
-[2026-10-15 13:59:37.912] [BankServer-96854-bb87] Received transaction: deposit USD 90
-[2026-10-15 13:59:37.912] [BankServer-96854-bb87] USD balance: 1182.66
-[2026-10-15 13:59:37.912] [BankServer-96854-bb87] Received transaction: addInterest EUR 15
-[2026-10-15 13:59:37.914] [BankServer-96854-bb87] Received transaction: deposit EUR 110
-[2026-10-15 13:59:37.914] [BankServer-96854-bb87] EUR balance: 723.17
-[2026-10-15 13:59:37.914] [BankServer-96854-bb87] Received transaction: deposit USD 90
-[2026-10-15 13:59:37.914] [BankServer-96854-bb87] USD balance: 1272.66
-[2026-10-15 13:59:37.914] [BankServer-96854-bb87] Received transaction: addInterest EUR 15
-[2026-10-15 13:59:38.110] [BankServer-96854-bb87] > checkTxStatus 11
-[2026-10-15 13:59:38.110] BankServer-96854-bb87 11: EXECUTED
-[2026-10-15 13:59:39.503] [BankServer-96854-bb87] > memberInfo
-[2026-10-15 13:59:39.504] [BankServer-96854-bb87] memberInfo: [BankServer-96854-bb87, BankServer-96852-e6d1, BankServer-96853-e2da, BankServer-96866-cb9c, BankServer-96865-dc58, BankServer-96871-0cec] (6 members)
-[2026-10-15 13:59:39.908] [BankServer-96854-bb87] Received transaction: deposit DKK 10
-[2026-10-15 13:59:39.908] [BankServer-96854-bb87] DKK balance: 716.63
-[2026-10-15 13:59:39.908] [BankServer-96854-bb87] Received transaction: deposit CHF 30
-[2026-10-15 13:59:39.909] [BankServer-96854-bb87] CHF balance: 231.72
-[2026-10-15 13:59:39.909] [BankServer-96854-bb87] Received transaction: deposit NOK -100
-[2026-10-15 13:59:39.909] [BankServer-96854-bb87] NOK balance: 1138.19
-[2026-10-15 13:59:39.909] [BankServer-96854-bb87] Received transaction: deposit GBP 50
-[2026-10-15 13:59:39.909] [BankServer-96854-bb87] GBP balance: 294.79
-[2026-10-15 13:59:39.909] [BankServer-96854-bb87] Received transaction: addInterest 20
-[2026-10-15 13:59:40.594] [BankServer-96854-bb87] > getHistory
-[2026-10-15 13:59:40.595] [BankServer-96854-bb87] executed_list
-[2026-10-15 13:59:40.600] 0. 2026-10-15 13:59:07.900 deposit USD 90  [BankServer-96854-bb87 0]
-[2026-10-15 13:59:40.600] 1. 2026-10-15 13:59:07.901 deposit NOK 120  [BankServer-96854-bb87 1]
-[2026-10-15 13:59:40.600] 2. 2026-10-15 13:59:07.913 deposit USD 90  [BankServer-96852-e6d1 0]
-[2026-10-15 13:59:40.600] 3. 2026-10-15 13:59:07.914 deposit NOK 120  [BankServer-96852-e6d1 1]
-[2026-10-15 13:59:40.600] 4. 2026-10-15 13:59:07.917 deposit USD 90  [BankServer-96853-e2da 0]
-[2026-10-15 13:59:40.601] 5. 2026-10-15 13:59:07.917 deposit NOK 120  [BankServer-96853-e2da 1]
-[2026-10-15 13:59:40.601] 6. 2026-10-15 13:59:14.889 deposit EUR 75  [BankServer-96866-cb9c 0]
-[2026-10-15 13:59:40.601] 7. 2026-10-15 13:59:14.889 deposit USD 115  [BankServer-96866-cb9c 1]
-[2026-10-15 13:59:40.601] 8. 2026-10-15 13:59:14.899 deposit EUR 75  [BankServer-96865-dc58 0]
-[2026-10-15 13:59:40.601] 9. 2026-10-15 13:59:14.900 deposit USD 115  [BankServer-96865-dc58 1]
-[2026-10-15 13:59:40.601] 10. 2026-10-15 13:59:17.901 addInterest NOK 15  [BankServer-96854-bb87 2]
-[2026-10-15 13:59:40.601] 11. 2026-10-15 13:59:17.902 deposit DKK 120  [BankServer-96854-bb87 3]
-[2026-10-15 13:59:40.601] 12. 2026-10-15 13:59:17.906 addInterest NOK 15  [BankServer-96853-e2da 2]
-[2026-10-15 13:59:40.601] 13. 2026-10-15 13:59:17.906 deposit DKK 120  [BankServer-96853-e2da 3]
-[2026-10-15 13:59:40.601] 14. 2026-10-15 13:59:17.906 deposit NOK 70  [BankServer-96853-e2da 4]
-[2026-10-15 13:59:40.601] 15. 2026-10-15 13:59:17.911 addInterest NOK 15  [BankServer-96852-e6d1 2]
-[2026-10-15 13:59:40.601] 16. 2026-10-15 13:59:17.912 deposit DKK 120  [BankServer-96852-e6d1 3]
-[2026-10-15 13:59:40.601] 17. 2026-10-15 13:59:19.894 deposit NOK 50  [BankServer-96871-0cec 0]
-[2026-10-15 13:59:40.602] 18. 2026-10-15 13:59:24.897 addInterest USD 7  [BankServer-96866-cb9c 2]
-[2026-10-15 13:59:40.602] 19. 2026-10-15 13:59:24.897 deposit NOK 10  [BankServer-96866-cb9c 3]
-[2026-10-15 13:59:40.602] 20. 2026-10-15 13:59:24.901 addInterest USD 7  [BankServer-96865-dc58 2]
-[2026-10-15 13:59:40.602] 21. 2026-10-15 13:59:24.901 deposit NOK 10  [BankServer-96865-dc58 3]
-[2026-10-15 13:59:40.602] 22. 2026-10-15 13:59:24.901 deposit DKK 80  [BankServer-96865-dc58 4]
-[2026-10-15 13:59:40.602] 23. 2026-10-15 13:59:24.902 deposit EUR 40  [BankServer-96865-dc58 5]
-[2026-10-15 13:59:40.602] 24. 2026-10-15 13:59:24.902 deposit CHF 35  [BankServer-96865-dc58 6]
-[2026-10-15 13:59:40.602] 25. 2026-10-15 13:59:27.904 deposit GBP 50  [BankServer-96853-e2da 5]
-[2026-10-15 13:59:40.602] 26. 2026-10-15 13:59:27.904 deposit USD 25  [BankServer-96853-e2da 6]
-[2026-10-15 13:59:40.602] 27. 2026-10-15 13:59:27.904 deposit CHF 30  [BankServer-96853-e2da 7]
-[2026-10-15 13:59:40.602] 28. 2026-10-15 13:59:27.905 deposit EUR 25  [BankServer-96853-e2da 8]
-[2026-10-15 13:59:40.603] 29. 2026-10-15 13:59:27.905 addInterest 10  [BankServer-96853-e2da 9]
-[2026-10-15 13:59:40.603] 30. 2026-10-15 13:59:27.909 deposit NOK 70  [BankServer-96854-bb87 4]
-[2026-10-15 13:59:40.603] 31. 2026-10-15 13:59:27.910 deposit GBP 50  [BankServer-96854-bb87 5]
-[2026-10-15 13:59:40.603] 32. 2026-10-15 13:59:27.910 deposit USD 25  [BankServer-96854-bb87 6]
-[2026-10-15 13:59:40.603] 33. 2026-10-15 13:59:27.911 deposit CHF 30  [BankServer-96854-bb87 7]
-[2026-10-15 13:59:40.603] 34. 2026-10-15 13:59:27.911 deposit EUR 25  [BankServer-96854-bb87 8]
-[2026-10-15 13:59:40.603] 35. 2026-10-15 13:59:27.911 addInterest 10  [BankServer-96854-bb87 9]
-[2026-10-15 13:59:40.603] 36. 2026-10-15 13:59:27.916 deposit NOK 70  [BankServer-96852-e6d1 4]
-[2026-10-15 13:59:40.603] 37. 2026-10-15 13:59:27.916 deposit GBP 50  [BankServer-96852-e6d1 5]
-[2026-10-15 13:59:40.603] 38. 2026-10-15 13:59:27.916 deposit USD 25  [BankServer-96852-e6d1 6]
-[2026-10-15 13:59:40.603] 39. 2026-10-15 13:59:27.916 deposit CHF 30  [BankServer-96852-e6d1 7]
-[2026-10-15 13:59:40.603] 40. 2026-10-15 13:59:27.916 deposit EUR 25  [BankServer-96852-e6d1 8]
-[2026-10-15 13:59:40.603] 41. 2026-10-15 13:59:27.916 addInterest 10  [BankServer-96852-e6d1 9]
-[2026-10-15 13:59:40.603] 42. 2026-10-15 13:59:29.900 addInterest 7  [BankServer-96871-0cec 1]
-[2026-10-15 13:59:40.603] 43. 2026-10-15 13:59:29.900 deposit EUR -150  [BankServer-96871-0cec 2]
-[2026-10-15 13:59:40.603] 44. 2026-10-15 13:59:29.900 deposit USD -100  [BankServer-96871-0cec 3]
-[2026-10-15 13:59:40.604] 45. 2026-10-15 13:59:34.904 deposit DKK 80  [BankServer-96866-cb9c 4]
-[2026-10-15 13:59:40.604] 46. 2026-10-15 13:59:34.904 deposit EUR 40  [BankServer-96866-cb9c 5]
-[2026-10-15 13:59:40.604] 47. 2026-10-15 13:59:34.905 deposit CHF 35  [BankServer-96866-cb9c 6]
-[2026-10-15 13:59:40.604] 48. 2026-10-15 13:59:34.905 deposit GBP 25  [BankServer-96866-cb9c 7]
-[2026-10-15 13:59:40.604] 49. 2026-10-15 13:59:34.905 deposit USD 95  [BankServer-96866-cb9c 8]
-[2026-10-15 13:59:40.604] 50. 2026-10-15 13:59:34.905 addInterest NOK 3  [BankServer-96866-cb9c 9]
-[2026-10-15 13:59:40.605] 51. 2026-10-15 13:59:34.913 deposit GBP 25  [BankServer-96865-dc58 7]
-[2026-10-15 13:59:40.605] 52. 2026-10-15 13:59:34.913 deposit USD 95  [BankServer-96865-dc58 8]
-[2026-10-15 13:59:40.605] 53. 2026-10-15 13:59:34.913 addInterest NOK 3  [BankServer-96865-dc58 9]
-[2026-10-15 13:59:40.606] 54. 2026-10-15 13:59:37.905 deposit EUR 110  [BankServer-96853-e2da 10]
-[2026-10-15 13:59:40.606] 55. 2026-10-15 13:59:37.905 deposit USD 90  [BankServer-96853-e2da 11]
-[2026-10-15 13:59:40.606] 56. 2026-10-15 13:59:37.905 addInterest EUR 15  [BankServer-96853-e2da 12]
-[2026-10-15 13:59:40.606] 57. 2026-10-15 13:59:37.912 deposit EUR 110  [BankServer-96852-e6d1 10]
-[2026-10-15 13:59:40.606] 58. 2026-10-15 13:59:37.912 deposit USD 90  [BankServer-96852-e6d1 11]
-[2026-10-15 13:59:40.606] 59. 2026-10-15 13:59:37.912 addInterest EUR 15  [BankServer-96852-e6d1 12]
-[2026-10-15 13:59:40.606] 60. 2026-10-15 13:59:37.914 deposit EUR 110  [BankServer-96854-bb87 10]
-[2026-10-15 13:59:40.606] 61. 2026-10-15 13:59:37.914 deposit USD 90  [BankServer-96854-bb87 11]
-[2026-10-15 13:59:40.606] 62. 2026-10-15 13:59:37.914 addInterest EUR 15  [BankServer-96854-bb87 12]
-[2026-10-15 13:59:40.606] 63. 2026-10-15 13:59:39.908 deposit DKK 10  [BankServer-96871-0cec 4]
-[2026-10-15 13:59:40.606] 64. 2026-10-15 13:59:39.909 deposit CHF 30  [BankServer-96871-0cec 5]
-[2026-10-15 13:59:40.606] 65. 2026-10-15 13:59:39.909 deposit NOK -100  [BankServer-96871-0cec 6]
-[2026-10-15 13:59:40.606] 66. 2026-10-15 13:59:39.909 deposit GBP 50  [BankServer-96871-0cec 7]
-[2026-10-15 13:59:40.606] 67. 2026-10-15 13:59:39.909 addInterest 20  [BankServer-96871-0cec 8]
-[2026-10-15 13:59:40.606] [BankServer-96854-bb87] outstanding_collection
-[2026-10-15 13:59:41.290] [BankServer-96854-bb87] > cleanHistory
-[2026-10-15 13:59:41.291] [BankServer-96854-bb87] History cleaned.
-[2026-10-15 13:59:42.452] [BankServer-96854-bb87] > deposit EUR 110
-[2026-10-15 13:59:42.453] [BankServer-96854-bb87] Transaction created: deposit EUR 110 [BankServer-96854-bb87 13]
-[2026-10-15 13:59:43.299] [BankServer-96854-bb87] > sleep 8
-[2026-10-15 13:59:44.910] [BankServer-96854-bb87] Received transaction: deposit USD 120
-[2026-10-15 13:59:44.911] [BankServer-96854-bb87] USD balance: 1647.20
-[2026-10-15 13:59:44.911] [BankServer-96854-bb87] Received transaction: deposit EUR 130
-[2026-10-15 13:59:44.911] [BankServer-96854-bb87] EUR balance: 1127.97
-[2026-10-15 13:59:44.911] [BankServer-96854-bb87] Received transaction: addInterest 10
-[2026-10-15 13:59:44.916] [BankServer-96854-bb87] Received transaction: deposit USD 120
-[2026-10-15 13:59:44.916] [BankServer-96854-bb87] USD balance: 1931.91
-[2026-10-15 13:59:44.916] [BankServer-96854-bb87] Received transaction: deposit EUR 130
-[2026-10-15 13:59:44.917] [BankServer-96854-bb87] EUR balance: 1370.77
-[2026-10-15 13:59:44.917] [BankServer-96854-bb87] Received transaction: addInterest 10
-[2026-10-15 13:59:47.912] [BankServer-96854-bb87] Received transaction: deposit EUR 110
-[2026-10-15 13:59:47.912] [BankServer-96854-bb87] EUR balance: 1617.84
-[2026-10-15 13:59:47.914] [BankServer-96854-bb87] Received transaction: deposit EUR 110
-[2026-10-15 13:59:47.914] [BankServer-96854-bb87] EUR balance: 1727.84
-[2026-10-15 13:59:47.920] [BankServer-96854-bb87] Received transaction: deposit EUR 110
-[2026-10-15 13:59:47.920] [BankServer-96854-bb87] EUR balance: 1837.84
-[2026-10-15 13:59:52.010] [BankServer-96854-bb87] > getSyncedBalance USD
-[2026-10-15 13:59:52.010] [BankServer-96854-bb87] getSyncedBalance USD (naive): waiting for an empty outstanding_collection...
-[2026-10-15 13:59:52.010] [BankServer-96854-bb87] Synced balance (naive) USD: 5473.60
-[2026-10-15 13:59:52.579] [BankServer-96854-bb87] > getQuickBalance USD
-[2026-10-15 13:59:52.580] [BankServer-96854-bb87] Quick balance USD: 5473.60
-[2026-10-15 13:59:53.231] [BankServer-96854-bb87] > sleep 30
-[2026-10-15 13:59:54.919] [BankServer-96854-bb87] Received transaction: deposit NOK 90
-[2026-10-15 13:59:54.919] [BankServer-96854-bb87] NOK balance: 1742.65
-[2026-10-15 13:59:54.922] [BankServer-96854-bb87] Received transaction: deposit NOK 90
-[2026-10-15 13:59:54.923] [BankServer-96854-bb87] NOK balance: 1832.65
-[2026-10-15 14:00:23.880] [BankServer-96854-bb87] Membership changed: [BankServer-96854-bb87, BankServer-96852-e6d1, BankServer-96853-e2da, BankServer-96866-cb9c, BankServer-96865-dc58] (5 members)
-[2026-10-15 14:00:24.705] [BankServer-96854-bb87] > getSyncedBalance USD
-[2026-10-15 14:00:24.705] [BankServer-96854-bb87] getSyncedBalance USD (naive): waiting for an empty outstanding_collection...
-[2026-10-15 14:00:24.706] [BankServer-96854-bb87] Synced balance (naive) USD: 5491.60
-[2026-10-15 14:00:25.047] [BankServer-96854-bb87] Membership changed: [BankServer-96854-bb87, BankServer-96852-e6d1, BankServer-96866-cb9c, BankServer-96865-dc58] (4 members)
-[2026-10-15 14:00:25.363] [BankServer-96854-bb87] > getQuickBalance USD
-[2026-10-15 14:00:25.364] [BankServer-96854-bb87] Quick balance USD: 5491.60
-[2026-10-15 14:00:26.302] [BankServer-96854-bb87] > getHistory
-[2026-10-15 14:00:26.302] [BankServer-96854-bb87] executed_list
-[2026-10-15 14:00:26.303] 68. 2026-10-15 13:59:44.911 deposit USD 120  [BankServer-96866-cb9c 10]
-[2026-10-15 14:00:26.303] 69. 2026-10-15 13:59:44.911 deposit EUR 130  [BankServer-96866-cb9c 11]
-[2026-10-15 14:00:26.303] 70. 2026-10-15 13:59:44.911 addInterest 10  [BankServer-96866-cb9c 12]
-[2026-10-15 14:00:26.303] 71. 2026-10-15 13:59:44.916 deposit USD 120  [BankServer-96865-dc58 10]
-[2026-10-15 14:00:26.303] 72. 2026-10-15 13:59:44.917 deposit EUR 130  [BankServer-96865-dc58 11]
-[2026-10-15 14:00:26.303] 73. 2026-10-15 13:59:44.917 addInterest 10  [BankServer-96865-dc58 12]
-[2026-10-15 14:00:26.303] 74. 2026-10-15 13:59:47.912 deposit EUR 110  [BankServer-96853-e2da 13]
-[2026-10-15 14:00:26.303] 75. 2026-10-15 13:59:47.914 deposit EUR 110  [BankServer-96852-e6d1 13]
-[2026-10-15 14:00:26.303] 76. 2026-10-15 13:59:47.920 deposit EUR 110  [BankServer-96854-bb87 13]
-[2026-10-15 14:00:26.304] 77. 2026-10-15 13:59:54.919 deposit NOK 90  [BankServer-96866-cb9c 13]
-[2026-10-15 14:00:26.304] 78. 2026-10-15 13:59:54.923 deposit NOK 90  [BankServer-96865-dc58 13]
-[2026-10-15 14:00:26.304] [BankServer-96854-bb87] outstanding_collection
-[2026-10-15 14:00:26.927] [BankServer-96854-bb87] > exit
-[2026-10-15 14:00:26.935] [BankServer-96854-bb87] exiting.
+[2026-10-15 15:35:56.215] Starting BankServer-5405-f9af
+[2026-10-15 15:35:56.215] Account: group01
+[2026-10-15 15:35:56.215] Expected replicas: 3
+[2026-10-15 15:35:56.215] Currency file: input/TradingRate.txt
+[2026-10-15 15:35:56.215] getSyncedBalance mode: naive
+[2026-10-15 15:35:56.267] [BankServer-5405-f9af] Received state update
+[2026-10-15 15:35:56.269] [BankServer-5405-f9af] State copied: balances {}, 0 executed transactions
+[2026-10-15 15:35:56.271] [BankServer-5405-f9af] Membership changed: [BankServer-5403-4f62, BankServer-5405-f9af] (2 members)
+[2026-10-15 15:35:56.271] [BankServer-5405-f9af] Connected to localhost:1099
+[2026-10-15 15:35:56.273] [BankServer-5405-f9af] Waiting for replicas: 2/3
+[2026-10-15 15:35:56.278] [BankServer-5405-f9af] Membership changed: [BankServer-5403-4f62, BankServer-5405-f9af, BankServer-5404-e481] (3 members)
+[2026-10-15 15:35:56.279] [BankServer-5405-f9af] All 3 initial replicas have joined, starting.
+[2026-10-15 15:35:56.279] Reading commands from: input/Rep1.txt
+[2026-10-15 15:35:56.280] [BankServer-5405-f9af] > memberInfo
+[2026-10-15 15:35:56.280] [BankServer-5405-f9af] memberInfo: [BankServer-5403-4f62, BankServer-5405-f9af, BankServer-5404-e481] (3 members)
+[2026-10-15 15:35:57.408] [BankServer-5405-f9af] > getSyncedBalance USD
+[2026-10-15 15:35:57.409] [BankServer-5405-f9af] getSyncedBalance USD (naive): waiting for an empty outstanding_collection...
+[2026-10-15 15:35:57.421] [BankServer-5405-f9af] Synced balance (naive) USD: 0.00
+[2026-10-15 15:35:58.013] [BankServer-5405-f9af] > getQuickBalance USD
+[2026-10-15 15:35:58.014] [BankServer-5405-f9af] Quick balance USD: 0.00
+[2026-10-15 15:35:59.464] [BankServer-5405-f9af] > deposit USD 90
+[2026-10-15 15:35:59.465] [BankServer-5405-f9af] Transaction created: deposit USD 90 [BankServer-5405-f9af 0]
+[2026-10-15 15:36:00.600] [BankServer-5405-f9af] > checkTxStatus 0
+[2026-10-15 15:36:00.601] BankServer-5405-f9af 0: OUTSTANDING
+[2026-10-15 15:36:01.311] [BankServer-5405-f9af] > getSyncedBalance EUR
+[2026-10-15 15:36:01.311] [BankServer-5405-f9af] getSyncedBalance EUR (naive): waiting for an empty outstanding_collection...
+[2026-10-15 15:36:02.129] [BankServer-5405-f9af] > getQuickBalance EUR
+[2026-10-15 15:36:02.129] [BankServer-5405-f9af] Quick balance EUR: 0.00
+[2026-10-15 15:36:02.907] [BankServer-5405-f9af] > deposit NOK 120
+[2026-10-15 15:36:02.907] [BankServer-5405-f9af] Transaction created: deposit NOK 120 [BankServer-5405-f9af 1]
+[2026-10-15 15:36:03.250] [BankServer-5405-f9af] Membership changed: [BankServer-5403-4f62, BankServer-5405-f9af, BankServer-5404-e481, BankServer-5419-3f1f] (4 members)
+[2026-10-15 15:36:03.266] [BankServer-5405-f9af] Membership changed: [BankServer-5403-4f62, BankServer-5405-f9af, BankServer-5404-e481, BankServer-5419-3f1f, BankServer-5418-f76b] (5 members)
+[2026-10-15 15:36:03.590] [BankServer-5405-f9af] > getQuickBalance NOK
+[2026-10-15 15:36:03.590] [BankServer-5405-f9af] Quick balance NOK: 0.00
+[2026-10-15 15:36:04.130] [BankServer-5405-f9af] > sleep 6
+[2026-10-15 15:36:06.295] [BankServer-5405-f9af] Received transaction: deposit USD 90
+[2026-10-15 15:36:06.296] [BankServer-5405-f9af] USD balance: 90.00
+[2026-10-15 15:36:06.296] [BankServer-5405-f9af] Received transaction: deposit NOK 120
+[2026-10-15 15:36:06.296] [BankServer-5405-f9af] NOK balance: 120.00
+[2026-10-15 15:36:06.310] [BankServer-5405-f9af] Received transaction: deposit USD 90
+[2026-10-15 15:36:06.310] [BankServer-5405-f9af] USD balance: 180.00
+[2026-10-15 15:36:06.310] [BankServer-5405-f9af] Received transaction: deposit NOK 120
+[2026-10-15 15:36:06.310] [BankServer-5405-f9af] NOK balance: 240.00
+[2026-10-15 15:36:06.312] [BankServer-5405-f9af] Received transaction: deposit USD 90
+[2026-10-15 15:36:06.312] [BankServer-5405-f9af] USD balance: 270.00
+[2026-10-15 15:36:06.313] [BankServer-5405-f9af] Received transaction: deposit NOK 120
+[2026-10-15 15:36:06.313] [BankServer-5405-f9af] NOK balance: 360.00
+[2026-10-15 15:36:06.410] [BankServer-5405-f9af] Synced balance (naive) EUR: 273.21
+[2026-10-15 15:36:08.247] [BankServer-5405-f9af] Membership changed: [BankServer-5403-4f62, BankServer-5405-f9af, BankServer-5404-e481, BankServer-5419-3f1f, BankServer-5418-f76b, BankServer-5422-8347] (6 members)
+[2026-10-15 15:36:10.758] [BankServer-5405-f9af] > getSyncedBalance USD
+[2026-10-15 15:36:10.759] [BankServer-5405-f9af] getSyncedBalance USD (naive): waiting for an empty outstanding_collection...
+[2026-10-15 15:36:10.760] [BankServer-5405-f9af] Synced balance (naive) USD: 306.00
+[2026-10-15 15:36:11.390] [BankServer-5405-f9af] > addInterest NOK 15
+[2026-10-15 15:36:11.391] [BankServer-5405-f9af] Transaction created: addInterest NOK 15 [BankServer-5405-f9af 2]
+[2026-10-15 15:36:11.980] [BankServer-5405-f9af] > getSyncedBalance USD
+[2026-10-15 15:36:11.980] [BankServer-5405-f9af] getSyncedBalance USD (naive): waiting for an empty outstanding_collection...
+[2026-10-15 15:36:13.267] [BankServer-5405-f9af] Received transaction: deposit EUR 75
+[2026-10-15 15:36:13.268] [BankServer-5405-f9af] EUR balance: 75.00
+[2026-10-15 15:36:13.268] [BankServer-5405-f9af] Received transaction: deposit USD 115
+[2026-10-15 15:36:13.268] [BankServer-5405-f9af] USD balance: 385.00
+[2026-10-15 15:36:13.277] [BankServer-5405-f9af] Received transaction: deposit EUR 75
+[2026-10-15 15:36:13.278] [BankServer-5405-f9af] EUR balance: 150.00
+[2026-10-15 15:36:13.278] [BankServer-5405-f9af] Received transaction: deposit USD 115
+[2026-10-15 15:36:13.278] [BankServer-5405-f9af] USD balance: 500.00
+[2026-10-15 15:36:13.293] [BankServer-5405-f9af] > deposit DKK 120
+[2026-10-15 15:36:13.293] [BankServer-5405-f9af] Transaction created: deposit DKK 120 [BankServer-5405-f9af 3]
+[2026-10-15 15:36:14.593] [BankServer-5405-f9af] > deposit NOK 70
+[2026-10-15 15:36:14.593] [BankServer-5405-f9af] Transaction created: deposit NOK 70 [BankServer-5405-f9af 4]
+[2026-10-15 15:36:15.121] [BankServer-5405-f9af] > deposit GBP 50
+[2026-10-15 15:36:15.121] [BankServer-5405-f9af] Transaction created: deposit GBP 50 [BankServer-5405-f9af 5]
+[2026-10-15 15:36:16.151] [BankServer-5405-f9af] > deposit USD 25
+[2026-10-15 15:36:16.151] [BankServer-5405-f9af] Transaction created: deposit USD 25 [BankServer-5405-f9af 6]
+[2026-10-15 15:36:16.297] [BankServer-5405-f9af] Received transaction: addInterest NOK 15
+[2026-10-15 15:36:16.297] [BankServer-5405-f9af] Received transaction: deposit DKK 120
+[2026-10-15 15:36:16.297] [BankServer-5405-f9af] DKK balance: 120.00
+[2026-10-15 15:36:16.297] [BankServer-5405-f9af] Received transaction: deposit NOK 70
+[2026-10-15 15:36:16.298] [BankServer-5405-f9af] NOK balance: 484.00
+[2026-10-15 15:36:16.298] [BankServer-5405-f9af] Received transaction: deposit GBP 50
+[2026-10-15 15:36:16.298] [BankServer-5405-f9af] GBP balance: 50.00
+[2026-10-15 15:36:16.298] [BankServer-5405-f9af] Received transaction: deposit USD 25
+[2026-10-15 15:36:16.298] [BankServer-5405-f9af] USD balance: 525.00
+[2026-10-15 15:36:16.303] [BankServer-5405-f9af] Received transaction: addInterest NOK 15
+[2026-10-15 15:36:16.303] [BankServer-5405-f9af] Received transaction: deposit DKK 120
+[2026-10-15 15:36:16.303] [BankServer-5405-f9af] DKK balance: 240.00
+[2026-10-15 15:36:16.304] [BankServer-5405-f9af] Received transaction: deposit NOK 70
+[2026-10-15 15:36:16.305] [BankServer-5405-f9af] NOK balance: 626.60
+[2026-10-15 15:36:16.305] [BankServer-5405-f9af] Received transaction: deposit GBP 50
+[2026-10-15 15:36:16.305] [BankServer-5405-f9af] GBP balance: 100.00
+[2026-10-15 15:36:16.311] [BankServer-5405-f9af] Received transaction: addInterest NOK 15
+[2026-10-15 15:36:16.311] [BankServer-5405-f9af] Received transaction: deposit DKK 120
+[2026-10-15 15:36:16.312] [BankServer-5405-f9af] DKK balance: 360.00
+[2026-10-15 15:36:16.312] [BankServer-5405-f9af] Received transaction: deposit NOK 70
+[2026-10-15 15:36:16.312] [BankServer-5405-f9af] NOK balance: 790.59
+[2026-10-15 15:36:16.312] [BankServer-5405-f9af] Received transaction: deposit GBP 50
+[2026-10-15 15:36:16.312] [BankServer-5405-f9af] GBP balance: 150.00
+[2026-10-15 15:36:16.457] [BankServer-5405-f9af] Synced balance (naive) USD: 1024.06
+[2026-10-15 15:36:17.162] [BankServer-5405-f9af] > deposit CHF 30
+[2026-10-15 15:36:17.162] [BankServer-5405-f9af] Transaction created: deposit CHF 30 [BankServer-5405-f9af 7]
+[2026-10-15 15:36:18.260] [BankServer-5405-f9af] Received transaction: deposit NOK 50
+[2026-10-15 15:36:18.261] [BankServer-5405-f9af] NOK balance: 840.59
+[2026-10-15 15:36:18.418] [BankServer-5405-f9af] > deposit EUR 25
+[2026-10-15 15:36:18.419] [BankServer-5405-f9af] Transaction created: deposit EUR 25 [BankServer-5405-f9af 8]
+[2026-10-15 15:36:19.505] [BankServer-5405-f9af] > addInterest 10
+[2026-10-15 15:36:19.505] [BankServer-5405-f9af] Transaction created: addInterest 10 [BankServer-5405-f9af 9]
+[2026-10-15 15:36:20.810] [BankServer-5405-f9af] > sleep 7
+[2026-10-15 15:36:23.275] [BankServer-5405-f9af] Received transaction: addInterest USD 7
+[2026-10-15 15:36:23.275] [BankServer-5405-f9af] Received transaction: deposit NOK 10
+[2026-10-15 15:36:23.275] [BankServer-5405-f9af] NOK balance: 850.59
+[2026-10-15 15:36:23.276] [BankServer-5405-f9af] Received transaction: deposit DKK 80
+[2026-10-15 15:36:23.276] [BankServer-5405-f9af] DKK balance: 440.00
+[2026-10-15 15:36:23.284] [BankServer-5405-f9af] Received transaction: addInterest USD 7
+[2026-10-15 15:36:23.284] [BankServer-5405-f9af] Received transaction: deposit NOK 10
+[2026-10-15 15:36:23.285] [BankServer-5405-f9af] NOK balance: 860.59
+[2026-10-15 15:36:23.285] [BankServer-5405-f9af] Received transaction: deposit DKK 80
+[2026-10-15 15:36:23.285] [BankServer-5405-f9af] DKK balance: 520.00
+[2026-10-15 15:36:23.285] [BankServer-5405-f9af] Received transaction: deposit EUR 40
+[2026-10-15 15:36:23.285] [BankServer-5405-f9af] EUR balance: 190.00
+[2026-10-15 15:36:26.298] [BankServer-5405-f9af] Received transaction: deposit CHF 30
+[2026-10-15 15:36:26.299] [BankServer-5405-f9af] CHF balance: 30.00
+[2026-10-15 15:36:26.299] [BankServer-5405-f9af] Received transaction: deposit EUR 25
+[2026-10-15 15:36:26.299] [BankServer-5405-f9af] EUR balance: 215.00
+[2026-10-15 15:36:26.299] [BankServer-5405-f9af] Received transaction: addInterest 10
+[2026-10-15 15:36:26.305] [BankServer-5405-f9af] Received transaction: deposit USD 25
+[2026-10-15 15:36:26.305] [BankServer-5405-f9af] USD balance: 686.18
+[2026-10-15 15:36:26.305] [BankServer-5405-f9af] Received transaction: deposit CHF 30
+[2026-10-15 15:36:26.307] [BankServer-5405-f9af] CHF balance: 63.00
+[2026-10-15 15:36:26.307] [BankServer-5405-f9af] Received transaction: deposit EUR 25
+[2026-10-15 15:36:26.307] [BankServer-5405-f9af] EUR balance: 261.50
+[2026-10-15 15:36:26.307] [BankServer-5405-f9af] Received transaction: addInterest 10
+[2026-10-15 15:36:26.309] [BankServer-5405-f9af] Received transaction: deposit USD 25
+[2026-10-15 15:36:26.310] [BankServer-5405-f9af] USD balance: 779.80
+[2026-10-15 15:36:26.310] [BankServer-5405-f9af] Received transaction: deposit CHF 30
+[2026-10-15 15:36:26.310] [BankServer-5405-f9af] CHF balance: 99.30
+[2026-10-15 15:36:26.310] [BankServer-5405-f9af] Received transaction: deposit EUR 25
+[2026-10-15 15:36:26.310] [BankServer-5405-f9af] EUR balance: 312.65
+[2026-10-15 15:36:26.310] [BankServer-5405-f9af] Received transaction: addInterest 10
+[2026-10-15 15:36:28.271] [BankServer-5405-f9af] Received transaction: addInterest 7
+[2026-10-15 15:36:28.272] [BankServer-5405-f9af] Received transaction: deposit EUR -150
+[2026-10-15 15:36:28.272] [BankServer-5405-f9af] EUR balance: 217.99
+[2026-10-15 15:36:29.099] [BankServer-5405-f9af] > getSyncedBalance EUR
+[2026-10-15 15:36:29.099] [BankServer-5405-f9af] getSyncedBalance EUR (naive): waiting for an empty outstanding_collection...
+[2026-10-15 15:36:29.100] [BankServer-5405-f9af] Synced balance (naive) EUR: 1623.08
+[2026-10-15 15:36:29.727] [BankServer-5405-f9af] > getQuickBalance EUR
+[2026-10-15 15:36:29.728] [BankServer-5405-f9af] Quick balance EUR: 1623.08
+[2026-10-15 15:36:30.881] [BankServer-5405-f9af] > deposit EUR 110
+[2026-10-15 15:36:30.882] [BankServer-5405-f9af] Transaction created: deposit EUR 110 [BankServer-5405-f9af 10]
+[2026-10-15 15:36:31.394] [BankServer-5405-f9af] > deposit USD 90
+[2026-10-15 15:36:31.394] [BankServer-5405-f9af] Transaction created: deposit USD 90 [BankServer-5405-f9af 11]
+[2026-10-15 15:36:32.710] [BankServer-5405-f9af] > addInterest EUR 15
+[2026-10-15 15:36:32.711] [BankServer-5405-f9af] Transaction created: addInterest EUR 15 [BankServer-5405-f9af 12]
+[2026-10-15 15:36:33.282] [BankServer-5405-f9af] Received transaction: deposit EUR 40
+[2026-10-15 15:36:33.282] [BankServer-5405-f9af] EUR balance: 257.99
+[2026-10-15 15:36:33.283] [BankServer-5405-f9af] Received transaction: deposit CHF 35
+[2026-10-15 15:36:33.283] [BankServer-5405-f9af] CHF balance: 151.88
+[2026-10-15 15:36:33.283] [BankServer-5405-f9af] Received transaction: deposit GBP 25
+[2026-10-15 15:36:33.283] [BankServer-5405-f9af] GBP balance: 238.63
+[2026-10-15 15:36:33.283] [BankServer-5405-f9af] Received transaction: deposit USD 95
+[2026-10-15 15:36:33.283] [BankServer-5405-f9af] USD balance: 1012.82
+[2026-10-15 15:36:33.283] [BankServer-5405-f9af] Received transaction: addInterest NOK 3
+[2026-10-15 15:36:33.288] [BankServer-5405-f9af] Received transaction: deposit CHF 35
+[2026-10-15 15:36:33.289] [BankServer-5405-f9af] CHF balance: 186.88
+[2026-10-15 15:36:33.289] [BankServer-5405-f9af] Received transaction: deposit GBP 25
+[2026-10-15 15:36:33.289] [BankServer-5405-f9af] GBP balance: 263.63
+[2026-10-15 15:36:33.289] [BankServer-5405-f9af] Received transaction: deposit USD 95
+[2026-10-15 15:36:33.289] [BankServer-5405-f9af] USD balance: 1107.82
+[2026-10-15 15:36:33.289] [BankServer-5405-f9af] Received transaction: addInterest NOK 3
+[2026-10-15 15:36:33.306] [BankServer-5405-f9af] > checkTxStatus 11
+[2026-10-15 15:36:33.306] BankServer-5405-f9af 11: OUTSTANDING
+[2026-10-15 15:36:34.341] [BankServer-5405-f9af] > memberInfo
+[2026-10-15 15:36:34.342] [BankServer-5405-f9af] memberInfo: [BankServer-5403-4f62, BankServer-5405-f9af, BankServer-5404-e481, BankServer-5419-3f1f, BankServer-5418-f76b, BankServer-5422-8347] (6 members)
+[2026-10-15 15:36:34.845] [BankServer-5405-f9af] > getHistory
+[2026-10-15 15:36:34.846] [BankServer-5405-f9af] executed_list
+[2026-10-15 15:36:34.850] 0. 2026-10-15 15:36:06.296 deposit USD 90  [BankServer-5405-f9af 0]
+[2026-10-15 15:36:34.851] 1. 2026-10-15 15:36:06.297 deposit NOK 120  [BankServer-5405-f9af 1]
+[2026-10-15 15:36:34.851] 2. 2026-10-15 15:36:06.310 deposit USD 90  [BankServer-5403-4f62 0]
+[2026-10-15 15:36:34.851] 3. 2026-10-15 15:36:06.310 deposit NOK 120  [BankServer-5403-4f62 1]
+[2026-10-15 15:36:34.851] 4. 2026-10-15 15:36:06.313 deposit USD 90  [BankServer-5404-e481 0]
+[2026-10-15 15:36:34.851] 5. 2026-10-15 15:36:06.313 deposit NOK 120  [BankServer-5404-e481 1]
+[2026-10-15 15:36:34.851] 6. 2026-10-15 15:36:13.268 deposit EUR 75  [BankServer-5419-3f1f 0]
+[2026-10-15 15:36:34.851] 7. 2026-10-15 15:36:13.268 deposit USD 115  [BankServer-5419-3f1f 1]
+[2026-10-15 15:36:34.851] 8. 2026-10-15 15:36:13.278 deposit EUR 75  [BankServer-5418-f76b 0]
+[2026-10-15 15:36:34.851] 9. 2026-10-15 15:36:13.278 deposit USD 115  [BankServer-5418-f76b 1]
+[2026-10-15 15:36:34.851] 10. 2026-10-15 15:36:16.297 addInterest NOK 15  [BankServer-5405-f9af 2]
+[2026-10-15 15:36:34.851] 11. 2026-10-15 15:36:16.297 deposit DKK 120  [BankServer-5405-f9af 3]
+[2026-10-15 15:36:34.851] 12. 2026-10-15 15:36:16.298 deposit NOK 70  [BankServer-5405-f9af 4]
+[2026-10-15 15:36:34.851] 13. 2026-10-15 15:36:16.298 deposit GBP 50  [BankServer-5405-f9af 5]
+[2026-10-15 15:36:34.851] 14. 2026-10-15 15:36:16.298 deposit USD 25  [BankServer-5405-f9af 6]
+[2026-10-15 15:36:34.851] 15. 2026-10-15 15:36:16.303 addInterest NOK 15  [BankServer-5403-4f62 2]
+[2026-10-15 15:36:34.851] 16. 2026-10-15 15:36:16.304 deposit DKK 120  [BankServer-5403-4f62 3]
+[2026-10-15 15:36:34.851] 17. 2026-10-15 15:36:16.305 deposit NOK 70  [BankServer-5403-4f62 4]
+[2026-10-15 15:36:34.851] 18. 2026-10-15 15:36:16.305 deposit GBP 50  [BankServer-5403-4f62 5]
+[2026-10-15 15:36:34.851] 19. 2026-10-15 15:36:16.311 addInterest NOK 15  [BankServer-5404-e481 2]
+[2026-10-15 15:36:34.851] 20. 2026-10-15 15:36:16.312 deposit DKK 120  [BankServer-5404-e481 3]
+[2026-10-15 15:36:34.851] 21. 2026-10-15 15:36:16.312 deposit NOK 70  [BankServer-5404-e481 4]
+[2026-10-15 15:36:34.851] 22. 2026-10-15 15:36:16.312 deposit GBP 50  [BankServer-5404-e481 5]
+[2026-10-15 15:36:34.851] 23. 2026-10-15 15:36:18.261 deposit NOK 50  [BankServer-5422-8347 0]
+[2026-10-15 15:36:34.852] 24. 2026-10-15 15:36:23.275 addInterest USD 7  [BankServer-5419-3f1f 2]
+[2026-10-15 15:36:34.852] 25. 2026-10-15 15:36:23.275 deposit NOK 10  [BankServer-5419-3f1f 3]
+[2026-10-15 15:36:34.852] 26. 2026-10-15 15:36:23.276 deposit DKK 80  [BankServer-5419-3f1f 4]
+[2026-10-15 15:36:34.852] 27. 2026-10-15 15:36:23.284 addInterest USD 7  [BankServer-5418-f76b 2]
+[2026-10-15 15:36:34.852] 28. 2026-10-15 15:36:23.285 deposit NOK 10  [BankServer-5418-f76b 3]
+[2026-10-15 15:36:34.852] 29. 2026-10-15 15:36:23.285 deposit DKK 80  [BankServer-5418-f76b 4]
+[2026-10-15 15:36:34.852] 30. 2026-10-15 15:36:23.285 deposit EUR 40  [BankServer-5418-f76b 5]
+[2026-10-15 15:36:34.852] 31. 2026-10-15 15:36:26.299 deposit CHF 30  [BankServer-5405-f9af 7]
+[2026-10-15 15:36:34.852] 32. 2026-10-15 15:36:26.299 deposit EUR 25  [BankServer-5405-f9af 8]
+[2026-10-15 15:36:34.852] 33. 2026-10-15 15:36:26.299 addInterest 10  [BankServer-5405-f9af 9]
+[2026-10-15 15:36:34.852] 34. 2026-10-15 15:36:26.305 deposit USD 25  [BankServer-5404-e481 6]
+[2026-10-15 15:36:34.852] 35. 2026-10-15 15:36:26.307 deposit CHF 30  [BankServer-5404-e481 7]
+[2026-10-15 15:36:34.852] 36. 2026-10-15 15:36:26.307 deposit EUR 25  [BankServer-5404-e481 8]
+[2026-10-15 15:36:34.852] 37. 2026-10-15 15:36:26.307 addInterest 10  [BankServer-5404-e481 9]
+[2026-10-15 15:36:34.852] 38. 2026-10-15 15:36:26.310 deposit USD 25  [BankServer-5403-4f62 6]
+[2026-10-15 15:36:34.852] 39. 2026-10-15 15:36:26.310 deposit CHF 30  [BankServer-5403-4f62 7]
+[2026-10-15 15:36:34.852] 40. 2026-10-15 15:36:26.310 deposit EUR 25  [BankServer-5403-4f62 8]
+[2026-10-15 15:36:34.852] 41. 2026-10-15 15:36:26.310 addInterest 10  [BankServer-5403-4f62 9]
+[2026-10-15 15:36:34.852] 42. 2026-10-15 15:36:28.272 addInterest 7  [BankServer-5422-8347 1]
+[2026-10-15 15:36:34.852] 43. 2026-10-15 15:36:28.272 deposit EUR -150  [BankServer-5422-8347 2]
+[2026-10-15 15:36:34.852] 44. 2026-10-15 15:36:33.283 deposit EUR 40  [BankServer-5419-3f1f 5]
+[2026-10-15 15:36:34.852] 45. 2026-10-15 15:36:33.283 deposit CHF 35  [BankServer-5419-3f1f 6]
+[2026-10-15 15:36:34.852] 46. 2026-10-15 15:36:33.283 deposit GBP 25  [BankServer-5419-3f1f 7]
+[2026-10-15 15:36:34.852] 47. 2026-10-15 15:36:33.283 deposit USD 95  [BankServer-5419-3f1f 8]
+[2026-10-15 15:36:34.853] 48. 2026-10-15 15:36:33.283 addInterest NOK 3  [BankServer-5419-3f1f 9]
+[2026-10-15 15:36:34.853] 49. 2026-10-15 15:36:33.289 deposit CHF 35  [BankServer-5418-f76b 6]
+[2026-10-15 15:36:34.853] 50. 2026-10-15 15:36:33.289 deposit GBP 25  [BankServer-5418-f76b 7]
+[2026-10-15 15:36:34.853] 51. 2026-10-15 15:36:33.289 deposit USD 95  [BankServer-5418-f76b 8]
+[2026-10-15 15:36:34.853] 52. 2026-10-15 15:36:33.289 addInterest NOK 3  [BankServer-5418-f76b 9]
+[2026-10-15 15:36:34.853] [BankServer-5405-f9af] outstanding_collection
+[2026-10-15 15:36:34.853] [BankServer-5405-f9af] deposit EUR 110  [BankServer-5405-f9af 10]
+[2026-10-15 15:36:34.853] [BankServer-5405-f9af] deposit USD 90  [BankServer-5405-f9af 11]
+[2026-10-15 15:36:34.853] [BankServer-5405-f9af] addInterest EUR 15  [BankServer-5405-f9af 12]
+[2026-10-15 15:36:36.176] [BankServer-5405-f9af] > cleanHistory
+[2026-10-15 15:36:36.176] [BankServer-5405-f9af] History cleaned.
+[2026-10-15 15:36:36.301] [BankServer-5405-f9af] Received transaction: deposit EUR 110
+[2026-10-15 15:36:36.302] [BankServer-5405-f9af] EUR balance: 367.99
+[2026-10-15 15:36:36.302] [BankServer-5405-f9af] Received transaction: deposit USD 90
+[2026-10-15 15:36:36.302] [BankServer-5405-f9af] USD balance: 1197.82
+[2026-10-15 15:36:36.302] [BankServer-5405-f9af] Received transaction: addInterest EUR 15
+[2026-10-15 15:36:36.307] [BankServer-5405-f9af] Received transaction: deposit EUR 110
+[2026-10-15 15:36:36.308] [BankServer-5405-f9af] EUR balance: 533.19
+[2026-10-15 15:36:36.308] [BankServer-5405-f9af] Received transaction: deposit USD 90
+[2026-10-15 15:36:36.308] [BankServer-5405-f9af] USD balance: 1287.82
+[2026-10-15 15:36:36.308] [BankServer-5405-f9af] Received transaction: addInterest EUR 15
+[2026-10-15 15:36:36.308] [BankServer-5405-f9af] Received transaction: deposit EUR 110
+[2026-10-15 15:36:36.308] [BankServer-5405-f9af] EUR balance: 723.17
+[2026-10-15 15:36:36.311] [BankServer-5405-f9af] Received transaction: deposit EUR 110
+[2026-10-15 15:36:36.311] [BankServer-5405-f9af] EUR balance: 833.17
+[2026-10-15 15:36:36.311] [BankServer-5405-f9af] Received transaction: deposit USD 90
+[2026-10-15 15:36:36.311] [BankServer-5405-f9af] USD balance: 1377.82
+[2026-10-15 15:36:36.311] [BankServer-5405-f9af] Received transaction: addInterest EUR 15
+[2026-10-15 15:36:36.871] [BankServer-5405-f9af] > deposit EUR 110
+[2026-10-15 15:36:36.871] [BankServer-5405-f9af] Transaction created: deposit EUR 110 [BankServer-5405-f9af 13]
+[2026-10-15 15:36:37.713] [BankServer-5405-f9af] > sleep 8
+[2026-10-15 15:36:38.273] [BankServer-5405-f9af] Received transaction: deposit USD -100
+[2026-10-15 15:36:38.274] [BankServer-5405-f9af] USD balance: 1277.82
+[2026-10-15 15:36:38.274] [BankServer-5405-f9af] Received transaction: deposit DKK 10
+[2026-10-15 15:36:38.274] [BankServer-5405-f9af] DKK balance: 750.57
+[2026-10-15 15:36:38.274] [BankServer-5405-f9af] Received transaction: deposit CHF 30
+[2026-10-15 15:36:38.274] [BankServer-5405-f9af] CHF balance: 216.88
+[2026-10-15 15:36:38.274] [BankServer-5405-f9af] Received transaction: deposit NOK -100
+[2026-10-15 15:36:38.275] [BankServer-5405-f9af] NOK balance: 1200.27
+[2026-10-15 15:36:38.275] [BankServer-5405-f9af] Received transaction: deposit GBP 50
+[2026-10-15 15:36:38.275] [BankServer-5405-f9af] GBP balance: 313.63
+[2026-10-15 15:36:38.275] [BankServer-5405-f9af] Received transaction: addInterest 20
+[2026-10-15 15:36:43.290] [BankServer-5405-f9af] Received transaction: deposit USD 120
+[2026-10-15 15:36:43.290] [BankServer-5405-f9af] USD balance: 1653.39
+[2026-10-15 15:36:43.290] [BankServer-5405-f9af] Received transaction: deposit EUR 130
+[2026-10-15 15:36:43.291] [BankServer-5405-f9af] EUR balance: 1279.77
+[2026-10-15 15:36:43.291] [BankServer-5405-f9af] Received transaction: addInterest 10
+[2026-10-15 15:36:43.298] [BankServer-5405-f9af] Received transaction: deposit USD 120
+[2026-10-15 15:36:43.298] [BankServer-5405-f9af] USD balance: 1938.72
+[2026-10-15 15:36:43.298] [BankServer-5405-f9af] Received transaction: deposit EUR 130
+[2026-10-15 15:36:43.298] [BankServer-5405-f9af] EUR balance: 1537.75
+[2026-10-15 15:36:43.298] [BankServer-5405-f9af] Received transaction: addInterest 10
+[2026-10-15 15:36:43.298] [BankServer-5405-f9af] Received transaction: deposit NOK 90
+[2026-10-15 15:36:43.298] [BankServer-5405-f9af] NOK balance: 1832.79
+[2026-10-15 15:36:46.303] [BankServer-5405-f9af] Received transaction: deposit EUR 110
+[2026-10-15 15:36:46.304] [BankServer-5405-f9af] EUR balance: 1801.52
+[2026-10-15 15:36:46.316] [BankServer-5405-f9af] Received transaction: deposit EUR 110
+[2026-10-15 15:36:46.316] [BankServer-5405-f9af] EUR balance: 1911.52
+[2026-10-15 15:36:46.945] [BankServer-5405-f9af] > getSyncedBalance USD
+[2026-10-15 15:36:46.945] [BankServer-5405-f9af] getSyncedBalance USD (naive): waiting for an empty outstanding_collection...
+[2026-10-15 15:36:46.946] [BankServer-5405-f9af] Synced balance (naive) USD: 5599.24
+[2026-10-15 15:36:48.021] [BankServer-5405-f9af] > getQuickBalance USD
+[2026-10-15 15:36:48.022] [BankServer-5405-f9af] Quick balance USD: 5599.24
+[2026-10-15 15:36:49.334] [BankServer-5405-f9af] > sleep 30
+[2026-10-15 15:36:53.296] [BankServer-5405-f9af] Received transaction: deposit NOK 90
+[2026-10-15 15:36:53.296] [BankServer-5405-f9af] NOK balance: 1922.79
+[2026-10-15 15:37:18.894] [BankServer-5405-f9af] Membership changed: [BankServer-5403-4f62, BankServer-5405-f9af, BankServer-5404-e481, BankServer-5419-3f1f, BankServer-5418-f76b] (5 members)
+[2026-10-15 15:37:20.292] [BankServer-5405-f9af] > getSyncedBalance USD
+[2026-10-15 15:37:20.292] [BankServer-5405-f9af] getSyncedBalance USD (naive): waiting for an empty outstanding_collection...
+[2026-10-15 15:37:20.293] [BankServer-5405-f9af] Synced balance (naive) USD: 5608.24
+[2026-10-15 15:37:21.127] [BankServer-5405-f9af] Membership changed: [BankServer-5405-f9af, BankServer-5404-e481, BankServer-5419-3f1f, BankServer-5418-f76b] (4 members)
+[2026-10-15 15:37:21.418] [BankServer-5405-f9af] > getQuickBalance USD
+[2026-10-15 15:37:21.418] [BankServer-5405-f9af] Quick balance USD: 5608.24
+[2026-10-15 15:37:22.021] [BankServer-5405-f9af] > getHistory
+[2026-10-15 15:37:22.021] [BankServer-5405-f9af] executed_list
+[2026-10-15 15:37:22.021] 53. 2026-10-15 15:36:36.302 deposit EUR 110  [BankServer-5405-f9af 10]
+[2026-10-15 15:37:22.021] 54. 2026-10-15 15:36:36.302 deposit USD 90  [BankServer-5405-f9af 11]
+[2026-10-15 15:37:22.021] 55. 2026-10-15 15:36:36.302 addInterest EUR 15  [BankServer-5405-f9af 12]
+[2026-10-15 15:37:22.022] 56. 2026-10-15 15:36:36.308 deposit EUR 110  [BankServer-5403-4f62 10]
+[2026-10-15 15:37:22.022] 57. 2026-10-15 15:36:36.308 deposit USD 90  [BankServer-5403-4f62 11]
+[2026-10-15 15:37:22.022] 58. 2026-10-15 15:36:36.308 addInterest EUR 15  [BankServer-5403-4f62 12]
+[2026-10-15 15:37:22.022] 59. 2026-10-15 15:36:36.308 deposit EUR 110  [BankServer-5403-4f62 13]
+[2026-10-15 15:37:22.022] 60. 2026-10-15 15:36:36.311 deposit EUR 110  [BankServer-5404-e481 10]
+[2026-10-15 15:37:22.022] 61. 2026-10-15 15:36:36.311 deposit USD 90  [BankServer-5404-e481 11]
+[2026-10-15 15:37:22.022] 62. 2026-10-15 15:36:36.311 addInterest EUR 15  [BankServer-5404-e481 12]
+[2026-10-15 15:37:22.022] 63. 2026-10-15 15:36:38.274 deposit USD -100  [BankServer-5422-8347 3]
+[2026-10-15 15:37:22.022] 64. 2026-10-15 15:36:38.274 deposit DKK 10  [BankServer-5422-8347 4]
+[2026-10-15 15:37:22.022] 65. 2026-10-15 15:36:38.274 deposit CHF 30  [BankServer-5422-8347 5]
+[2026-10-15 15:37:22.022] 66. 2026-10-15 15:36:38.275 deposit NOK -100  [BankServer-5422-8347 6]
+[2026-10-15 15:37:22.022] 67. 2026-10-15 15:36:38.275 deposit GBP 50  [BankServer-5422-8347 7]
+[2026-10-15 15:37:22.022] 68. 2026-10-15 15:36:38.275 addInterest 20  [BankServer-5422-8347 8]
+[2026-10-15 15:37:22.022] 69. 2026-10-15 15:36:43.290 deposit USD 120  [BankServer-5419-3f1f 10]
+[2026-10-15 15:37:22.022] 70. 2026-10-15 15:36:43.291 deposit EUR 130  [BankServer-5419-3f1f 11]
+[2026-10-15 15:37:22.022] 71. 2026-10-15 15:36:43.291 addInterest 10  [BankServer-5419-3f1f 12]
+[2026-10-15 15:37:22.022] 72. 2026-10-15 15:36:43.298 deposit USD 120  [BankServer-5418-f76b 10]
+[2026-10-15 15:37:22.022] 73. 2026-10-15 15:36:43.298 deposit EUR 130  [BankServer-5418-f76b 11]
+[2026-10-15 15:37:22.022] 74. 2026-10-15 15:36:43.298 addInterest 10  [BankServer-5418-f76b 12]
+[2026-10-15 15:37:22.023] 75. 2026-10-15 15:36:43.298 deposit NOK 90  [BankServer-5418-f76b 13]
+[2026-10-15 15:37:22.023] 76. 2026-10-15 15:36:46.304 deposit EUR 110  [BankServer-5405-f9af 13]
+[2026-10-15 15:37:22.023] 77. 2026-10-15 15:36:46.316 deposit EUR 110  [BankServer-5404-e481 13]
+[2026-10-15 15:37:22.023] 78. 2026-10-15 15:36:53.296 deposit NOK 90  [BankServer-5419-3f1f 13]
+[2026-10-15 15:37:22.023] [BankServer-5405-f9af] outstanding_collection
+[2026-10-15 15:37:22.905] [BankServer-5405-f9af] > exit
+[2026-10-15 15:37:22.913] [BankServer-5405-f9af] exiting.
