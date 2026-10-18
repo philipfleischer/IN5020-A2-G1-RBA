@@ -29,9 +29,7 @@ import src.bank_server.BankState;
 import java.util.HashSet;
 import src.common.Message;
 
-public class MessageDeliveryServer
-        extends UnicastRemoteObject
-        implements MessageDeliveryServerInterface {
+public class MessageDeliveryServer extends UnicastRemoteObject implements MessageDeliveryServerInterface {
 
     // BankServer replicas that have joined
     private final List<BankServerInterface> bankServers = new ArrayList<>();
@@ -400,8 +398,7 @@ public class MessageDeliveryServer
      * MAIN
      * -------------------------------------------------
      */
-    public static void main(
-            String[] args) throws Exception {
+    public static void main(String[] args) throws Exception {
 
         // Timestamp on every output line
         Log.install();
