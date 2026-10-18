@@ -248,8 +248,7 @@ public class BankServer
      * a newly joined replica the current state of the group.
      */
     @Override
-    public synchronized void updateState(BankState state)
-            throws RemoteException {
+    public synchronized void updateState(BankState state) throws RemoteException {
 
         System.out.println("[" + serverName + "] Received state update");
 
@@ -280,8 +279,7 @@ public class BankServer
      * which passes it on to a replica that joins late.
      */
     @Override
-    public synchronized BankState getState()
-            throws RemoteException {
+    public synchronized BankState getState() throws RemoteException {
 
         return new BankState(
                 new HashMap<>(balances),
@@ -311,11 +309,9 @@ public class BankServer
      * MessageDeliveryServer calls this through RMI.
      */
     @Override
-    public void membershipChanged(List<String> newMembers)
-            throws RemoteException {
+    public void membershipChanged(List<String> newMembers) throws RemoteException {
 
         synchronized (membershipLock) {
-
             members = new ArrayList<>(newMembers);
 
             // Wake up waitForInitialReplicas() so it re-checks the count
@@ -792,9 +788,7 @@ public class BankServer
      * MAIN
      * =====================================================
      */
-
-    public static void main(
-            String[] args) throws Exception {
+    public static void main(String[] args) throws Exception {
 
         // Timestamp on every output line (this is first, so everything below is timestamped)
         Log.install();
@@ -872,12 +866,9 @@ public class BankServer
         server.startBroadcastThread();
 
         if (args.length >= 5) {
-
-            server.runCommandFile(
-                    args[4]);
+            server.runCommandFile(args[4]);
 
         } else {
-
             server.runCommandLine();
         }
 
