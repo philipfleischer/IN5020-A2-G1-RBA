@@ -8,10 +8,9 @@ import src.common.Transaction;
 
 import java.util.List;
 
-/*
-
-Remote interface for the message delivery server. (what can be called remotely by the bank server)
-
+/**
+ * Remote interface for the message delivery server. (what can be called
+ * remotely by the bank server)
 */
 public interface MessageDeliveryServerInterface extends Remote {
     // we want to connect a bank server to the message delivery server
