@@ -431,8 +431,7 @@ public class BankServer
      * QUICK BALANCE
      * =====================================================
      */
-    public synchronized void getQuickBalance(
-            String currency) {
+    public synchronized void getQuickBalance(String currency) {
         try {
             double balance = converter.convertTotal(balances, currency);
 
