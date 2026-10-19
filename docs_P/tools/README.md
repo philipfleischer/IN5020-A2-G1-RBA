@@ -10,3 +10,11 @@ PYTHONPATH=/tmp/pylib python3 builddoc.py ../build        # Word-dokumentet
 ```
 
 Du kan også redigere `IN5020_A2_diagrammer.drawio` direkte på diagrams.net.
+
+## Engelske versjoner
+
+`diagrams_en.py` har de samme diagrammene med engelsk tekst. De brukes i README og på porteføljesiden.
+
+```bash
+python3 render_svg_en.py ../diagrammer/en   # SVG, trenger ingen ekstra pakker
+```
