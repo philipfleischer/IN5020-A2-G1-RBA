@@ -383,6 +383,13 @@ public class BankServer
                 break;
             }
 
+            case "withdraw": {
+                String currency = parts[1];
+                double amount = Double.parseDouble(parts[2]);
+                applyDeposit(currency, -amount);
+                break;
+            }
+
             default:
                 System.out.println("[" + serverName + "] Unknown transaction: " + command);
         }

@@ -70,6 +70,10 @@ public class BankServerHelper {
                     handleSleep(parts);
                     break;
 
+                case "withdraw":
+                    handleWithdraw(parts);
+                    break;
+
                 case "exit":
                     return false;
 
@@ -85,6 +89,19 @@ public class BankServerHelper {
         }
 
         return true;
+    }
+
+    // withdraw <Curency> <amount>
+    private void handleWithdraw(String[] parts) {
+        if (parts.length != 3) {
+            System.out.println("Usage: withdraw <Currency> <amount>");
+            return;
+        }
+
+        String currency = parts[1];
+        Double.parseDouble(parts[2]);
+
+        server.createTransaction("withdraw " + parts[1] + " " + parts[2]);
     }
 
     /*
